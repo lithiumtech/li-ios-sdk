@@ -2,9 +2,9 @@
 
 The Lithium Community iOS SDK helps application developers integrate Lithium Community into iOS applications, providing support for browsing boards, posting and interacting with messages, managing attachments, sending push notifications, and authenticating users. The library includes API providers and custom API providers to interact with the Community API.
 
-All native Lithium Community implementations using the Community iOS SDK must use the li-ios-sdk-core library. This library delivers the basic capabilities of authenticating and interacting with a community while adding support for third-party push notification providers.
+All native Lithium Community implementations using the Community iOS SDK must use the `li-ios-sdk-core` library. This library delivers the basic capabilities of authenticating and interacting with a community while adding support for third-party push notification providers.
 
-The SDK also includes an optional Support UI library. (See the li-ios-sdk-ui package and Readme.)
+The SDK also includes an optional Support UI library (See the `li-ios-sdk-ui` [package and readme](https://github.com/lithiumtech/li-ios-sdk-ui).)
 
 The SDK supports Lithium Registration authentication, LithiumSSO, and custom SSO implementations.
 
@@ -20,27 +20,27 @@ The Community iOS SDK requires:
 * Xcode version 8+
 * iOS 9 and above 
 * Swift version 3.1+ 
-* Authorization credentials: App Key and Secret (generated in Community Admin > System > API Apps)
+* Authorization credentials: App Key and Secret (generated in **Community Admin > System > API Apps**)
 
-We recommend installing the SDK using CocoaPods or Carthage.
+We recommend installing the SDK using [CocoaPods](https://cocoapods.org/) or [Carthage](https://github.com/Carthage/Carthage).
 
 ## Get Started
-To get started with Community iOS SDK development, see the instructions in Getting Started with the Community iOS SDK. The guide will take you through generating credentials, building your project, and app initialization.
+To get started with Community iOS SDK development, see the instructions in [Getting Started with the Community iOS SDK](https://github.com/lithiumtech/li-ios-sdk-core/wiki/Getting-Started-with-the-Community-iOS-SDK). The guide will take you through generating credentials, building your project, and app initialization.
 
 ## License
-Except as otherwise noted, the Community iOS SDK and the Lithium Community Reference app are licensed under the Apache 2.0 License.
+Except as otherwise noted, the Community iOS SDK is licensed under the Apache 2.0 License.
 
 Copyright 2018 Lithium Technologies
 
 ## Example app
-The Lithium Community iOS SDK Example is a basic implementation of the Community iOS SDK. The reference application shows the fastest way to get a Lithium Community backed application running quickly. 
+The [Lithium Community iOS SDK Example](https://github.com/lithiumtech/li-ios-sdk-example) is a basic implementation of the Community iOS SDK. The example application shows the fastest way to get a Lithium Community-backed application running quickly. 
 
 ## Getting help
-Visit the Developers Discussion forum on the Lithium Community to ask questions and talk with other members of the Lithium Developer community.
+Visit the [Developers Discussion forum](https://community.lithium.com/t5/Developer-Discussion/bd-p/studio) on the Lithium Community to ask questions and talk with other members of the Lithium Developer community. This is a great forum for asking questions about the Community API and Lithium platform. For Community iOS SDK-specific questions, write a post in our [Current Betas](https://community.lithium.com/t5/Current-Betas/bd-p/BetaCurrent) forum. 
 
 ## Next steps
-* Review our providers and models documentation
-* Run through our tutorials
-* Read about our Support UI components
-* Learn about authentication options
-* Create your app key and secret credentials
+* Review our [API reference documentation](https://github.com/lithiumtech/li-ios-sdk-core/wiki/Community-iOS-SDK-API-reference)
+* Checkout out our [tutorials](https://github.com/lithiumtech/li-ios-sdk-core/wiki/Tutorials)
+* Read about our [Support UI](https://github.com/lithiumtech/li-ios-sdk-ui/wiki/Community-iOS-SDK-UI-Overview)
+* Learn about [authentication options](https://github.com/lithiumtech/li-ios-sdk-core/wiki/Authenticating-a-user)
+* Walk through our [Getting Started guide](https://github.com/lithiumtech/li-ios-sdk-core/wiki/Getting-Started-with-the-Community-iOS-SDK)
