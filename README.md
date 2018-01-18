@@ -20,7 +20,7 @@ The Community iOS SDK requires:
 * Xcode version 8+
 * iOS 9 and above 
 * Swift version 3.1+ 
-* Authorization credentials: App Key and Secret (generated in **Community Admin > System > API Apps**)
+* Authorization credentials generated in **Community Admin > System > API Apps**
 
 We recommend installing the SDK using [CocoaPods](https://cocoapods.org/) or [Carthage](https://github.com/Carthage/Carthage).
 
