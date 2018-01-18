@@ -16,7 +16,7 @@ The SDK supports Lithium Registration authentication, LithiumSSO, and custom SSO
 The Community iOS SDK requires:
 
 * Access to a Lithium Community instance running version 17.12 or later
-* A Community user account with the Manage API Apps permission grated
+* A Community user account with the **Manage API Apps** permission grated
 * Xcode version 8+
 * iOS 9 and above 
 * Swift version 3.1+ 
