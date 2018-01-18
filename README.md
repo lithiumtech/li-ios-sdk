@@ -10,7 +10,7 @@ The SDK supports Lithium Registration authentication, LithiumSSO, and custom SSO
 
 | Package | Provides |
 | ------- | -------- |
-| li-android-sdk-core	 | Authentication<br>API Providers<br>Custom API Providers<br>Push Notification Support (Firebase Cloud Messaging and Apple Push Notification Service) |
+| li-ios-sdk-core	 | Authentication<br>API Providers<br>Custom API Providers<br>Push Notification Support (Firebase Cloud Messaging and Apple Push Notification Service) |
 
 ## Requirements
 The Community iOS SDK requires:
