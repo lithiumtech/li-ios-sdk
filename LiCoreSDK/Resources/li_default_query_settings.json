@@ -1,0 +1,219 @@
+{
+  "article": {
+    "liDataSource": "messages",
+    "whereClauses": [{
+      "clause": "in",
+      "key": "conversation.style",
+      "value": "('forum', 'blog')",
+      "operator": "AND"
+    }, {
+      "clause": "equals",
+      "key": "depth",
+      "value": "##",
+      "operator": "or"
+    }],
+    "ordering": {
+      "key": "conversation.last_post_time",
+      "type": "desc"
+    },
+    "limit": "50"
+  },
+  "test": {
+    "liDataSource": "test",
+    "whereClauses": [{
+      "clause": "equals",
+      "key": "target.type",
+      "value": "'test'",
+      "operator": "AND"
+    }],
+    "limit": "25"
+  },
+  "node": {
+    "liDataSource": "nodes",
+    "whereClauses": [{
+      "clause": "in",
+      "key": "conversation_style",
+      "value": "('forum', 'blog')",
+      "operator": "AND"
+    }, {
+      "clause": "equals",
+      "key": "parent.id",
+      "value": "'##'",
+      "operator": "and"
+    }],
+    "limit": "25"
+  },
+  "node_depth": {
+    "liDataSource": "nodes",
+    "whereClauses": [{
+      "clause": "in",
+      "key": "conversation_style",
+      "value": "('forum', 'blog')",
+      "operator": "AND"
+    }, {
+      "clause": "equals",
+      "key": "depth",
+      "value": "##",
+      "operator": "or"
+    }],
+    "limit": "25"
+  },
+  "search": {
+    "liDataSource": "messages",
+    "whereClauses": [{
+      "clause": "matches",
+      "key": "body",
+      "value": "'##'",
+      "operator": "OR"
+    }, {
+      "clause": "matches",
+      "key": "subject",
+      "value": "'##'",
+      "operator": "OR"
+    }, {
+      "clause": "matches",
+      "key": "tags.text",
+      "value": "'##'",
+      "operator": "OR"
+    }, {
+      "clause": "matches",
+      "key": "labels.text",
+      "value": "'##'",
+      "operator": "AND"
+    }, {
+      "clause": "in",
+      "key": "conversation.style",
+      "value": "('forum', 'blog')",
+      "operator": "OR"
+    }, {
+      "clause": "equals",
+      "key": "depth",
+      "value": "0",
+      "operator": "and"
+    }],
+    "ordering": {
+      "key": "conversation.last_post_time",
+      "type": "desc"
+    },
+    "limit": "25"
+  },
+  "subscription": {
+    "liDataSource": "subscriptions",
+    "whereClauses": [{
+      "clause": "equals",
+      "key": "target.type",
+      "value": "'message'",
+      "operator": "AND"
+    }],
+    "limit": "25"
+  },
+  "message_children": {
+    "liDataSource": "messages",
+    "whereClauses": [{
+      "clause": "equals",
+      "key": "topic.id",
+      "value": "'##'",
+      "operator": "or"
+    }],
+    "ordering": {
+      "key": "post_time",
+      "type": "asc"
+    }
+  },
+  "questions": {
+    "liDataSource": "messages",
+    "whereClauses": [{
+      "clause": "equals",
+      "key": "author.id",
+      "value": "'##'",
+      "operator": "and"
+    }, {
+      "clause": "equals",
+      "key": "depth",
+      "value": "&&",
+      "operator": "and"
+    }],
+    "ordering": {
+      "key": "conversation.last_post_time",
+      "type": "desc"
+    }
+  },
+  "category": {
+    "liDataSource": "nodes",
+    "whereClauses": [{
+      "clause": "equals",
+      "key": "node_type",
+      "value": "'category'",
+      "operator": "or"
+    }]
+  },
+  "article_browse": {
+    "liDataSource": "messages",
+    "whereClauses": [{
+      "clause": "equals",
+      "key": "board.id",
+      "value": "'##'",
+      "operator": "AND"
+    }, {
+      "clause": "equals",
+      "key": "depth",
+      "value": "&&",
+      "operator": "or"
+    }],
+    "ordering": {
+      "key": "conversation.last_post_time",
+      "type": "desc"
+    },
+    "limit": "25"
+  },
+  "message": {
+    "liDataSource": "messages",
+    "whereClauses": [{
+      "clause": "equals",
+      "key": "id",
+      "value": "'##'",
+      "operator": "AND"
+    }]
+  },
+  "user": {
+    "liDataSource": "users",
+    "whereClauses": [{
+      "clause": "equals",
+      "key": "id",
+      "value": "'##'",
+      "operator": "or"
+    }]
+  },
+  "messages_by_ids": {
+    "liDataSource": "messages",
+    "whereClauses": [{
+      "clause": "in",
+      "key": "id",
+      "value": "(##)",
+      "operator": "or"
+    }]
+  },
+  "floated_message": {
+    "liDataSource": "floated_message",
+    "whereClauses": [{
+      "clause": "equals",
+      "key": "message.board.id",
+      "value": "'##'",
+      "operator": "AND"
+    }, {
+      "clause": "equals",
+      "key": "scope",
+      "value": "'&&'",
+      "operator": "or"
+    }]
+  },
+  "app_sdk_setting": {
+    "liDataSource": "app_sdk_settings",
+    "whereClauses": [{
+      "clause": "equals",
+      "key": "client_id",
+      "value": "'##'",
+      "operator": "or"
+    }]
+  }
+}
