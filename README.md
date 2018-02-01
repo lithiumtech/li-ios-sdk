@@ -1,5 +1,7 @@
 # Lithium Community iOS SDK 
 
+**The Lithium Community iOS SDK is currently in Open Beta**
+
 The Lithium Community iOS SDK helps application developers integrate Lithium Community into iOS applications, providing support for browsing boards, posting and interacting with messages, managing attachments, sending push notifications, and authenticating users. The library includes API providers and custom API providers to interact with the Community API.
 
 All native Lithium Community implementations using the Community iOS SDK must use the `li-ios-sdk-core` library. This library delivers the basic capabilities of authenticating and interacting with a community while adding support for third-party push notification providers.
@@ -26,6 +28,8 @@ We recommend installing the SDK using [CocoaPods](https://cocoapods.org/) or [Ca
 
 ## Get Started
 To get started with Community iOS SDK development, see the instructions in [Getting Started with the Community iOS SDK](https://github.com/lithiumtech/li-ios-sdk-core/wiki/Getting-Started-with-the-Community-iOS-SDK). The guide will take you through generating credentials, building your project, and app initialization.
+
+**Note:** In order to create the best possible product and experience, we will continue to iterate on the SDK throughout the beta period. Features may change before the product is generally available. We will post updates and changes in the [Current Betas forum](https://community.lithium.com/t5/Current-Betas/bd-p/BetaCurrent).
 
 ## License
 Except as otherwise noted, the Community iOS SDK is licensed under the Apache 2.0 License.
