@@ -12,6 +12,7 @@
 		2A0551121F611156005C356F /* LiBrowse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0551111F611156005C356F /* LiBrowse.swift */; };
 		2A0551131F611156005C356F /* LiBrowse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0551111F611156005C356F /* LiBrowse.swift */; };
 		2A0BC7221EB9C898001F0118 /* LiNetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BC7211EB9C898001F0118 /* LiNetworkUtils.swift */; };
+		2A13550520455B870001A6D9 /* keanu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2A13550420455B870001A6D9 /* keanu.jpg */; };
 		2A1C95F01F7A4999006FC224 /* LiFloatedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1C95EF1F7A4999006FC224 /* LiFloatedMessage.swift */; };
 		2A1C95F11F7A4999006FC224 /* LiFloatedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1C95EF1F7A4999006FC224 /* LiFloatedMessage.swift */; };
 		2A1D91261FE3BF0500747EC5 /* LiNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1D91251FE3BF0500747EC5 /* LiNotificationManager.swift */; };
@@ -24,6 +25,7 @@
 		2A2309C22007C075002090D1 /* LiImageMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2309C02007C075002090D1 /* LiImageMetaData.swift */; };
 		2A2ABBA820037511001907C1 /* LiModerationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2ABBA720037511001907C1 /* LiModerationStatus.swift */; };
 		2A2ABBA920037511001907C1 /* LiModerationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2ABBA720037511001907C1 /* LiModerationStatus.swift */; };
+		2A2E33AC204FD33600EDEAFE /* LiUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7D8BB020480127009596BF /* LiUtils.swift */; };
 		2A553C651EB9CD37001BF346 /* SSOHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A553C641EB9CD37001BF346 /* SSOHandler.swift */; };
 		2A553C661EB9D186001BF346 /* LiNetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BC7211EB9C898001F0118 /* LiNetworkUtils.swift */; };
 		2A553C681EB9D190001BF346 /* SSOHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A553C641EB9CD37001BF346 /* SSOHandler.swift */; };
@@ -38,6 +40,7 @@
 		2A5695051E9E1C9A00850867 /* LiKudoMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5695031E9E1C9A00850867 /* LiKudoMetrics.swift */; };
 		2A5A35421F2F1BC500A30565 /* LiImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A35411F2F1BC500A30565 /* LiImageResponse.swift */; };
 		2A61B50A1F46F4B500C0BDD0 /* LiImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A35411F2F1BC500A30565 /* LiImageResponse.swift */; };
+		2A63415C203EC31A0057D9A3 /* LiClientRequestParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A63415B203EC31A0057D9A3 /* LiClientRequestParamsTests.swift */; };
 		2A682E4C1EADBD85004EDEAF /* LiAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A682E4B1EADBD85004EDEAF /* LiAuthManager.swift */; };
 		2A682E4D1EADBD85004EDEAF /* LiAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A682E4B1EADBD85004EDEAF /* LiAuthManager.swift */; };
 		2A69BEB81FAC643C004682A6 /* LiRestResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A69BEB71FAC643C004682A6 /* LiRestResponse.swift */; };
@@ -50,6 +53,7 @@
 		2A7C26471E93916E00A7786A /* LiRestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C26461E93916E00A7786A /* LiRestClient.swift */; };
 		2A7C264C1E9395EA00A7786A /* LiClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C264B1E9395EA00A7786A /* LiClientManager.swift */; };
 		2A7C264E1E93974500A7786A /* LiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C264D1E93974500A7786A /* LiClient.swift */; };
+		2A7D8BB120480127009596BF /* LiUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7D8BB020480127009596BF /* LiUtils.swift */; };
 		2A89A2AE201EF87000E3C693 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89A2AC201EF87000E3C693 /* KeychainItemAccessibility.swift */; };
 		2A89A2AF201EF87000E3C693 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89A2AC201EF87000E3C693 /* KeychainItemAccessibility.swift */; };
 		2A89A2B0201EF87000E3C693 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89A2AD201EF87000E3C693 /* KeychainWrapper.swift */; };
@@ -144,6 +148,7 @@
 		2A05510E1F5837FC005C356F /* LiGenericQueryResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiGenericQueryResponse.swift; sourceTree = "<group>"; };
 		2A0551111F611156005C356F /* LiBrowse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiBrowse.swift; sourceTree = "<group>"; };
 		2A0BC7211EB9C898001F0118 /* LiNetworkUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiNetworkUtils.swift; sourceTree = "<group>"; };
+		2A13550420455B870001A6D9 /* keanu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = keanu.jpg; sourceTree = "<group>"; };
 		2A1C95EF1F7A4999006FC224 /* LiFloatedMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiFloatedMessage.swift; sourceTree = "<group>"; };
 		2A1D91251FE3BF0500747EC5 /* LiNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiNotificationManager.swift; sourceTree = "<group>"; };
 		2A2309BA2007BC84002090D1 /* LiImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiImage.swift; sourceTree = "<group>"; };
@@ -157,6 +162,7 @@
 		2A5695001E9E1C7C00850867 /* LiConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiConversation.swift; sourceTree = "<group>"; };
 		2A5695031E9E1C9A00850867 /* LiKudoMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiKudoMetrics.swift; sourceTree = "<group>"; };
 		2A5A35411F2F1BC500A30565 /* LiImageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiImageResponse.swift; sourceTree = "<group>"; };
+		2A63415B203EC31A0057D9A3 /* LiClientRequestParamsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiClientRequestParamsTests.swift; sourceTree = "<group>"; };
 		2A682E4B1EADBD85004EDEAF /* LiAuthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiAuthManager.swift; sourceTree = "<group>"; };
 		2A69BEB71FAC643C004682A6 /* LiRestResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiRestResponse.swift; sourceTree = "<group>"; };
 		2A7943A31EA890A5009ED79B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -200,6 +206,7 @@
 		2A7C26461E93916E00A7786A /* LiRestClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiRestClient.swift; sourceTree = "<group>"; };
 		2A7C264B1E9395EA00A7786A /* LiClientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiClientManager.swift; sourceTree = "<group>"; };
 		2A7C264D1E93974500A7786A /* LiClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiClient.swift; sourceTree = "<group>"; };
+		2A7D8BB020480127009596BF /* LiUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiUtils.swift; sourceTree = "<group>"; };
 		2A89A2AC201EF87000E3C693 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainItemAccessibility.swift; path = Keychain/KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		2A89A2AD201EF87000E3C693 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainWrapper.swift; path = Keychain/KeychainWrapper.swift; sourceTree = "<group>"; };
 		2A9074981EFA61B700D4F2AF /* LiQueryConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiQueryConstants.swift; sourceTree = "<group>"; };
@@ -282,6 +289,7 @@
 				2A553C691EBB3E83001BF346 /* LiBaseError.swift */,
 				2A5694FD1E9CD95300850867 /* LiBaseResponse.swift */,
 				2AE3899A1FDFDEDD00866588 /* LiCoreSDKConstants.swift */,
+				2A7D8BB020480127009596BF /* LiUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -508,6 +516,7 @@
 			children = (
 				2AF040A22005D457000E81F0 /* ModelTests */,
 				2AEAFB7A1E921A4B00514729 /* Info.plist */,
+				2A63415B203EC31A0057D9A3 /* LiClientRequestParamsTests.swift */,
 			);
 			path = LiCoreSDKTests;
 			sourceTree = "<group>";
@@ -515,6 +524,7 @@
 		2AF040A22005D457000E81F0 /* ModelTests */ = {
 			isa = PBXGroup;
 			children = (
+				2A13550420455B870001A6D9 /* keanu.jpg */,
 			);
 			name = ModelTests;
 			sourceTree = "<group>";
@@ -653,6 +663,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A13550520455B870001A6D9 /* keanu.jpg in Resources */,
 				2AE876EE1EF28CFA00491680 /* li_default_query_settings.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -669,7 +680,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Quick.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftyBeaver.framework",
 			);
 			outputPaths = (
 			);
@@ -716,6 +726,7 @@
 				2AF633CD1EF12693008DACDF /* LiQuerySetting.swift in Sources */,
 				2A2ABBA820037511001907C1 /* LiModerationStatus.swift in Sources */,
 				2AE389951FDE7A3300866588 /* LiAuthState.swift in Sources */,
+				2A7D8BB120480127009596BF /* LiUtils.swift in Sources */,
 				2A90749C1EFA632800D4F2AF /* LiClientConfig.swift in Sources */,
 				2A69BEB81FAC643C004682A6 /* LiRestResponse.swift in Sources */,
 				2A682E4C1EADBD85004EDEAF /* LiAuthManager.swift in Sources */,
@@ -782,6 +793,7 @@
 				2AF040A12005D059000E81F0 /* LiSubscriptions.swift in Sources */,
 				2AD7010F1E9511AE0045D9EC /* LiClientManager.swift in Sources */,
 				2AD701111E9513C30045D9EC /* LiClient.swift in Sources */,
+				2A63415C203EC31A0057D9A3 /* LiClientRequestParamsTests.swift in Sources */,
 				2A90749D1EFA632800D4F2AF /* LiClientConfig.swift in Sources */,
 				2A89A2AF201EF87000E3C693 /* KeychainItemAccessibility.swift in Sources */,
 				2AA0AA1B1F0A59660044DE45 /* LiMessageMetrics.swift in Sources */,
@@ -801,6 +813,7 @@
 				2A2ABBA920037511001907C1 /* LiModerationStatus.swift in Sources */,
 				2A5694FF1E9CD95300850867 /* LiBaseResponse.swift in Sources */,
 				2AE389991FDFCE4A00866588 /* LiSSOAuthResponse.swift in Sources */,
+				2A2E33AC204FD33600EDEAFE /* LiUtils.swift in Sources */,
 				2AA0AA181F0A4FD20044DE45 /* LiUser.swift in Sources */,
 				2AE3899C1FDFDEDD00866588 /* LiCoreSDKConstants.swift in Sources */,
 				2A69BEB91FAC643C004682A6 /* LiRestResponse.swift in Sources */,
@@ -870,12 +883,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -918,10 +932,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -998,7 +1013,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = LiCoreSDKTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = mh_bundle;
 				PRODUCT_BUNDLE_IDENTIFIER = Lithium.LiCoreSDKTests;
@@ -1018,7 +1033,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = LiCoreSDKTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = mh_bundle;
 				PRODUCT_BUNDLE_IDENTIFIER = Lithium.LiCoreSDKTests;

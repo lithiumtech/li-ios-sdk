@@ -60,7 +60,8 @@ public final class LiSDKManager: LiAuthManager {
      */
     public func syncSettings() {
         if isUserLoggedIn() {
-            let requestParams = LiSdkSettingsClientRequestParams(clientId: liAppCredentials.clientId)
+            //TODO: - Add do catch
+            let requestParams = try! LiSdkSettingsClientRequestParams(clientId: liAppCredentials.clientId)
             LiRestClient.sharedInstance.request(client: LiClient.liSdkSettingsClient(requestParams: requestParams), success: { (response: LiBaseResponse) in
                 if let settingsArray = response.data["items"] as? [[String:Any]] {
                     if let settings = settingsArray.first {
@@ -73,7 +74,7 @@ public final class LiSDKManager: LiAuthManager {
                     }
                 }
             }, failure: { (error: Error?) in
-                print("Settings sync failed: \(error)")
+                print("Settings sync failed: \(error.debugDescription)")
             })
         }
     }

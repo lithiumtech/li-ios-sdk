@@ -11,7 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 import UIKit
 public protocol LiClientRequestParams {}
 /// Model used to create liMessagesByBoardIdClient request parameters.
@@ -19,8 +18,8 @@ public struct LiMessagesByBoardIdClientRequestParams: LiClientRequestParams {
     var boardId: String
     /// Creates LiMessagesByBoardIdClientRequestParams object to pass onto liMessagesByBoardIdClient.
     /// - parameter boardId: Board id of the board for which the messages are being requested.
-    public init(boardId: String) {
-        self.boardId = boardId
+    public init(boardId: String) throws {
+        self.boardId = try LiUtils.stringCheck(value: boardId)
     }
 }
 /// Model used to create liSdkSettingsClient request parameters.
@@ -28,8 +27,8 @@ public struct LiSdkSettingsClientRequestParams: LiClientRequestParams {
     var clientId: String
     /// Creates LiSdkSettingsClientRequestParams object to pass onto liSdkSettingsClient.
     /// - parameter clientId: the client ID for the app generated in Community Admin > System > API Apps.
-    public init(clientId: String) {
-        self.clientId = clientId
+    public init(clientId: String) throws {
+        self.clientId =  try LiUtils.stringCheck(value: clientId)
     }
 }
 /// Model used to create liCategoryBoardsClient request parameters.
@@ -37,8 +36,8 @@ public struct LiCategoryBoardsClientRequestParams: LiClientRequestParams {
     var categoryId: String
     /// Creates LiCategoryBoardsClientRequestParams object to pass onto liCategoryBoardsClient.
     /// - parameter categoryId: the ID of the category from which to fetch a board list.
-    public init(categoryId: String) {
-        self.categoryId = categoryId
+    public init(categoryId: String) throws {
+        self.categoryId = try LiUtils.stringCheck(value: categoryId)
     }
 }
 /// Model used to create liBoardsByDepthClient request parameters.
@@ -46,8 +45,8 @@ public struct LiBoardsByDepthClientRequestParams: LiClientRequestParams {
     var depth: Int
     /// Creates LiBoardsByDepthClientRequestParams object to pass onto liBoardsByDepthClient.
     /// - parameter depth: the depth from which to pull boards from the Community structure.
-    public init(depth: Int) {
-        self.depth = depth
+    public init(depth: Int) throws {
+        self.depth = try LiUtils.integerCheck(value: depth)
     }
 }
 /// Model used to create liRepliesClient request parameters.
@@ -55,8 +54,8 @@ public struct LiRepliesClientRequestParams: LiClientRequestParams {
     var parentId: String
     /// Creates LiRepliesClientRequestParams object to pass onto liRepliesClient2.
     /// - parameter parentId: the ID of the parent message.
-    public init(parentId: String) {
-        self.parentId = parentId
+    public init(parentId: String) throws {
+        self.parentId = try LiUtils.stringCheck(value: parentId)
     }
 }
 /// Model used to create liSearchClient request parameters.
@@ -64,8 +63,8 @@ public struct LiSearchClientRequestParams: LiClientRequestParams {
     var query: String
     /// Creates LiSearchClientRequestParams object to pass onto liSearchClient.
     /// - parameter query: the search string to query. The query is compared against the body and subject of messages.
-    public init(query: String) {
-        self.query = query
+    public init(query: String) throws {
+        self.query = try LiUtils.stringCheck(value: query)
     }
 }
 /// Model used to create liUserMessagesClient request parameters.
@@ -76,9 +75,10 @@ public struct LiUserMessagesClientRequestParams: LiClientRequestParams {
     /// - parameter authorId: id of the author whose message are requested.
     /// - parameter depth: the location of messages in a thread, where 0 equals a topic message, 1 is a first-level reply or comment, and so on.
     //For now a query with conversation.last_post_time must also set depth = 0 (only root messages)
-    public init(authorId: String, depth: Int) {
-        self.authorId = authorId
-        self.depth = "\(depth)"
+    public init(authorId: String, depth: Int) throws {
+        self.authorId = try LiUtils.stringCheck(value: authorId)
+        let intDepth = try LiUtils.integerCheck(value: depth)
+        self.depth = "\(intDepth)"
     }
 }
 /// Model used to create liUserDetailsClient request parameters.
@@ -86,8 +86,8 @@ public struct LiUserDetailsClientRequestParams: LiClientRequestParams {
     var userId: String
     /// Creates LiUserDetailsClientRequestParams object to pass onto liUserDetailsClient.
     /// - parameter userId: the ID of the user for which to fetch details.
-    public init(userId: String) {
-        self.userId = userId
+    public init(userId: String) throws {
+        self.userId = try LiUtils.stringCheck(value: userId)
     }
 }
 /// Model used to create liMessageClient request parameters.
@@ -95,8 +95,8 @@ public struct LiMessageClientRequestParams: LiClientRequestParams {
     var messageId: String
     /// Creates LiMessageClientRequestParams object to pass onto liMessageClient.
     /// - parameter messageId: the ID of the message to retrieve.
-    public init(messageId: String) {
-        self.messageId = messageId
+    public init(messageId: String) throws {
+        self.messageId = try LiUtils.stringCheck(value: messageId)
     }
 }
 /// Model used to create liFloatedMessagesClient request parameters.
@@ -106,9 +106,18 @@ public struct LiFloatedMessagesClientRequestParams: LiClientRequestParams {
     /// Creates LiFloatedMessagesClientRequestParams object to pass onto liFloatedMessagesClient.
     /// - parameter boardId:  the ID of the board from which to pull floated (or 'pinned') messages
     /// - parameter scope: the scope of floated messages to retreive. Supported value is 'local'. Local scope retrieves messages that the user in context floated/pinned, rather than an administrator who might have pinned a message to the top of a board globally for the community.
-    public init(boardId: String, scope: String) {
-        self.boardId = boardId
-        self.scope = scope
+    @available(*, deprecated: 0.2.0)
+    public init(boardId: String, scope: String) throws {
+        self.boardId = try LiUtils.stringCheck(value: boardId)
+        self.scope =  try LiUtils.stringCheck(value: scope)
+    }
+    public init(boardId: String, scope: Scope ) throws {
+        self.boardId =  try LiUtils.stringCheck(value: boardId)
+        self.scope = Scope.local.rawValue
+    }
+    //TODO:-  Check with Aditya on how to handel this as any change to this will require sdk update.
+    public enum Scope: String {
+        case local
     }
 }
 /// Model used to create liMessagesByIdsClient request parameters.
@@ -116,8 +125,8 @@ public struct LiMessagesByIdsClientRequestParams: LiClientRequestParams {
     var messageIds: [String]
     /// Creates LiMessagesByIdsClientRequestParams object to pass onto liMessagesByIdsClient.
     /// - parameter messageIds:  the IDs of the messages to retrieve, passed as a array of strings.
-    public init(messageIds: [String]) {
-        self.messageIds = messageIds
+    public init(messageIds: [String]) throws {
+        self.messageIds = try LiUtils.arrayCheck(value: messageIds)
     }
 }
 /// Model used to create liKudoClient request parameters.
@@ -125,11 +134,11 @@ public struct LiKudoClientRequestParams: LiClientRequestParams {
     public var messageId: String
     /// Creates LiKudoClientRequestParams object to pass onto liKudoClient.
     /// - parameter messageId: the ID of the message to kudo.
-    public init(messageId: String) {
-        self.messageId = messageId
+    public init(messageId: String) throws {
+        self.messageId = try LiUtils.stringCheck(value: messageId)
     }
     public func getPostParams() -> [String: Any] {
-        let params: [String: Any] = ["type": "kudo", "message": ["id": messageId]]
+        let params: [String: Any] = ["type": LiQueryConstant.ResponseType.liKudoType, "message": ["id": messageId]]
         return params
     }
 }
@@ -138,8 +147,8 @@ public struct LiUnKudoClientRequestParams: LiClientRequestParams {
     public var messageId: String
     /// Creates LiUnKudoClientRequestParams object to pass onto liUnKudoClient.
     /// - parameter messageId: id of the message to unkudo.
-    public init(messageId: String) {
-        self.messageId = messageId
+    public init(messageId: String) throws{
+        self.messageId = try LiUtils.stringCheck(value: messageId)
     }
 }
 /// Model used to create liMessageDeleteClient request parameters.
@@ -149,8 +158,8 @@ public struct LiMessageDeleteClientRequestParams: LiClientRequestParams {
     /// Creates LiMessageDeleteClientRequestParams object to pass onto liMessageDeleteClient.
     /// - parameter messageId: the ID of the message to delete
     /// - parameter includeReplies: whether or not to delete replies/comments to the message
-    public init(messageId: String, includeReplies: Bool) {
-        self.messageId = messageId
+    public init(messageId: String, includeReplies: Bool) throws {
+        self.messageId = try LiUtils.stringCheck(value: messageId)
         self.includeReplies = includeReplies
     }
     func getPostParams() -> [String: String] {
@@ -165,11 +174,11 @@ public struct LiAcceptSolutionClientRequestParams: LiClientRequestParams {
     public var messageId: String
     /// Creates LiAcceptSolutionClientRequestParams object to pass onto liAcceptSolutionClient.
     /// - parameter messageId: the ID of the message to accept as a solution.
-    public init(messageId: String) {
-        self.messageId = messageId
+    public init(messageId: String) throws {
+        self.messageId = try LiUtils.stringCheck(value: messageId)
     }
     public func getPostParams() -> [String: Any] {
-        let params: [String: Any] = ["type": "solution_data", "message_id": messageId]
+        let params: [String: Any] = ["type": LiQueryConstant.ResponseType.liAcceptSolutionType, "message_id": messageId]
         return params
     }
 }
@@ -186,12 +195,12 @@ public struct LiCreateMessageClientRequestParams: LiClientRequestParams {
     /// - parameter boardId: board Id of the board in which the message is posted to.
     /// - parameter imageId: (optional) the ID of the image included with the message, if one exists.
     /// - parameter imageName: (optional) the filename of the image included with the message, if one exists.
-    public init(subject: String, body: String?, boardId: String, imageId: String?, imageName: String?) {
-        self.subject = subject
+    public init(subject: String, body: String?, boardId: String, imageId: String?, imageName: String?) throws {
+        self.subject = try LiUtils.stringCheck(value: subject)
         self.body = body
-        self.boardId = boardId
-        self.imageId = imageId
-        self.imageName = imageName
+        self.boardId =  try LiUtils.stringCheck(value: boardId)
+        self.imageId = try LiUtils.stringCheck(value: imageId)
+        self.imageName = try LiUtils.stringCheck(value: imageName)
     }
     /// Returns POST parameters for liCreateMessageClient client.
     /// - returns: [String: Any] containing post parameters
@@ -217,12 +226,12 @@ public struct LiUpdateMessageClientRequestParams: LiClientRequestParams {
     /// - parameter body: (optional) the body of the message.
     /// - parameter imageId: (optional) the ID of the image included with the message, if one exists.
     /// - parameter imageName: (optional) the filename of the image included with the message, if one exists.
-    public init(messageId: String, subject: String, body: String?, imageId: String?, imageName: String?) {
-        self.messageId = messageId
-        self.subject = subject
+    public init(messageId: String, subject: String, body: String?, imageId: String?, imageName: String?) throws {
+        self.messageId = try LiUtils.stringCheck(value: messageId)
+        self.subject = try LiUtils.stringCheck(value: subject)
         self.body = body
-        self.imageId = imageId
-        self.imageName = imageName
+        self.imageId = try LiUtils.stringCheck(value: imageId)
+        self.imageName = try LiUtils.stringCheck(value: imageName)
     }
     public func getPostParams() -> [String: Any] {
         var embeddedBody: String = body ?? ""
@@ -259,12 +268,12 @@ public struct LiCreateReplyClientRequestParams: LiClientRequestParams {
     /// - parameter subject: the subject of the message.
     /// - parameter imageId: (optional) the ID of the image included with the reply/comment, if one exists.
     /// - parameter imageName: (optional) the filename of the image included with the reply/comment, if one exists.
-    public init(body: String, messageId: String, subject: String, imageId: String?, imageName: String?) {
-        self.body = body
-        self.messageId = messageId
-        self.subject = subject
-        self.imageId = imageId
-        self.imageName = imageName
+    public init(body: String, messageId: String, subject: String, imageId: String?, imageName: String?) throws {
+        self.body = try LiUtils.stringCheck(value: body)
+        self.messageId = try LiUtils.stringCheck(value: messageId)
+        self.subject = try LiUtils.stringCheck(value: subject)
+        self.imageId = try LiUtils.stringCheck(value: imageId)
+        self.imageName = try LiUtils.stringCheck(value: imageName)
     }
     /// Returns POST parameters for liCreateReplyClient client.
     /// - returns: [String: Any] containing post parameters
@@ -273,7 +282,7 @@ public struct LiCreateReplyClientRequestParams: LiClientRequestParams {
         if let imageId = imageId, let imageName = imageName {
             embeddedBody = embedImageTag(body: embeddedBody, imageId: imageId, imageName: imageName)
         }
-        let params: [String: Any] = ["type": "message", "body": embeddedBody, "parent": ["id": messageId], "subject": subject]
+        let params: [String: Any] = ["type": LiQueryConstant.ResponseType.liMessageClientType, "body": embeddedBody, "parent": ["id": messageId], "subject": subject]
         return params
     }
 }
@@ -292,11 +301,12 @@ public struct LiUploadImageClientRequestParams: LiClientRequestParams {
         guard let imageData = image.jpeg() else {
             throw LiBaseError(errorMessage: "Failed to compress image", httpCode: LiCoreSDKConstants.LiErrorCodes.jsonSyntaxError)
         }
-        self.title = title
-        self.description = description
+        self.title = try LiUtils.stringCheck(value: title)
+        self.description = try LiUtils.stringCheck(value: description)
         self.image = imageData
-        if imageName == "" {
-            self.imageName = "NewImage.JPG"
+        _ = try LiUtils.stringCheck(value: imageName)
+        if !imageName.hasImageExtension(){
+            self.imageName = imageName + ".jpg"
         } else {
             self.imageName = imageName
         }
@@ -311,10 +321,10 @@ public struct LiReportAbuseClientRequestParams: LiClientRequestParams {
     /// - parameter messageId: Id of the message to report.
     /// - parameter userId: Id of the user reporting the message.
     /// - parameter body: body of the messsage.
-    public init(messageId: String, userId: String, body: String) {
-        self.messageId = messageId
-        self.userId = userId
-        self.body = body
+    public init(messageId: String, userId: String, body: String) throws {
+        self.messageId = try LiUtils.stringCheck(value: messageId)
+        self.userId = try LiUtils.stringCheck(value: userId)
+        self.body = try LiUtils.stringCheck(value: body)
     }
     /// Returns POST parameters for liCreateReplyClient client.
     /// - returns: [String: Any] containing post parameters
@@ -330,13 +340,26 @@ public struct LiDeviceIdFetchClientRequestParams: LiClientRequestParams {
     /// Creates LiDeviceIdFetchClientRequestParams object to pass onto liDeviceIdFetchClient.
     /// - parameter deviceId: the device ID registered with the push notificaiton provider.
     /// - parameter pushNotificationProvider: the Global provider for push notification. Support values: "APNS" and "FIREBASE".
-    public init(deviceId: String, pushNotificationProvider: String) {
-        self.deviceId = deviceId
-        self.pushNotificationProvider = pushNotificationProvider
+    @available(*, deprecated: 0.2.0)
+    public init(deviceId: String, pushNotificationProvider: String) throws {
+        self.deviceId = try LiUtils.stringCheck(value: deviceId)
+        self.pushNotificationProvider = try LiUtils.stringCheck(value: pushNotificationProvider)
+    }
+    /// Creates LiDeviceIdFetchClientRequestParams object to pass onto liDeviceIdFetchClient.
+    /// - parameter deviceId: the device ID registered with the push notificaiton provider.
+    /// - parameter pushNotificationProvider: the Global provider for push notification.
+    public init(deviceId: String, pushNotificationProvider: NotificationProviders) throws {
+        self.deviceId = try LiUtils.stringCheck(value: deviceId)
+        self.pushNotificationProvider = pushNotificationProvider.rawValue
     }
     public func getPostParams() -> [String: Any] {
         let params: [String: Any] = ["type": LiQueryConstant.ResponseType.liUserDeviceIdFetchType, "device_id": deviceId, "client_id": LiSDKManager.sharedInstance.liAppCredentials.clientId, "push_notification_provider": pushNotificationProvider, "application_type": LiQueryConstant.ResponseType.liApplicationType]
         return params
+    }
+    //TODO:-  Check with Aditya on how to handel this as any change to this will require sdk update.
+    public enum NotificationProviders: String {
+        case apns = "APNS"
+        case firebase = "FIREBASE"
     }
 }
 /// Model used to create liDeviceIdUpdateClient request parameters.
@@ -346,9 +369,9 @@ public struct LiDeviceIdUpdateClientRequestParams: LiClientRequestParams {
     /// Creates LiDeviceIdUpdateClientRequestParams object to pass onto liDeviceIdUpdateClient.
     /// - parameter deviceId: the device ID registered with the push notificaiton provider.
     /// - parameter id: the ID corresponding to device ID in the community
-    public init(deviceId: String, id: String) {
-        self.deviceId = deviceId
-        self.id = id
+    public init(deviceId: String, id: String) throws {
+        self.deviceId = try LiUtils.stringCheck(value: deviceId)
+        self.id = try LiUtils.stringCheck(value: id)
     }
     public func getPostParams() -> [String: Any] {
         let params: [String: Any] = ["type": LiQueryConstant.ResponseType.liUserDeviceIdFetchType, "device_id": deviceId]
@@ -362,13 +385,26 @@ public struct LiSubscriptionPostClientRequestParams: LiClientRequestParams {
     /// Creates LiSubscriptionPostClientRequestParams object to pass onto liSubscriptionPostClient.
     /// - parameter targetId: the ID of the target of the subscription, either a message ID or a board ID.
     /// - parameter targetType: the type of the target of the subscription, either a "message" or a "board".
-    public init(targetId: String, targetType: String) {
-        self.targetId = targetId
-        self.targetType = targetType
+    @available(*, deprecated: 0.2.0)
+    public init(targetId: String, targetType: String) throws {
+        self.targetId = try LiUtils.stringCheck(value: targetId)
+        self.targetType = try LiUtils.stringCheck(value: targetType)
+    }
+    /// Creates LiSubscriptionPostClientRequestParams object to pass onto liSubscriptionPostClient.
+    /// - parameter targetId: the ID of the target of the subscription, either a message ID or a board ID.
+    /// - parameter targetType: the type of the target of the subscription.
+    public init(targetId: String, targetType: TargetType) throws {
+        self.targetId = try LiUtils.stringCheck(value: targetId)
+        self.targetType = targetType.rawValue
     }
     public func getPostParams() -> [String: Any] {
-        let params: [String: Any] = ["type": "subscription", "target": ["type": targetType, "id": targetId]]
+        let params: [String: Any] = ["type": LiQueryConstant.ResponseType.liSubscriptionsClientType, "target": ["type": targetType, "id": targetId]]
         return params
+    }
+    //TODO:-  Check with Aditya on how to handel this as any change to this will require sdk update.
+    public enum TargetType: String {
+        case message
+        case board
     }
 }
 /// Model used to create liMarkMessagePostClient request parameters.
@@ -380,9 +416,9 @@ public struct LiMarkMessagePostClientRequestParams: LiClientRequestParams {
     /// - parameter userId: the ID of the user marking the message as read or unread.
     /// - parameter messageId: the ID of the message being marked read or unread.
     /// - parameter markUnread: pass 'true' to mark the message as unread, pass 'false' to mark as read.
-    public init(userId: String, messageId: String, markUnread: Bool) {
-        self.userId = userId
-        self.messageId = messageId
+    public init(userId: String, messageId: String, markUnread: Bool) throws {
+        self.userId = try LiUtils.stringCheck(value: userId)
+        self.messageId = try LiUtils.stringCheck(value: messageId)
         self.markUnread = markUnread
     }
     public func getPostParams() -> [String: Any] {
@@ -399,9 +435,10 @@ public struct LiMarkMessagesPostClientRequestParams: LiClientRequestParams {
     /// - parameter userId: the ID of the user marking the message as read or unread.
     /// - parameter messageIds: the IDs of the messages being marked read or unread. Pass as array of String.
     /// - parameter markUnread: pass 'true' to mark the message as unread, pass 'false' to mark as read.
-    public init(userId: String, messageIds: [String], markUnread: Bool) {
-        self.userId = userId
-        self.messageIds = messageIds.joined(separator: ",")
+    public init(userId: String, messageIds: [String], markUnread: Bool) throws {
+        self.userId = try LiUtils.stringCheck(value: userId)
+        let messageIdArray = try LiUtils.arrayCheck(value: messageIds)
+        self.messageIds = messageIdArray.joined(separator: ",")
         self.markUnread = markUnread
     }
     public func getPostParams() -> [String: Any] {
@@ -418,9 +455,9 @@ public struct LiMarkTopicPostClientRequestParams: LiClientRequestParams {
     /// - parameter userId: the ID of the user marking the message as read or unread.
     /// - parameter topicId: the ID of the topic being marked read or unread.
     /// - parameter markUnread: pass 'true' to mark the message as unread, pass 'false' to mark as read.
-    public init(userId: String, topicId: String, markUnread: Bool) {
-        self.userId = userId
-        self.topicId = topicId
+    public init(userId: String, topicId: String, markUnread: Bool) throws {
+        self.userId = try LiUtils.stringCheck(value: userId)
+        self.topicId = try LiUtils.stringCheck(value: topicId)
         self.markUnread = markUnread
     }
     public func getPostParams() -> [String: Any] {
@@ -433,8 +470,8 @@ public struct LiSubscriptionDeleteClientRequestParams: LiClientRequestParams {
     var subscriptionId: String
     /// Creates LiSubscriptionDeleteClientRequestParams object to pass onto liSubscriptionDeleteClient.
     /// - parameter subscriptionId: the ID of the subscription being deleted.
-    public init(subscriptionId: String) {
-        self.subscriptionId = subscriptionId
+    public init(subscriptionId: String) throws {
+        self.subscriptionId = try LiUtils.stringCheck(value: subscriptionId)
     }
 }
 /// Model used to create liCreateUserClient request parameters.
@@ -457,23 +494,23 @@ public struct LiCreateUserClientRequestParams: LiClientRequestParams {
     /// - parameter login: the login of the user being created.
     /// - parameter password: password of the account.
     
-    public init(email: String, firstName: String?, lastName: String?, login: String, password: String, avatarUrl: String?, avatarImageId: String?, avatarExternal: String?, avatarInternal: String?, biography: String?, coverImage: String?) {
+    public init(email: String, firstName: String?, lastName: String?, login: String, password: String, avatarUrl: String?, avatarImageId: String?, avatarExternal: String?, avatarInternal: String?, biography: String?, coverImage: String?) throws {
         self.avatarUrl = avatarUrl
         self.avatarImageId = avatarImageId
         self.avatarExternal = avatarExternal
         self.avatarInternal = avatarInternal
         self.biography = biography
         self.coverImage = coverImage
-        self.email = email
+        self.email = try LiUtils.emailValidation(email: email)
         self.firstName = firstName
         self.lastName = lastName
-        self.login = login
-        self.password = password
+        self.login = try LiUtils.stringCheck(value: login)
+        self.password = try LiUtils.stringCheck(value: password)
     }
     /// Returns POST parameters for liCreateUser client.
     /// - returns: [String: Any] containing post parameters
     public func getPostParams() -> [String: Any] {
-        var params: [String: Any] = ["type": "user", "email": email, "login": login, "password": password]
+        var params: [String: Any] = ["type": LiQueryConstant.ResponseType.liUserDetailsClientType, "email": email, "login": login, "password": password]
         if let fname = firstName {
             params["first_name"] = fname
         }
@@ -517,23 +554,25 @@ public struct LiUpdateUserClientRequestParams: LiClientRequestParams {
     var login: String?
     var id: String
     /// Creates LiUpdateUserClientRequestParams object to pass onto liUpdateUserClient.
-    public init(id: String, email: String?, firstName: String?, lastName: String?, login: String?, avatarUrl: String?, avatarImageId: String?, avatarExternal: String?, avatarInternal: String?, biography: String?, coverImage: String?) {
+    public init(id: String, email: String?, firstName: String?, lastName: String?, login: String?, avatarUrl: String?, avatarImageId: String?, avatarExternal: String?, avatarInternal: String?, biography: String?, coverImage: String?) throws {
         self.avatarUrl = avatarUrl
         self.avatarImageId = avatarImageId
         self.avatarExternal = avatarExternal
         self.avatarInternal = avatarInternal
         self.biography = biography
         self.coverImage = coverImage
-        self.email = email
+        if let email = email {
+            self.email = try LiUtils.emailValidation(email: email)
+        }
         self.firstName = firstName
         self.lastName = lastName
-        self.login = login
-        self.id = id
+        self.login = try LiUtils.stringCheck(value: login)
+        self.id = try LiUtils.stringCheck(value: id)
     }
     /// Returns POST parameters for liUpdateUser client.
     /// - returns: [String: Any] containing post parameters
     public func getPostParams() -> [String: Any] {
-        var params: [String: Any] = ["type": "user", "id": id]
+        var params: [String: Any] = ["type": LiQueryConstant.ResponseType.liUserDetailsClientType, "id": id]
         if let email = email {
             params["email"] = email
         }
@@ -578,8 +617,14 @@ public struct LiGenericPostClientRequestParams: LiClientRequestParams {
     /// - parameter path: the endpoint path. Begin path after the /community/2.0/<tenant_ID>/ portion of the URI. This first portion of the URL is generated automatically for you. For example, for the endpoint /community/2.0/<tenant_id>/messages, pass "messages".
     /// - parameter requestBody: a [String: Any] object representing the request body.
     /// - parameter additionalHttpHeaders: (optional) a [String: String] object representing additional http headers.
-    public init(path: String, requestBody: [String: Any], additionalHttpHeaders: [String: String]?) {
-        self.path = path
+    public init(path: String, requestBody: [String: Any], additionalHttpHeaders: [String: String]?) throws {
+        if !requestBody.keys.isEmpty {
+            _ = try LiUtils.arrayCheck(value: Array(requestBody.keys))
+        }
+        if let additionalHeaders = additionalHttpHeaders, !additionalHeaders.keys.isEmpty {
+            _ = try LiUtils.arrayCheck(value: Array(additionalHeaders.keys))
+        }
+        self.path = try LiUtils.stringCheck(value: path)
         self.requestBody = requestBody
         self.additionalHttpHeaders = additionalHttpHeaders
     }
@@ -593,8 +638,14 @@ public struct LiGenericPutClientRequestParams: LiClientRequestParams {
     /// - parameter path: the endpoint path. Begin path after the /community/2.0/<tenant_ID>/ portion of the URI. This first portion of the URL is generated automatically for you. For example, for the endpoint /community/2.0/<tenant_id>/messages, pass "messages".
     /// - parameter requestBody: a [String: Any] object representing the request body.
     /// - parameter additionalHttpHeaders: (optional) a [String: String] object representing additional http headers.
-    public init(path: String, requestBody: [String: Any], additionalHttpHeaders: [String: String]?) {
-        self.path = path
+    public init(path: String, requestBody: [String: Any], additionalHttpHeaders: [String: String]?) throws {
+        if !requestBody.keys.isEmpty {
+            _ = try LiUtils.arrayCheck(value: Array(requestBody.keys))
+        }
+        if let additionalHeaders = additionalHttpHeaders, !additionalHeaders.keys.isEmpty {
+            _ = try LiUtils.arrayCheck(value: Array(additionalHeaders.keys))
+        }
+        self.path = try LiUtils.stringCheck(value: path)
         self.requestBody = requestBody
         self.additionalHttpHeaders = additionalHttpHeaders
     }
@@ -604,8 +655,8 @@ public struct LiGenericGetClientRequestParams: LiClientRequestParams {
     var liQuery: String
     ///Creates LiGenericGetClientRequestParams object to pass onto liGenericGetClient.
     /// - parameter liQuery: the LiQL query to run, e.g. "SELECT subject, body FROM messages LIMIT 10".
-    public init(liQuery: String) {
-        self.liQuery = liQuery
+    public init(liQuery: String) throws {
+        self.liQuery = try LiUtils.stringCheck(value: liQuery)
     }
 }
 /// Model used to create liGenericDeleteClient request parameters.
@@ -619,11 +670,14 @@ public struct LiGenericDeleteClientRequestParams: LiClientRequestParams {
     /// - parameter id: the ID of the item being deleted.
     /// - parameter collectionsType: the collection type of the item being deleted.
     /// - parameter subResourcePath: (optional) This will be appended after `id` in the delete url.
-    public init(liQueryRequestParams: [String: String]?, id: String, collectionsType: CollectionsType, subResourcePath: String?) {
+    public init(liQueryRequestParams: [String: String]?, id: String, collectionsType: CollectionsType, subResourcePath: String?) throws {
+        if let liQueryRequestParams = liQueryRequestParams, !liQueryRequestParams.keys.isEmpty {
+            _ = try LiUtils.arrayCheck(value: Array(liQueryRequestParams.keys))
+        }
         self.liQueryRequestParams = liQueryRequestParams
-        self.id = id
+        self.id = try LiUtils.stringCheck(value: id)
         self.collectionsType = collectionsType
-        self.subResourcePath = subResourcePath
+        self.subResourcePath = try LiUtils.stringCheck(value: subResourcePath)
     }
     public enum CollectionsType: String {
         case messages
@@ -637,9 +691,9 @@ public struct LiBeaconClientRequestParams: LiClientRequestParams {
     ///Creates LiBeaconClientRequestParams object to pass onto liBeaconClient.
     /// - parameter type: the type of page. Can be either user, conversation, category, board, or node
     /// - parameter id: id of the page. Either the user id or conversation id as a string, or the board or category "display id".
-    public init(type: String, id: String) {
-        self.type = type
-        self.id = id
+    public init(type: String, id: String) throws {
+        self.type = try LiUtils.stringCheck(value: type)
+        self.id = try LiUtils.stringCheck(value: id)
     }
     internal func getPostParams() -> [String: Any] {
         let params: [String: String] = ["type": type, "id": id]
@@ -653,11 +707,8 @@ public struct LiNoLiqlClientRequestParams: LiClientRequestParams {
     ///Creates LiNoLiqlClientRequestParams object to pass onto liNoLiqlClient.
     /// - parameter path: Path for the call.
     /// - parameter id: non Liql query.
-    public init(path: String, queryParmaeters: String) {
-        self.path = path
-        self.queryParmaeters = queryParmaeters
-    }
-    func getParams() -> String {
-        return ""
+    public init(path: String, queryParmaeters: String) throws {
+        self.path = try LiUtils.stringCheck(value: path)
+        self.queryParmaeters = try LiUtils.stringCheck(value: queryParmaeters)
     }
 }
