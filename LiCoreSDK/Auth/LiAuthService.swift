@@ -48,9 +48,9 @@ class LiAuthService {
                 /**
                  Performs login using webView.
                  */
-                vc = LiLoginViewController()
+                let url = try sdkManager.liAppCredentials.getURL()
+                vc = LiLoginViewController(url: url, sdkManager: sdkManager)
                 vc?.delegate = self
-                vc?.url = try sdkManager.liAppCredentials.getURL()
                 guard let vc = vc else { return }
                 fromViewController.present(vc, animated: true, completion: nil)
             } catch let error {

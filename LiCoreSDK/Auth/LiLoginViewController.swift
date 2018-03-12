@@ -29,6 +29,20 @@ class LiLoginViewController: UIViewController, UIWebViewDelegate {
     var delegate: LiLoginViewControllerProtocol?
     // swiftlint:disable:next weak_delegate
     public var authDelegate: LiAuthorizationDelegate?
+    var sdkManager: LiSDKManager?
+    private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        url = nil
+        sdkManager = nil
+    }
+    convenience init(url: URLRequest, sdkManager: LiSDKManager) {
+        self.init(nibName:nil, bundle:nil)
+        self.url = url
+        self.sdkManager = sdkManager
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         let nav = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 64))
         self.view.addSubview(nav)
@@ -46,6 +60,10 @@ class LiLoginViewController: UIViewController, UIWebViewDelegate {
         self.dismiss(animated: true)
     }
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        guard let sdkManager = sdkManager else {
+            assert(self.sdkManager == nil, "LiSDKManger should not be nil")
+            return false
+        }
         let queryParameters = request.url?.liQueryItems ?? [:]
         if queryParameters["response_type"] != nil {
             return true
@@ -55,10 +73,10 @@ class LiLoginViewController: UIViewController, UIWebViewDelegate {
             do {
                 let authObject = try LiSSOAuthResponse(data: queryParameters)
                 if let tenantId = authObject.tenantId {
-                    LiSDKManager.sharedInstance.liAuthState.set(tenantId: tenantId)
+                    sdkManager.liAuthState.set(tenantId: tenantId)
                 }
                 if let apiProxyHost = authObject.apiProxyHost {
-                    LiSDKManager.sharedInstance.liAuthState.set(apiProxyHost: apiProxyHost)
+                    sdkManager.liAuthState.set(apiProxyHost: apiProxyHost)
                 }
                 delegate?.requestAccessToken(authCode: authObject.authCode)
             } catch let error {
