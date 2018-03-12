@@ -22,6 +22,10 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
     var notificationProvider: String?
     ///delegate for `LiAuthorizationDelegate`
     weak public var liLoginDelegate: LiAuthorizationDelegate?
+    weak var sdkManager: LiSDKManager?
+    init(sdkManager: LiSDKManager) {
+        self.sdkManager = sdkManager
+    }
     //MARK: - Public
     /**
      Use this function to initiate web view based login.
@@ -59,7 +63,10 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
      - returns: `true` if user is logged in, `false` otherwise.
      */
     public func isUserLoggedIn() -> Bool {
-        return LiSDKManager.sharedInstance.liAuthState.isLoggedIn
+        guard let sdkManager = sdkManager else {
+            return false
+        }
+        return sdkManager.liAuthState.isLoggedIn
     }
     /**
      Use this function to logout the logged in user.
@@ -92,7 +99,7 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
             if let notificationProvider = notificationProvider, let deviceToken = deviceToken {
                 LiNotificationManager.add(deviceToken: deviceToken, notificationProvider: notificationProvider)
             }
-            LiSDKManager.sharedInstance.syncSettings()
+            sdkManager?.syncSettings()
         }
         liLoginDelegate?.login(status: status, userId: userId, error: error)
     }

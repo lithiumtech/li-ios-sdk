@@ -13,13 +13,18 @@
 // limitations under the License.
 
 import Foundation
-public final class LiSDKManager: LiAuthManager {
+public final class LiSDKManager {
     //Mark: - Internal
     var liAppCredentials: LiAppCredentials
+    public lazy var liAuthManager: LiAuthManager = {
+        [unowned self] in
+        let liAuthManager = LiAuthManager(sdkManager: self)
+        return liAuthManager
+    }()
     var visitorId: String? {
         return UserDefaults.standard.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitorId)
     }
-    private override init() {
+    private init() {
         var clientId: String = ""
         var clientSecret: String = ""
         var communityURL: String = ""
@@ -59,7 +64,7 @@ public final class LiSDKManager: LiAuthManager {
      This function should used to get response_limit and discussion_style set by admin from the community server.
      */
     public func syncSettings() {
-        if isUserLoggedIn() {
+        if liAuthManager.isUserLoggedIn() {
             let requestParams = LiSdkSettingsClientRequestParams(clientId: liAppCredentials.clientId)
             LiRestClient.sharedInstance.request(client: LiClient.liSdkSettingsClient(requestParams: requestParams), success: { (response: LiBaseResponse) in
                 if let settingsArray = response.data["items"] as? [[String:Any]] {
@@ -73,7 +78,7 @@ public final class LiSDKManager: LiAuthManager {
                     }
                 }
             }, failure: { (error: Error?) in
-                print("Settings sync failed: \(error)")
+                print("Settings sync failed: \(String(describing: error))")
             })
         }
     }
@@ -83,7 +88,7 @@ public final class LiSDKManager: LiAuthManager {
      - parameter deviceToken: Device token from the `didRegisterForRemoteNotificationsWithDeviceToken` method in `AppDelegate`.
      */
     public func update(deviceToken: String) {
-        if isUserLoggedIn() {
+        if liAuthManager.isUserLoggedIn() {
             syncSettings()
             LiNotificationManager.update(deviceToken: deviceToken)
         }
