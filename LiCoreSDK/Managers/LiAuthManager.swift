@@ -35,10 +35,14 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
      - parameter notificationProvider:   Optional Your notification provider. Possible values - 'APNS', 'FIREBASE'.
      */
     public func initLoginFlow(from viewController: UIViewController, deviceToken: String?, notificationProvider: String?) {
+        guard let sdkManager = sdkManager else {
+            assert(self.sdkManager == nil, "LiSDKManger should not be nil")
+            return
+        }
         self.deviceToken = deviceToken
         self.notificationProvider = notificationProvider
         let authService: LiAuthService
-        authService = LiAuthService.init(context: viewController, ssoToken: nil)
+        authService = LiAuthService.init(context: viewController, ssoToken: nil, sdkManager: sdkManager)
         authService.authDelegate = self
         authService.startLoginFlow()
     }
@@ -51,10 +55,14 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
      - parameter notificationProvider:   Optional Your notification provider. Possible values - 'APNS', 'FIREBASE'.
      */
     public func initLoginFlow(from viewController: UIViewController, withSSOToken ssoToken: String, deviceToken: String?, notificationProvider: String?) {
+        guard let sdkManager = sdkManager else {
+            assert(self.sdkManager == nil, "LiSDKManger should not be nil")
+            return
+        }
         self.deviceToken = deviceToken
         self.notificationProvider = notificationProvider
         let authService: LiAuthService
-        authService = LiAuthService.init(context: viewController, ssoToken: ssoToken)
+        authService = LiAuthService.init(context: viewController, ssoToken: ssoToken, sdkManager: sdkManager)
         authService.authDelegate = self
         authService.startLoginFlow()
     }
