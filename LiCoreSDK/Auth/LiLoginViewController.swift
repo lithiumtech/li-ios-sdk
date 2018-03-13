@@ -24,21 +24,16 @@ protocol LiLoginViewControllerProtocol {
  View controller used to present the webView used in login.
  */
 class LiLoginViewController: UIViewController, UIWebViewDelegate {
-    var url: URLRequest?
+    var url: URLRequest
     // swiftlint:disable:next weak_delegate
     var delegate: LiLoginViewControllerProtocol?
     // swiftlint:disable:next weak_delegate
     public var authDelegate: LiAuthorizationDelegate?
-    var sdkManager: LiSDKManager?
-    private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        url = nil
-        sdkManager = nil
-    }
-    convenience init(url: URLRequest, sdkManager: LiSDKManager) {
-        self.init(nibName:nil, bundle:nil)
+    var sdkManager: LiSDKManager
+    init(url: URLRequest, sdkManager: LiSDKManager) {
         self.url = url
         self.sdkManager = sdkManager
+        super.init(nibName: nil, bundle: nil)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -52,7 +47,7 @@ class LiLoginViewController: UIViewController, UIWebViewDelegate {
         nav.setItems([navItem], animated: false)
         let webViewFrame = CGRect(x: 0, y: 65, width: self.view.frame.size.width, height: self.view.frame.size.height - 65)
         let webView = UIWebView(frame: webViewFrame)
-        webView.loadRequest(url!)
+        webView.loadRequest(url)
         webView.delegate = self
         self.view.addSubview(webView)
     }
@@ -60,10 +55,6 @@ class LiLoginViewController: UIViewController, UIWebViewDelegate {
         self.dismiss(animated: true)
     }
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        guard let sdkManager = sdkManager else {
-            assert(self.sdkManager == nil, "LiSDKManger should not be nil")
-            return false
-        }
         let queryParameters = request.url?.liQueryItems ?? [:]
         if queryParameters["response_type"] != nil {
             return true
