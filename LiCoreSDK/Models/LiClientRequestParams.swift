@@ -19,7 +19,7 @@ public struct LiMessagesByBoardIdClientRequestParams: LiClientRequestParams {
     /// Creates LiMessagesByBoardIdClientRequestParams object to pass onto liMessagesByBoardIdClient.
     /// - parameter boardId: Board id of the board for which the messages are being requested.
     public init(boardId: String) throws {
-        self.boardId = try LiUtils.stringCheck(value: boardId)
+        self.boardId = try LiUtils.nonEmptyStringCheck(value: boardId, errorMessage: "boardId should not be an empty string")
     }
 }
 /// Model used to create liSdkSettingsClient request parameters.
@@ -28,7 +28,7 @@ public struct LiSdkSettingsClientRequestParams: LiClientRequestParams {
     /// Creates LiSdkSettingsClientRequestParams object to pass onto liSdkSettingsClient.
     /// - parameter clientId: the client ID for the app generated in Community Admin > System > API Apps.
     public init(clientId: String) throws {
-        self.clientId =  try LiUtils.stringCheck(value: clientId)
+        self.clientId =  try LiUtils.nonEmptyStringCheck(value: clientId, errorMessage: "clientId should not be an empty string")
     }
 }
 /// Model used to create liCategoryBoardsClient request parameters.
@@ -37,7 +37,7 @@ public struct LiCategoryBoardsClientRequestParams: LiClientRequestParams {
     /// Creates LiCategoryBoardsClientRequestParams object to pass onto liCategoryBoardsClient.
     /// - parameter categoryId: the ID of the category from which to fetch a board list.
     public init(categoryId: String) throws {
-        self.categoryId = try LiUtils.stringCheck(value: categoryId)
+        self.categoryId = try LiUtils.nonEmptyStringCheck(value: categoryId, errorMessage: "categoryId should not be an empty string")
     }
 }
 /// Model used to create liBoardsByDepthClient request parameters.
@@ -46,7 +46,7 @@ public struct LiBoardsByDepthClientRequestParams: LiClientRequestParams {
     /// Creates LiBoardsByDepthClientRequestParams object to pass onto liBoardsByDepthClient.
     /// - parameter depth: the depth from which to pull boards from the Community structure.
     public init(depth: Int) throws {
-        self.depth = try LiUtils.integerCheck(value: depth)
+        self.depth = try LiUtils.positiveIntegerCheck(value: depth, errorMessage: "depth should not be a negative number")
     }
 }
 /// Model used to create liRepliesClient request parameters.
@@ -55,7 +55,7 @@ public struct LiRepliesClientRequestParams: LiClientRequestParams {
     /// Creates LiRepliesClientRequestParams object to pass onto liRepliesClient2.
     /// - parameter parentId: the ID of the parent message.
     public init(parentId: String) throws {
-        self.parentId = try LiUtils.stringCheck(value: parentId)
+        self.parentId = try LiUtils.nonEmptyStringCheck(value: parentId, errorMessage: "parentId should not be an empty string")
     }
 }
 /// Model used to create liSearchClient request parameters.
@@ -64,7 +64,7 @@ public struct LiSearchClientRequestParams: LiClientRequestParams {
     /// Creates LiSearchClientRequestParams object to pass onto liSearchClient.
     /// - parameter query: the search string to query. The query is compared against the body and subject of messages.
     public init(query: String) throws {
-        self.query = try LiUtils.stringCheck(value: query)
+        self.query = try LiUtils.nonEmptyStringCheck(value: query, errorMessage: "query should not be an empty string")
     }
 }
 /// Model used to create liUserMessagesClient request parameters.
@@ -76,8 +76,8 @@ public struct LiUserMessagesClientRequestParams: LiClientRequestParams {
     /// - parameter depth: the location of messages in a thread, where 0 equals a topic message, 1 is a first-level reply or comment, and so on.
     //For now a query with conversation.last_post_time must also set depth = 0 (only root messages)
     public init(authorId: String, depth: Int) throws {
-        self.authorId = try LiUtils.stringCheck(value: authorId)
-        let intDepth = try LiUtils.integerCheck(value: depth)
+        self.authorId = try LiUtils.nonEmptyStringCheck(value: authorId, errorMessage: "authorId should not be an empty string")
+        let intDepth = try LiUtils.positiveIntegerCheck(value: depth, errorMessage: "depth should not be a negative number")
         self.depth = "\(intDepth)"
     }
 }
@@ -87,7 +87,7 @@ public struct LiUserDetailsClientRequestParams: LiClientRequestParams {
     /// Creates LiUserDetailsClientRequestParams object to pass onto liUserDetailsClient.
     /// - parameter userId: the ID of the user for which to fetch details.
     public init(userId: String) throws {
-        self.userId = try LiUtils.stringCheck(value: userId)
+        self.userId = try LiUtils.nonEmptyStringCheck(value: userId, errorMessage: "userId should not be an empty string")
     }
 }
 /// Model used to create liMessageClient request parameters.
@@ -96,7 +96,7 @@ public struct LiMessageClientRequestParams: LiClientRequestParams {
     /// Creates LiMessageClientRequestParams object to pass onto liMessageClient.
     /// - parameter messageId: the ID of the message to retrieve.
     public init(messageId: String) throws {
-        self.messageId = try LiUtils.stringCheck(value: messageId)
+        self.messageId = try LiUtils.nonEmptyStringCheck(value: messageId, errorMessage: "messageId should not be an empty string")
     }
 }
 /// Model used to create liFloatedMessagesClient request parameters.
@@ -108,14 +108,16 @@ public struct LiFloatedMessagesClientRequestParams: LiClientRequestParams {
     /// - parameter scope: the scope of floated messages to retreive. Supported value is 'local'. Local scope retrieves messages that the user in context floated/pinned, rather than an administrator who might have pinned a message to the top of a board globally for the community.
     @available(*, deprecated: 0.2.0)
     public init(boardId: String, scope: String) throws {
-        self.boardId = try LiUtils.stringCheck(value: boardId)
-        self.scope =  try LiUtils.stringCheck(value: scope)
+        self.boardId = try LiUtils.nonEmptyStringCheck(value: boardId, errorMessage: "boardId should not be an empty string")
+        self.scope =  try LiUtils.nonEmptyStringCheck(value: scope, errorMessage: "scope should not be an empty string")
     }
+    /// Creates LiFloatedMessagesClientRequestParams object to pass onto liFloatedMessagesClient.
+    /// - parameter boardId:  the ID of the board from which to pull floated (or 'pinned') messages
+    /// - parameter scope: the scope of floated messages to retreive. Supported value is 'local'. Local scope retrieves messages that the user in context floated/pinned, rather than an administrator who might have pinned a message to the top of a board globally for the community.
     public init(boardId: String, scope: Scope ) throws {
-        self.boardId =  try LiUtils.stringCheck(value: boardId)
+        self.boardId =  try LiUtils.nonEmptyStringCheck(value: boardId, errorMessage: "boardId should not be an empty string")
         self.scope = Scope.local.rawValue
     }
-    //TODO:-  Check with Aditya on how to handel this as any change to this will require sdk update.
     public enum Scope: String {
         case local
     }
@@ -126,7 +128,7 @@ public struct LiMessagesByIdsClientRequestParams: LiClientRequestParams {
     /// Creates LiMessagesByIdsClientRequestParams object to pass onto liMessagesByIdsClient.
     /// - parameter messageIds:  the IDs of the messages to retrieve, passed as a array of strings.
     public init(messageIds: [String]) throws {
-        self.messageIds = try LiUtils.arrayCheck(value: messageIds)
+        self.messageIds = try LiUtils.nonEmptyArrayCheck(value: messageIds, errorMessage: "messageIds should not be a empty array or contain an empty string as an element")
     }
 }
 /// Model used to create liKudoClient request parameters.
@@ -135,7 +137,7 @@ public struct LiKudoClientRequestParams: LiClientRequestParams {
     /// Creates LiKudoClientRequestParams object to pass onto liKudoClient.
     /// - parameter messageId: the ID of the message to kudo.
     public init(messageId: String) throws {
-        self.messageId = try LiUtils.stringCheck(value: messageId)
+        self.messageId = try LiUtils.nonEmptyStringCheck(value: messageId, errorMessage: "messageId should not be an empty string")
     }
     public func getPostParams() -> [String: Any] {
         let params: [String: Any] = ["type": LiQueryConstant.ResponseType.liKudoType, "message": ["id": messageId]]
@@ -148,7 +150,7 @@ public struct LiUnKudoClientRequestParams: LiClientRequestParams {
     /// Creates LiUnKudoClientRequestParams object to pass onto liUnKudoClient.
     /// - parameter messageId: id of the message to unkudo.
     public init(messageId: String) throws{
-        self.messageId = try LiUtils.stringCheck(value: messageId)
+        self.messageId = try LiUtils.nonEmptyStringCheck(value: messageId, errorMessage: "messageId should not be an empty string")
     }
 }
 /// Model used to create liMessageDeleteClient request parameters.
@@ -159,7 +161,7 @@ public struct LiMessageDeleteClientRequestParams: LiClientRequestParams {
     /// - parameter messageId: the ID of the message to delete
     /// - parameter includeReplies: whether or not to delete replies/comments to the message
     public init(messageId: String, includeReplies: Bool) throws {
-        self.messageId = try LiUtils.stringCheck(value: messageId)
+        self.messageId = try LiUtils.nonEmptyStringCheck(value: messageId, errorMessage: "messageId should not be an empty string")
         self.includeReplies = includeReplies
     }
     func getPostParams() -> [String: String] {
@@ -175,7 +177,7 @@ public struct LiAcceptSolutionClientRequestParams: LiClientRequestParams {
     /// Creates LiAcceptSolutionClientRequestParams object to pass onto liAcceptSolutionClient.
     /// - parameter messageId: the ID of the message to accept as a solution.
     public init(messageId: String) throws {
-        self.messageId = try LiUtils.stringCheck(value: messageId)
+        self.messageId = try LiUtils.nonEmptyStringCheck(value: messageId, errorMessage: "messageId should not be an empty string")
     }
     public func getPostParams() -> [String: Any] {
         let params: [String: Any] = ["type": LiQueryConstant.ResponseType.liAcceptSolutionType, "message_id": messageId]
@@ -196,11 +198,11 @@ public struct LiCreateMessageClientRequestParams: LiClientRequestParams {
     /// - parameter imageId: (optional) the ID of the image included with the message, if one exists.
     /// - parameter imageName: (optional) the filename of the image included with the message, if one exists.
     public init(subject: String, body: String?, boardId: String, imageId: String?, imageName: String?) throws {
-        self.subject = try LiUtils.stringCheck(value: subject)
+        self.subject = try LiUtils.nonEmptyStringCheck(value: subject, errorMessage: "subject should not be an empty string")
         self.body = body
-        self.boardId =  try LiUtils.stringCheck(value: boardId)
-        self.imageId = try LiUtils.stringCheck(value: imageId)
-        self.imageName = try LiUtils.stringCheck(value: imageName)
+        self.boardId =  try LiUtils.nonEmptyStringCheck(value: boardId, errorMessage: "boardId should not be an empty string")
+        self.imageId = try LiUtils.nonEmptyStringCheck(value: imageId, errorMessage: "imageId should not be an empty string")
+        self.imageName = try LiUtils.nonEmptyStringCheck(value: imageName, errorMessage: "imageName should not be an empty string")
     }
     /// Returns POST parameters for liCreateMessageClient client.
     /// - returns: [String: Any] containing post parameters
@@ -227,11 +229,11 @@ public struct LiUpdateMessageClientRequestParams: LiClientRequestParams {
     /// - parameter imageId: (optional) the ID of the image included with the message, if one exists.
     /// - parameter imageName: (optional) the filename of the image included with the message, if one exists.
     public init(messageId: String, subject: String, body: String?, imageId: String?, imageName: String?) throws {
-        self.messageId = try LiUtils.stringCheck(value: messageId)
-        self.subject = try LiUtils.stringCheck(value: subject)
+        self.messageId = try LiUtils.nonEmptyStringCheck(value: messageId, errorMessage: "messageId should not be an empty string")
+        self.subject = try LiUtils.nonEmptyStringCheck(value: subject, errorMessage: "subject should not be an empty string")
         self.body = body
-        self.imageId = try LiUtils.stringCheck(value: imageId)
-        self.imageName = try LiUtils.stringCheck(value: imageName)
+        self.imageId = try LiUtils.nonEmptyStringCheck(value: imageId, errorMessage: "imageId should not be an empty string")
+        self.imageName = try LiUtils.nonEmptyStringCheck(value: imageName, errorMessage: "imageName should not be an empty string")
     }
     public func getPostParams() -> [String: Any] {
         var embeddedBody: String = body ?? ""
@@ -269,11 +271,11 @@ public struct LiCreateReplyClientRequestParams: LiClientRequestParams {
     /// - parameter imageId: (optional) the ID of the image included with the reply/comment, if one exists.
     /// - parameter imageName: (optional) the filename of the image included with the reply/comment, if one exists.
     public init(body: String, messageId: String, subject: String, imageId: String?, imageName: String?) throws {
-        self.body = try LiUtils.stringCheck(value: body)
-        self.messageId = try LiUtils.stringCheck(value: messageId)
-        self.subject = try LiUtils.stringCheck(value: subject)
-        self.imageId = try LiUtils.stringCheck(value: imageId)
-        self.imageName = try LiUtils.stringCheck(value: imageName)
+        self.body = try LiUtils.nonEmptyStringCheck(value: body, errorMessage: "body should not be an empty string")
+        self.messageId = try LiUtils.nonEmptyStringCheck(value: messageId, errorMessage: "messageId should not be an empty string")
+        self.subject = try LiUtils.nonEmptyStringCheck(value: subject, errorMessage: "subject should not be an empty string")
+        self.imageId = try LiUtils.nonEmptyStringCheck(value: imageId, errorMessage: "imageId should not be an empty string")
+        self.imageName = try LiUtils.nonEmptyStringCheck(value: imageName, errorMessage: "imageName should not be an empty string")
     }
     /// Returns POST parameters for liCreateReplyClient client.
     /// - returns: [String: Any] containing post parameters
@@ -301,10 +303,10 @@ public struct LiUploadImageClientRequestParams: LiClientRequestParams {
         guard let imageData = image.jpeg() else {
             throw LiBaseError(errorMessage: "Failed to compress image", httpCode: LiCoreSDKConstants.LiErrorCodes.jsonSyntaxError)
         }
-        self.title = try LiUtils.stringCheck(value: title)
-        self.description = try LiUtils.stringCheck(value: description)
+        self.title = try LiUtils.nonEmptyStringCheck(value: title, errorMessage: "title should not be an empty string")
+        self.description = try LiUtils.nonEmptyStringCheck(value: description, errorMessage: "description should not be an empty string")
         self.image = imageData
-        _ = try LiUtils.stringCheck(value: imageName)
+        _ = try LiUtils.nonEmptyStringCheck(value: imageName, errorMessage: "imageName should not be an empty string")
         if !imageName.hasImageExtension(){
             self.imageName = imageName + ".jpg"
         } else {
@@ -322,9 +324,9 @@ public struct LiReportAbuseClientRequestParams: LiClientRequestParams {
     /// - parameter userId: Id of the user reporting the message.
     /// - parameter body: body of the messsage.
     public init(messageId: String, userId: String, body: String) throws {
-        self.messageId = try LiUtils.stringCheck(value: messageId)
-        self.userId = try LiUtils.stringCheck(value: userId)
-        self.body = try LiUtils.stringCheck(value: body)
+        self.messageId = try LiUtils.nonEmptyStringCheck(value: messageId, errorMessage: "messageId should not be an empty string")
+        self.userId = try LiUtils.nonEmptyStringCheck(value: userId, errorMessage: "userId should not be an empty string")
+        self.body = try LiUtils.nonEmptyStringCheck(value: body, errorMessage: "body should not be an empty string")
     }
     /// Returns POST parameters for liCreateReplyClient client.
     /// - returns: [String: Any] containing post parameters
@@ -342,21 +344,20 @@ public struct LiDeviceIdFetchClientRequestParams: LiClientRequestParams {
     /// - parameter pushNotificationProvider: the Global provider for push notification. Support values: "APNS" and "FIREBASE".
     @available(*, deprecated: 0.2.0)
     public init(deviceId: String, pushNotificationProvider: String) throws {
-        self.deviceId = try LiUtils.stringCheck(value: deviceId)
-        self.pushNotificationProvider = try LiUtils.stringCheck(value: pushNotificationProvider)
+        self.deviceId = try LiUtils.nonEmptyStringCheck(value: deviceId, errorMessage: "deviceId should not be an empty string")
+        self.pushNotificationProvider = try LiUtils.nonEmptyStringCheck(value: pushNotificationProvider, errorMessage: "pushNotificationProvider should not be an empty string")
     }
     /// Creates LiDeviceIdFetchClientRequestParams object to pass onto liDeviceIdFetchClient.
     /// - parameter deviceId: the device ID registered with the push notificaiton provider.
     /// - parameter pushNotificationProvider: the Global provider for push notification.
     public init(deviceId: String, pushNotificationProvider: NotificationProviders) throws {
-        self.deviceId = try LiUtils.stringCheck(value: deviceId)
+        self.deviceId = try LiUtils.nonEmptyStringCheck(value: deviceId, errorMessage: "deviceId should not be an empty string")
         self.pushNotificationProvider = pushNotificationProvider.rawValue
     }
     public func getPostParams() -> [String: Any] {
         let params: [String: Any] = ["type": LiQueryConstant.ResponseType.liUserDeviceIdFetchType, "device_id": deviceId, "client_id": LiSDKManager.sharedInstance.liAppCredentials.clientId, "push_notification_provider": pushNotificationProvider, "application_type": LiQueryConstant.ResponseType.liApplicationType]
         return params
     }
-    //TODO:-  Check with Aditya on how to handel this as any change to this will require sdk update.
     public enum NotificationProviders: String {
         case apns = "APNS"
         case firebase = "FIREBASE"
@@ -370,8 +371,8 @@ public struct LiDeviceIdUpdateClientRequestParams: LiClientRequestParams {
     /// - parameter deviceId: the device ID registered with the push notificaiton provider.
     /// - parameter id: the ID corresponding to device ID in the community
     public init(deviceId: String, id: String) throws {
-        self.deviceId = try LiUtils.stringCheck(value: deviceId)
-        self.id = try LiUtils.stringCheck(value: id)
+        self.deviceId = try LiUtils.nonEmptyStringCheck(value: deviceId, errorMessage: "deviceId should not be an empty string")
+        self.id = try LiUtils.nonEmptyStringCheck(value: id, errorMessage: "id should not be an empty string")
     }
     public func getPostParams() -> [String: Any] {
         let params: [String: Any] = ["type": LiQueryConstant.ResponseType.liUserDeviceIdFetchType, "device_id": deviceId]
@@ -387,21 +388,20 @@ public struct LiSubscriptionPostClientRequestParams: LiClientRequestParams {
     /// - parameter targetType: the type of the target of the subscription, either a "message" or a "board".
     @available(*, deprecated: 0.2.0)
     public init(targetId: String, targetType: String) throws {
-        self.targetId = try LiUtils.stringCheck(value: targetId)
-        self.targetType = try LiUtils.stringCheck(value: targetType)
+        self.targetId = try LiUtils.nonEmptyStringCheck(value: targetId, errorMessage: "targetId should not be an empty string")
+        self.targetType = try LiUtils.nonEmptyStringCheck(value: targetType, errorMessage: "targetType should not be an empty string")
     }
     /// Creates LiSubscriptionPostClientRequestParams object to pass onto liSubscriptionPostClient.
     /// - parameter targetId: the ID of the target of the subscription, either a message ID or a board ID.
     /// - parameter targetType: the type of the target of the subscription.
     public init(targetId: String, targetType: TargetType) throws {
-        self.targetId = try LiUtils.stringCheck(value: targetId)
+        self.targetId = try LiUtils.nonEmptyStringCheck(value: targetId, errorMessage: "targetId should not be an empty string")
         self.targetType = targetType.rawValue
     }
     public func getPostParams() -> [String: Any] {
         let params: [String: Any] = ["type": LiQueryConstant.ResponseType.liSubscriptionsClientType, "target": ["type": targetType, "id": targetId]]
         return params
     }
-    //TODO:-  Check with Aditya on how to handel this as any change to this will require sdk update.
     public enum TargetType: String {
         case message
         case board
@@ -417,8 +417,8 @@ public struct LiMarkMessagePostClientRequestParams: LiClientRequestParams {
     /// - parameter messageId: the ID of the message being marked read or unread.
     /// - parameter markUnread: pass 'true' to mark the message as unread, pass 'false' to mark as read.
     public init(userId: String, messageId: String, markUnread: Bool) throws {
-        self.userId = try LiUtils.stringCheck(value: userId)
-        self.messageId = try LiUtils.stringCheck(value: messageId)
+        self.userId = try LiUtils.nonEmptyStringCheck(value: userId, errorMessage: "userId should not be an empty string")
+        self.messageId = try LiUtils.nonEmptyStringCheck(value: messageId, errorMessage: "messageId should not be an empty string")
         self.markUnread = markUnread
     }
     public func getPostParams() -> [String: Any] {
@@ -436,8 +436,8 @@ public struct LiMarkMessagesPostClientRequestParams: LiClientRequestParams {
     /// - parameter messageIds: the IDs of the messages being marked read or unread. Pass as array of String.
     /// - parameter markUnread: pass 'true' to mark the message as unread, pass 'false' to mark as read.
     public init(userId: String, messageIds: [String], markUnread: Bool) throws {
-        self.userId = try LiUtils.stringCheck(value: userId)
-        let messageIdArray = try LiUtils.arrayCheck(value: messageIds)
+        self.userId = try LiUtils.nonEmptyStringCheck(value: userId, errorMessage: "userId should not be an empty string")
+        let messageIdArray = try LiUtils.nonEmptyArrayCheck(value: messageIds, errorMessage: "messageIds should not be a empty array or contain an empty string as an element")
         self.messageIds = messageIdArray.joined(separator: ",")
         self.markUnread = markUnread
     }
@@ -456,8 +456,8 @@ public struct LiMarkTopicPostClientRequestParams: LiClientRequestParams {
     /// - parameter topicId: the ID of the topic being marked read or unread.
     /// - parameter markUnread: pass 'true' to mark the message as unread, pass 'false' to mark as read.
     public init(userId: String, topicId: String, markUnread: Bool) throws {
-        self.userId = try LiUtils.stringCheck(value: userId)
-        self.topicId = try LiUtils.stringCheck(value: topicId)
+        self.userId = try LiUtils.nonEmptyStringCheck(value: userId, errorMessage: "userId should not be an empty string")
+        self.topicId = try LiUtils.nonEmptyStringCheck(value: topicId, errorMessage: "topicId should not be an empty string")
         self.markUnread = markUnread
     }
     public func getPostParams() -> [String: Any] {
@@ -471,7 +471,7 @@ public struct LiSubscriptionDeleteClientRequestParams: LiClientRequestParams {
     /// Creates LiSubscriptionDeleteClientRequestParams object to pass onto liSubscriptionDeleteClient.
     /// - parameter subscriptionId: the ID of the subscription being deleted.
     public init(subscriptionId: String) throws {
-        self.subscriptionId = try LiUtils.stringCheck(value: subscriptionId)
+        self.subscriptionId = try LiUtils.nonEmptyStringCheck(value: subscriptionId, errorMessage: "subscriptionId should not be an empty string")
     }
 }
 /// Model used to create liCreateUserClient request parameters.
@@ -504,8 +504,8 @@ public struct LiCreateUserClientRequestParams: LiClientRequestParams {
         self.email = try LiUtils.emailValidation(email: email)
         self.firstName = firstName
         self.lastName = lastName
-        self.login = try LiUtils.stringCheck(value: login)
-        self.password = try LiUtils.stringCheck(value: password)
+        self.login = try LiUtils.nonEmptyStringCheck(value: login, errorMessage: "login should not be an empty string")
+        self.password = try LiUtils.nonEmptyStringCheck(value: password, errorMessage: "password should not be an empty string")
     }
     /// Returns POST parameters for liCreateUser client.
     /// - returns: [String: Any] containing post parameters
@@ -566,8 +566,8 @@ public struct LiUpdateUserClientRequestParams: LiClientRequestParams {
         }
         self.firstName = firstName
         self.lastName = lastName
-        self.login = try LiUtils.stringCheck(value: login)
-        self.id = try LiUtils.stringCheck(value: id)
+        self.login = try LiUtils.nonEmptyStringCheck(value: login, errorMessage: "login should not be an empty string")
+        self.id = try LiUtils.nonEmptyStringCheck(value: id, errorMessage: "id should not be an empty string")
     }
     /// Returns POST parameters for liUpdateUser client.
     /// - returns: [String: Any] containing post parameters
@@ -619,12 +619,12 @@ public struct LiGenericPostClientRequestParams: LiClientRequestParams {
     /// - parameter additionalHttpHeaders: (optional) a [String: String] object representing additional http headers.
     public init(path: String, requestBody: [String: Any], additionalHttpHeaders: [String: String]?) throws {
         if !requestBody.keys.isEmpty {
-            _ = try LiUtils.arrayCheck(value: Array(requestBody.keys))
+            _ = try LiUtils.nonEmptyArrayCheck(value: Array(requestBody.keys), errorMessage: "requestBody should not be a empty array or contain an empty element")
         }
         if let additionalHeaders = additionalHttpHeaders, !additionalHeaders.keys.isEmpty {
-            _ = try LiUtils.arrayCheck(value: Array(additionalHeaders.keys))
+            _ = try LiUtils.nonEmptyArrayCheck(value: Array(additionalHeaders.keys), errorMessage: "additionalHeaders should not be a empty array or contain an empty element")
         }
-        self.path = try LiUtils.stringCheck(value: path)
+        self.path = try LiUtils.nonEmptyStringCheck(value: path, errorMessage: "path should not be an empty string")
         self.requestBody = requestBody
         self.additionalHttpHeaders = additionalHttpHeaders
     }
@@ -640,12 +640,12 @@ public struct LiGenericPutClientRequestParams: LiClientRequestParams {
     /// - parameter additionalHttpHeaders: (optional) a [String: String] object representing additional http headers.
     public init(path: String, requestBody: [String: Any], additionalHttpHeaders: [String: String]?) throws {
         if !requestBody.keys.isEmpty {
-            _ = try LiUtils.arrayCheck(value: Array(requestBody.keys))
+            _ = try LiUtils.nonEmptyArrayCheck(value: Array(requestBody.keys), errorMessage: "requestBody should not be a empty array or contain an empty element")
         }
         if let additionalHeaders = additionalHttpHeaders, !additionalHeaders.keys.isEmpty {
-            _ = try LiUtils.arrayCheck(value: Array(additionalHeaders.keys))
+            _ = try LiUtils.nonEmptyArrayCheck(value: Array(additionalHeaders.keys), errorMessage: "additionalHttpHeaders should not be a empty array or contain an empty element")
         }
-        self.path = try LiUtils.stringCheck(value: path)
+        self.path = try LiUtils.nonEmptyStringCheck(value: path, errorMessage: "path should not be an empty string")
         self.requestBody = requestBody
         self.additionalHttpHeaders = additionalHttpHeaders
     }
@@ -656,7 +656,7 @@ public struct LiGenericGetClientRequestParams: LiClientRequestParams {
     ///Creates LiGenericGetClientRequestParams object to pass onto liGenericGetClient.
     /// - parameter liQuery: the LiQL query to run, e.g. "SELECT subject, body FROM messages LIMIT 10".
     public init(liQuery: String) throws {
-        self.liQuery = try LiUtils.stringCheck(value: liQuery)
+        self.liQuery = try LiUtils.nonEmptyStringCheck(value: liQuery, errorMessage: "liQuery should not be an empty string")
     }
 }
 /// Model used to create liGenericDeleteClient request parameters.
@@ -672,12 +672,12 @@ public struct LiGenericDeleteClientRequestParams: LiClientRequestParams {
     /// - parameter subResourcePath: (optional) This will be appended after `id` in the delete url.
     public init(liQueryRequestParams: [String: String]?, id: String, collectionsType: CollectionsType, subResourcePath: String?) throws {
         if let liQueryRequestParams = liQueryRequestParams, !liQueryRequestParams.keys.isEmpty {
-            _ = try LiUtils.arrayCheck(value: Array(liQueryRequestParams.keys))
+            _ = try LiUtils.nonEmptyArrayCheck(value: Array(liQueryRequestParams.keys), errorMessage: "liQueryRequestParams should not be a empty array or contain an empty element")
         }
         self.liQueryRequestParams = liQueryRequestParams
-        self.id = try LiUtils.stringCheck(value: id)
+        self.id = try LiUtils.nonEmptyStringCheck(value: id, errorMessage: "id should not be an empty string")
         self.collectionsType = collectionsType
-        self.subResourcePath = try LiUtils.stringCheck(value: subResourcePath)
+        self.subResourcePath = try LiUtils.nonEmptyStringCheck(value: subResourcePath, errorMessage: "subResourcePath should not be an empty string")
     }
     public enum CollectionsType: String {
         case messages
@@ -692,8 +692,8 @@ public struct LiBeaconClientRequestParams: LiClientRequestParams {
     /// - parameter type: the type of page. Can be either user, conversation, category, board, or node
     /// - parameter id: id of the page. Either the user id or conversation id as a string, or the board or category "display id".
     public init(type: String, id: String) throws {
-        self.type = try LiUtils.stringCheck(value: type)
-        self.id = try LiUtils.stringCheck(value: id)
+        self.type = try LiUtils.nonEmptyStringCheck(value: type, errorMessage: "type should not be an empty string")
+        self.id = try LiUtils.nonEmptyStringCheck(value: id, errorMessage: "id should not be an empty string")
     }
     internal func getPostParams() -> [String: Any] {
         let params: [String: String] = ["type": type, "id": id]
@@ -703,12 +703,12 @@ public struct LiBeaconClientRequestParams: LiClientRequestParams {
 /// Model used to create liNoLiqlClient request parameters.
 public struct LiNoLiqlClientRequestParams: LiClientRequestParams {
     var path: String
-    var queryParmaeters: String
+    var queryParameters: String
     ///Creates LiNoLiqlClientRequestParams object to pass onto liNoLiqlClient.
     /// - parameter path: Path for the call.
-    /// - parameter id: non Liql query.
-    public init(path: String, queryParmaeters: String) throws {
-        self.path = try LiUtils.stringCheck(value: path)
-        self.queryParmaeters = try LiUtils.stringCheck(value: queryParmaeters)
+    /// - parameter queryParameters: Parameters for the query.
+    public init(path: String, queryParameters: String) throws {
+        self.path = try LiUtils.nonEmptyStringCheck(value: path, errorMessage: "path should not be an empty string")
+        self.queryParameters = try LiUtils.nonEmptyStringCheck(value: queryParameters, errorMessage: "queryParmeter should not be an empty string")
     }
 }

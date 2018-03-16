@@ -19,31 +19,31 @@ enum LiError: Error {
     case invalidArrgument(String)
 }
 struct LiUtils {
-    static func stringCheck(value: String) throws -> String {
+    static func nonEmptyStringCheck(value: String, errorMessage: String) throws -> String {
         if value == "" {
-            throw LiError.invalidArrgument(value)
+            throw LiError.invalidArrgument(errorMessage)
         }
         return value
     }
-    static func stringCheck(value: String?) throws -> String? {
+    static func nonEmptyStringCheck(value: String?, errorMessage: String) throws -> String? {
         if value != nil && value == "" {
-            throw LiError.invalidArrgument(value!)
+            throw LiError.invalidArrgument(errorMessage)
         }
         return value
     }
-    static func integerCheck(value: Int) throws -> Int {
+    static func positiveIntegerCheck(value: Int, errorMessage: String) throws -> Int {
         if value < 0 {
-            throw LiError.invalidArrgument("\(value)")
+            throw LiError.invalidArrgument(errorMessage)
         }
         return value
     }
-    static func arrayCheck<T>(value:[T]) throws -> [T] {
+    static func nonEmptyArrayCheck<T>(value:[T], errorMessage: String) throws -> [T] {
         if value.isEmpty {
-            throw LiError.invalidArrgument("Empty array passed as parameter.")
+            throw LiError.invalidArrgument(errorMessage)
         }
         for v in value {
             if v is String {
-                _ = try stringCheck(value: v as! String)
+                _ = try nonEmptyStringCheck(value: v as! String, errorMessage: errorMessage)
             }
         }
         return value

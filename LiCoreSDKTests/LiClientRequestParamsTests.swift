@@ -1101,17 +1101,17 @@ class LiNoLiqlClientRequestParamsTests: QuickSpec {
         describe("LiNoLiqlClientRequestParams") {
             context("After being properly initalize") {
                 it("Should not throw error") {
-                    expect { try LiNoLiqlClientRequestParams(path: "message", queryParmaeters: "messageId=12") }.toNot( throwError() )
+                    expect { try LiNoLiqlClientRequestParams(path: "message", queryParameters: "messageId=12") }.toNot( throwError() )
                 }
             }
             context("After initalizing path with an empty sting") {
                 it("should throw an error") {
-                    expect { try LiNoLiqlClientRequestParams(path: "", queryParmaeters: "messageId=12") }.to( throwError() )
+                    expect { try LiNoLiqlClientRequestParams(path: "", queryParameters: "messageId=12") }.to( throwError() )
                 }
             }
             context("After initalizing queryParmaeters with an empty sting") {
                 it("should throw an error") {
-                    expect { try LiNoLiqlClientRequestParams(path: "message", queryParmaeters: "") }.to( throwError() )
+                    expect { try LiNoLiqlClientRequestParams(path: "message", queryParameters: "") }.to( throwError() )
                 }
             }
         }
