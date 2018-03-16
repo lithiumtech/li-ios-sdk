@@ -66,6 +66,8 @@
 		2A90749D1EFA632800D4F2AF /* LiClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90749B1EFA632800D4F2AF /* LiClientConfig.swift */; };
 		2A9ECDCF200F482C00801C26 /* LiAuthorizationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9ECDCE200F482C00801C26 /* LiAuthorizationDelegate.swift */; };
 		2A9ECDD0200F482C00801C26 /* LiAuthorizationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9ECDCE200F482C00801C26 /* LiAuthorizationDelegate.swift */; };
+		2A9FA9C0205BB06900E17459 /* LiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9FA9BF205BB06900E17459 /* LiError.swift */; };
+		2A9FA9C1205BB06900E17459 /* LiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9FA9BF205BB06900E17459 /* LiError.swift */; };
 		2AA0AA141F0A3C1B0044DE45 /* LiBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0AA131F0A3C1B0044DE45 /* LiBoard.swift */; };
 		2AA0AA151F0A3C1B0044DE45 /* LiBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0AA131F0A3C1B0044DE45 /* LiBoard.swift */; };
 		2AA0AA171F0A4FD20044DE45 /* LiUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0AA161F0A4FD20044DE45 /* LiUser.swift */; };
@@ -212,6 +214,7 @@
 		2A9074981EFA61B700D4F2AF /* LiQueryConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiQueryConstants.swift; sourceTree = "<group>"; };
 		2A90749B1EFA632800D4F2AF /* LiClientConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiClientConfig.swift; sourceTree = "<group>"; };
 		2A9ECDCE200F482C00801C26 /* LiAuthorizationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiAuthorizationDelegate.swift; sourceTree = "<group>"; };
+		2A9FA9BF205BB06900E17459 /* LiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiError.swift; sourceTree = "<group>"; };
 		2AA0AA131F0A3C1B0044DE45 /* LiBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiBoard.swift; sourceTree = "<group>"; };
 		2AA0AA161F0A4FD20044DE45 /* LiUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiUser.swift; sourceTree = "<group>"; };
 		2AA0AA191F0A59660044DE45 /* LiMessageMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiMessageMetrics.swift; sourceTree = "<group>"; };
@@ -290,6 +293,7 @@
 				2A5694FD1E9CD95300850867 /* LiBaseResponse.swift */,
 				2AE3899A1FDFDEDD00866588 /* LiCoreSDKConstants.swift */,
 				2A7D8BB020480127009596BF /* LiUtils.swift */,
+				2A9FA9BF205BB06900E17459 /* LiError.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -746,6 +750,7 @@
 				2A89A2AE201EF87000E3C693 /* KeychainItemAccessibility.swift in Sources */,
 				2AE876E21EF2642000491680 /* LiQueryBuilder.swift in Sources */,
 				2A0551121F611156005C356F /* LiBrowse.swift in Sources */,
+				2A9FA9C0205BB06900E17459 /* LiError.swift in Sources */,
 				2A5695041E9E1C9A00850867 /* LiKudoMetrics.swift in Sources */,
 				2A2309C12007C075002090D1 /* LiImageMetaData.swift in Sources */,
 				2A7C264E1E93974500A7786A /* LiClient.swift in Sources */,
@@ -805,6 +810,7 @@
 				2A0551101F5837FC005C356F /* LiGenericQueryResponse.swift in Sources */,
 				2A2309BF2007C02A002090D1 /* LiRankingDisplay.swift in Sources */,
 				2AA3B34F1EC47F200080CC76 /* LiAuthService.swift in Sources */,
+				2A9FA9C1205BB06900E17459 /* LiError.swift in Sources */,
 				2A5695021E9E1C7C00850867 /* LiConversation.swift in Sources */,
 				2AAEC2D71F398A880094295A /* LiImageUpload.swift in Sources */,
 				2AA3B3521EC484E50080CC76 /* LiLoginViewController.swift in Sources */,

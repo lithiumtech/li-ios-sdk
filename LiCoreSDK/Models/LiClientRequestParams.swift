@@ -301,7 +301,7 @@ public struct LiUploadImageClientRequestParams: LiClientRequestParams {
     /// - parameter image: UIImage to be uploaded.
     public init(title: String, description: String, imageName: String, image: UIImage) throws {
         guard let imageData = image.jpeg() else {
-            throw LiBaseError(errorMessage: "Failed to compress image", httpCode: LiCoreSDKConstants.LiErrorCodes.jsonSyntaxError)
+            throw LiError.invalidArgument(errorMessage: "Failed to compress image")
         }
         self.title = try LiUtils.nonEmptyStringCheck(value: title, errorMessage: "title should not be an empty string")
         self.description = try LiUtils.nonEmptyStringCheck(value: description, errorMessage: "description should not be an empty string")
