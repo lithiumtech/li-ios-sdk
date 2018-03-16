@@ -15,31 +15,28 @@ extension String {
     }
 }
 //Utils methods
-enum LiError: Error {
-    case invalidArrgument(String)
-}
 struct LiUtils {
     static func nonEmptyStringCheck(value: String, errorMessage: String) throws -> String {
         if value == "" {
-            throw LiError.invalidArrgument(errorMessage)
+            throw LiError.invalidArgument(errorMessage: errorMessage)
         }
         return value
     }
     static func nonEmptyStringCheck(value: String?, errorMessage: String) throws -> String? {
         if value != nil && value == "" {
-            throw LiError.invalidArrgument(errorMessage)
+            throw LiError.invalidArgument(errorMessage: errorMessage)
         }
         return value
     }
     static func positiveIntegerCheck(value: Int, errorMessage: String) throws -> Int {
         if value < 0 {
-            throw LiError.invalidArrgument(errorMessage)
+            throw LiError.invalidArgument(errorMessage: errorMessage)
         }
         return value
     }
     static func nonEmptyArrayCheck<T>(value:[T], errorMessage: String) throws -> [T] {
         if value.isEmpty {
-            throw LiError.invalidArrgument(errorMessage)
+            throw LiError.invalidArgument(errorMessage: errorMessage)
         }
         for v in value {
             if v is String {
@@ -55,7 +52,7 @@ struct LiUtils {
         if emailTest.evaluate(with: email) {
             return email
         } else {
-            throw LiError.invalidArrgument("Invalid email format.")
+            throw LiError.invalidArgument(errorMessage: "Invalid email format.")
         }
     }
 }
