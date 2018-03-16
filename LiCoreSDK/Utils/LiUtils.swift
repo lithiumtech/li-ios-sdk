@@ -9,7 +9,7 @@
 import Foundation
 extension String {
     func hasImageExtension() -> Bool {
-        let imageExtRegEx = "([^\\s]+(\\.(?i)(jpg|png))$)"
+        let imageExtRegEx = "([^\\s]+(\\.(?i)(jpg|jpeg|png))$)"
         let extTest =  NSPredicate(format:"SELF MATCHES[c] %@", imageExtRegEx)
         return extTest.evaluate(with: self)
     }
