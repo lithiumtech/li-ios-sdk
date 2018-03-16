@@ -29,14 +29,16 @@ class LiAuthService {
     var webView: UIWebView?
     var vc: LiLoginViewController?
     weak var authDelegate: InternalLiLoginDelegate?
+    var sdkManager: LiSDKManager
     /**
      Creates instance of `LiAuthService`
      - parameter context:  View controller from which login is initaited.
      - parameter ssoToken: Optional sso token used for sso login.
      */
-    init(context: UIViewController, ssoToken: String?) {
+    init(context: UIViewController, ssoToken: String?, sdkManager: LiSDKManager) {
         fromViewController = context
         self.ssoToken = ssoToken
+        self.sdkManager = sdkManager
     }
     func startLoginFlow() {
         if ssoToken != nil {
@@ -46,9 +48,9 @@ class LiAuthService {
                 /**
                  Performs login using webView.
                  */
-                vc = LiLoginViewController()
+                let url = try sdkManager.liAppCredentials.getURL()
+                vc = LiLoginViewController(url: url, sdkManager: sdkManager)
                 vc?.delegate = self
-                vc?.url = try LiSDKManager.sharedInstance.liAppCredentials.getURL()
                 guard let vc = vc else { return }
                 fromViewController.present(vc, animated: true, completion: nil)
             } catch let error {
@@ -65,10 +67,10 @@ class LiAuthService {
                 do {
                     let authObject = try LiSSOAuthResponse(data: response.data)
                     if let tenantId = authObject.tenantId {
-                        LiSDKManager.sharedInstance.liAuthState.set(tenantId: tenantId)
+                        self.sdkManager.liAuthState.set(tenantId: tenantId)
                     }
                     if let proxyHost = authObject.apiProxyHost {
-                        LiSDKManager.sharedInstance.liAuthState.set(apiProxyHost: proxyHost)
+                        self.sdkManager.liAuthState.set(apiProxyHost: proxyHost)
                     }
                     self.requestAccessToken(authCode: authObject.authCode)
                 } catch let error {
@@ -101,14 +103,14 @@ extension LiAuthService: LiLoginViewControllerProtocol {
                     self.authDelegate?.login(status: false, userId: nil, error: error)
                     return
             }
-            LiSDKManager.sharedInstance.liAuthState.set(accessToken: accessToken)
-            LiSDKManager.sharedInstance.liAuthState.set(refreshToken: refreshToken)
-            LiSDKManager.sharedInstance.liAuthState.set(userID: userID)
-            LiSDKManager.sharedInstance.liAuthState.set(lithiumUserID: lithiumUserID)
+            self.sdkManager.liAuthState.set(accessToken: accessToken)
+            self.sdkManager.liAuthState.set(refreshToken: refreshToken)
+            self.sdkManager.liAuthState.set(userID: userID)
+            self.sdkManager.liAuthState.set(lithiumUserID: lithiumUserID)
             let currentDate = NSDate()
             let newDate = NSDate(timeInterval: expiresIn, since: currentDate as Date)
-            LiSDKManager.sharedInstance.liAuthState.set(expiryDate: newDate)
-            LiSDKManager.sharedInstance.liAuthState.loginSuccessfull()
+            self.sdkManager.liAuthState.set(expiryDate: newDate)
+            self.sdkManager.liAuthState.loginSuccessfull()
             self.vc?.dismiss(animated: true, completion: { self.vc?.delegate = nil })
             self.authDelegate?.login(status: true, userId: userID, error: nil)
             return

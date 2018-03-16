@@ -22,6 +22,10 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
     var notificationProvider: String?
     ///delegate for `LiAuthorizationDelegate`
     weak public var liLoginDelegate: LiAuthorizationDelegate?
+    weak var sdkManager: LiSDKManager?
+    init(sdkManager: LiSDKManager) {
+        self.sdkManager = sdkManager
+    }
     //MARK: - Public
     /**
      Use this function to initiate web view based login.
@@ -31,10 +35,14 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
      - parameter notificationProvider:   Optional Your notification provider. Possible values - 'APNS', 'FIREBASE'.
      */
     public func initLoginFlow(from viewController: UIViewController, deviceToken: String?, notificationProvider: String?) {
+        guard let sdkManager = sdkManager else {
+            assert(self.sdkManager == nil, "LiSDKManger should not be nil")
+            return
+        }
         self.deviceToken = deviceToken
         self.notificationProvider = notificationProvider
         let authService: LiAuthService
-        authService = LiAuthService.init(context: viewController, ssoToken: nil)
+        authService = LiAuthService.init(context: viewController, ssoToken: nil, sdkManager: sdkManager)
         authService.authDelegate = self
         authService.startLoginFlow()
     }
@@ -47,10 +55,14 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
      - parameter notificationProvider:   Optional Your notification provider. Possible values - 'APNS', 'FIREBASE'.
      */
     public func initLoginFlow(from viewController: UIViewController, withSSOToken ssoToken: String, deviceToken: String?, notificationProvider: String?) {
+        guard let sdkManager = sdkManager else {
+            assert(self.sdkManager == nil, "LiSDKManger should not be nil")
+            return
+        }
         self.deviceToken = deviceToken
         self.notificationProvider = notificationProvider
         let authService: LiAuthService
-        authService = LiAuthService.init(context: viewController, ssoToken: ssoToken)
+        authService = LiAuthService.init(context: viewController, ssoToken: ssoToken, sdkManager: sdkManager)
         authService.authDelegate = self
         authService.startLoginFlow()
     }
@@ -59,7 +71,10 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
      - returns: `true` if user is logged in, `false` otherwise.
      */
     public func isUserLoggedIn() -> Bool {
-        return LiSDKManager.sharedInstance.liAuthState.isLoggedIn
+        guard let sdkManager = sdkManager else {
+            return false
+        }
+        return sdkManager.liAuthState.isLoggedIn
     }
     /**
      Use this function to logout the logged in user.
@@ -92,7 +107,7 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
             if let notificationProvider = notificationProvider, let deviceToken = deviceToken {
                 LiNotificationManager.add(deviceToken: deviceToken, notificationProvider: notificationProvider)
             }
-            LiSDKManager.sharedInstance.syncSettings()
+            sdkManager?.syncSettings()
         }
         liLoginDelegate?.login(status: status, userId: userId, error: error)
     }

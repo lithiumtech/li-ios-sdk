@@ -208,7 +208,7 @@ extension LiClient {
         let visitorId = LiSDKManager.sharedInstance.visitorId ?? ""
         switch self {
         case .getAccessToken, .refreshAccessToken, .liSSOTokenRequest, .liMessagesClient, .liRepliesClient, .liKudoClient, .liUploadImageClient, .liCreateReplyClient, .liSearchClient, .liNoLiqlClient, .liCategoryClient, .liBoardsByDepthClient, .liCategoryBoardsClient, .liMessagesByBoardIdClient, .liFloatedMessagesClient, .liCreateMessageClient, .liSdkSettingsClient, .liUserSubscriptionsClient, .liUserMessagesClient, .liUserDetailsClient, .liMessageClient, .liMessagesByIdsClient, .liAcceptSolutionClient, .liReportAbuseClient, .liDeviceIdFetchClient, .liCreateUserClient, .liSubscriptionPostClient, .liSubscriptionDeleteClient, .liMarkMessagePostClient, .liMarkMessagesPostClient, .liMarkTopicPostClient, .liUpdateMessageClient, .liUpdateUserClient, .liDeviceIdUpdateClient, .liGenericGetClient, .liGenericDeleteClient, .liMessageDeleteClient, .liUnKudoClient:
-            if LiSDKManager.sharedInstance.isUserLoggedIn() {
+            if LiSDKManager.sharedInstance.liAuthManager.isUserLoggedIn() {
                 headers = ["client-id": clientID, "Authorization": "Bearer " + (accessToken ?? ""), "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json"]
             } else {
                 headers = ["client-id": clientID, "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json"]
@@ -224,7 +224,7 @@ extension LiClient {
                 headers.update(other: additionalHttpHeaders)
             }
         case .liBeaconClient:
-            if LiSDKManager.sharedInstance.isUserLoggedIn() {
+            if LiSDKManager.sharedInstance.liAuthManager.isUserLoggedIn() {
                 headers = ["client-id": clientID, "Authorization": "Bearer " + (accessToken ?? ""), "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json"]
             } else {
                 headers = ["client-id": clientID, "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json"]

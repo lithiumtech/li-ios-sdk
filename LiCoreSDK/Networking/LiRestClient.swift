@@ -72,7 +72,7 @@ class LiRestClient {
     private func accessToken <T: Router> (client: T, isValid: @escaping (Bool, Error?) -> Void) {
 //        isValid(true, nil)
 //        return
-        if !LiSDKManager.sharedInstance.isUserLoggedIn() {
+        if !LiSDKManager.sharedInstance.liAuthManager.isUserLoggedIn() {
             isValid(true, nil)
         } else {
             if isAccessTokenValid() {

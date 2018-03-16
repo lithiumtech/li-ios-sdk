@@ -24,11 +24,20 @@ protocol LiLoginViewControllerProtocol {
  View controller used to present the webView used in login.
  */
 class LiLoginViewController: UIViewController, UIWebViewDelegate {
-    var url: URLRequest?
+    var url: URLRequest
     // swiftlint:disable:next weak_delegate
     var delegate: LiLoginViewControllerProtocol?
     // swiftlint:disable:next weak_delegate
     public var authDelegate: LiAuthorizationDelegate?
+    var sdkManager: LiSDKManager
+    init(url: URLRequest, sdkManager: LiSDKManager) {
+        self.url = url
+        self.sdkManager = sdkManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         let nav = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 64))
         self.view.addSubview(nav)
@@ -38,7 +47,7 @@ class LiLoginViewController: UIViewController, UIWebViewDelegate {
         nav.setItems([navItem], animated: false)
         let webViewFrame = CGRect(x: 0, y: 65, width: self.view.frame.size.width, height: self.view.frame.size.height - 65)
         let webView = UIWebView(frame: webViewFrame)
-        webView.loadRequest(url!)
+        webView.loadRequest(url)
         webView.delegate = self
         self.view.addSubview(webView)
     }
@@ -55,10 +64,10 @@ class LiLoginViewController: UIViewController, UIWebViewDelegate {
             do {
                 let authObject = try LiSSOAuthResponse(data: queryParameters)
                 if let tenantId = authObject.tenantId {
-                    LiSDKManager.sharedInstance.liAuthState.set(tenantId: tenantId)
+                    sdkManager.liAuthState.set(tenantId: tenantId)
                 }
                 if let apiProxyHost = authObject.apiProxyHost {
-                    LiSDKManager.sharedInstance.liAuthState.set(apiProxyHost: apiProxyHost)
+                    sdkManager.liAuthState.set(apiProxyHost: apiProxyHost)
                 }
                 delegate?.requestAccessToken(authCode: authObject.authCode)
             } catch let error {
