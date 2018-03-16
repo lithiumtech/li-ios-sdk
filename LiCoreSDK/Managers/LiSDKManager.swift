@@ -65,7 +65,8 @@ public final class LiSDKManager {
      */
     public func syncSettings() {
         if liAuthManager.isUserLoggedIn() {
-            let requestParams = LiSdkSettingsClientRequestParams(clientId: liAppCredentials.clientId)
+            //TODO: - Add do catch
+            let requestParams = try! LiSdkSettingsClientRequestParams(clientId: liAppCredentials.clientId)
             LiRestClient.sharedInstance.request(client: LiClient.liSdkSettingsClient(requestParams: requestParams), success: { (response: LiBaseResponse) in
                 if let settingsArray = response.data["items"] as? [[String:Any]] {
                     if let settings = settingsArray.first {

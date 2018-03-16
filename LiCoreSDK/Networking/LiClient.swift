@@ -148,7 +148,7 @@ extension LiClient {
         case .liBeaconClient:
             return "beacon"
         case .liNoLiqlClient(let requestParams):
-            return requestParams.path + "?" + requestParams.queryParmaeters
+            return requestParams.path + "?" + requestParams.queryParameters
         case .liAcceptSolutionClient:
             return "solutions_data"
         case .liReportAbuseClient:
