@@ -58,22 +58,22 @@ struct LiAppCredentials {
      */
     internal init(clientId: String, clientSecret: String, communityURL: String, tenantID: String, apiProxyHost: String, clientAppName: String) {
         if clientId == "" {
-            print("SDK initalization failed: LiClientId is missing.")
+            fatalError("SDK initalization failed: LiClientId is missing.")
         }
         if clientSecret == "" {
-            print("SDK initalization failed: LiClientSecret is missing.")
+            fatalError("SDK initalization failed: LiClientSecret is missing.")
         }
         if communityURL == "" {
-            print("SDK initalization failed: LiCommunityUrl is missing.")
+            fatalError("SDK initalization failed: LiCommunityUrl is missing.")
         }
         if tenantID == "" {
-            print("SDK initalization failed: LiTenantId is missing.")
+            fatalError("SDK initalization failed: LiTenantId is missing.")
         }
         if apiProxyHost == "" {
-            print("SDK initalization failed: LiApiProxyHost is missing.")
+            fatalError("SDK initalization failed: LiApiProxyHost is missing.")
         }
         if clientAppName == "" {
-            print("SDK initalization failed: LiClientAppName is missing.")
+            fatalError("SDK initalization failed: LiClientAppName is missing.")
         }
         self.clientId = clientId
         self.clientSecret = clientSecret

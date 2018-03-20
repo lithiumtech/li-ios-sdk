@@ -46,7 +46,7 @@ public final class LiSDKManager {
                         apiProxyHost = SDKKeys["LiApiProxyHost"]?.trimmingCharacters(in: .whitespaces) ?? ""
                         clientAppName = SDKKeys["LiClientAppName"] ?? "communityId-sdk"
                     } else {
-                        print("SDK initalization failed: LiAPICredentials are missing.")
+                        fatalError("SDK initalization failed: LiAPICredentials are missing.")
                     }
                 }
             } catch let error {
@@ -60,6 +60,7 @@ public final class LiSDKManager {
     /// Returns the singleton instance of `LiSDKManager`.
     public static let sharedInstance = LiSDKManager()
     public var liAuthState: LiAuthState = LiAuthState()
+    public let clientManager: LiClientManager = LiClientManager()
     /**
      This function should used to get response_limit and discussion_style set by admin from the community server.
      */
