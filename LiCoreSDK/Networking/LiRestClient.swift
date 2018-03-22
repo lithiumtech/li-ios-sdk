@@ -35,10 +35,10 @@ class LiRestClient {
                             if let path = response.request?.url?.path.contains("becon") {
                                 if path {
                                     if let visitLastIssueTime = response.response?.allHeaderFields["Visit-Last-Issue-Time"] as? String {
-                                        LiSDKManager.sharedInstance.liAuthState.set(visitLastIssueTime: visitLastIssueTime)
+                                        LiSDKManager.shared().liAuthState.set(visitLastIssueTime: visitLastIssueTime)
                                     }
                                     if let visitOriginTime = response.response?.allHeaderFields["Visit-Origin-Time"] as? String {
-                                        LiSDKManager.sharedInstance.liAuthState.set(visitOriginTime: visitOriginTime)
+                                        LiSDKManager.shared().liAuthState.set(visitOriginTime: visitOriginTime)
                                     }
                                 }
                             }
@@ -72,7 +72,7 @@ class LiRestClient {
     private func accessToken <T: Router> (client: T, isValid: @escaping (Bool, Error?) -> Void) {
 //        isValid(true, nil)
 //        return
-        if !LiSDKManager.sharedInstance.liAuthManager.isUserLoggedIn() {
+        if !LiSDKManager.shared().liAuthManager.isUserLoggedIn() {
             isValid(true, nil)
         } else {
             if isAccessTokenValid() {
@@ -81,11 +81,11 @@ class LiRestClient {
                 oauthHandler.refreshTokens(completion: { succeeded, accessToken, refreshToken, expiresIn, error in
                     if succeeded {
                         if let accessToken = accessToken, let refreshToken = refreshToken, let expiresIn = expiresIn {
-                            LiSDKManager.sharedInstance.liAuthState.set(accessToken: accessToken)
-                            LiSDKManager.sharedInstance.liAuthState.set(refreshToken: refreshToken)
+                            LiSDKManager.shared().liAuthState.set(accessToken: accessToken)
+                            LiSDKManager.shared().liAuthState.set(refreshToken: refreshToken)
                             let currentDate = NSDate()
                             let newDate = NSDate(timeInterval: expiresIn, since: currentDate as Date)
-                            LiSDKManager.sharedInstance.liAuthState.set(expiryDate: newDate)
+                            LiSDKManager.shared().liAuthState.set(expiryDate: newDate)
                         }
                         isValid(true, nil)
                     } else {
@@ -97,7 +97,7 @@ class LiRestClient {
     }
     private func isAccessTokenValid() -> Bool {
         let todaysDate = NSDate()
-        if let waitingDate: NSDate = LiSDKManager.sharedInstance.liAuthState.expiryDate {
+        if let waitingDate: NSDate = LiSDKManager.shared().liAuthState.expiryDate {
             if todaysDate.compare(waitingDate as Date) == ComparisonResult.orderedDescending {
                 return false
             } else {

@@ -18,20 +18,17 @@ import Alamofire
 /**
  This class contains immutable copy of your community app credentials.
 */
-struct LiAppCredentials {
+public struct LiAppCredentials {
     /**
      Client id as set in Community API apps.
-     Default value is read from the application's Info.plist under `LiClientId` key.
     */
     internal let clientId: String
     /**
     Client secret as set in Community API apps.
-    Default value is read from the application's Info.plist under `LiClientSecret` key.
     */
     internal let clientSecret: String
     /**
     Community URL as set in Community API apps.
-    Default value is read from the application's Info.plist under `LiCommunityUrl` key.
     */
     internal let communityURL: String
     ///URL used to make authorization call. It's obtained by appending path to the community url
@@ -40,23 +37,27 @@ struct LiAppCredentials {
     internal let redirectURL: String
     /**
     Tenant Id as set in Community API apps.
-    Default value is read from the application's Info.plist under `LiTenantId` key.
     */
     internal let tenantID: String
     /**
     Api proxy host as set in Community API apps.
-    Default value is read from the application's Info.plist under `LiApiProxyHost` key.
     */
     internal let apiProxyHost: String
     /**
     Client app name as set in Community API apps.
-    Default value is read from the application's Info.plist under `LiClientAppName` key.
     */
     internal let clientAppName: String
     /**
      Creates a new instance of `LiAppCredentials`.
+     
+     - parameter clientId: Client id as set in Community API apps.
+     - parameter clientSecret: Client secret as set in Community API apps.
+     - parameter communityURL: Community URL as set in Community API apps.
+     - parameter tenantID: Tenant Id as set in Community API apps.
+     - parameter apiProxyHost: Api proxy host as set in Community API apps.
+     - parameter clientAppName: Client app name as set in Community API apps.
      */
-    internal init(clientId: String, clientSecret: String, communityURL: String, tenantID: String, apiProxyHost: String, clientAppName: String) {
+    public init(clientId: String, clientSecret: String, communityURL: String, tenantID: String, apiProxyHost: String, clientAppName: String) {
         if clientId == "" {
             fatalError("SDK initalization failed: LiClientId is missing.")
         }
@@ -86,6 +87,7 @@ struct LiAppCredentials {
     }
     /**
      Funtion to return URLRequest that initiates Lithium login.
+     
      - returns: URLRequest containing the url and parameters for login.
  */
     func getURL() throws -> URLRequest {

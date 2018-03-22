@@ -355,7 +355,7 @@ public struct LiDeviceIdFetchClientRequestParams: LiClientRequestParams {
         self.pushNotificationProvider = pushNotificationProvider.rawValue
     }
     public func getPostParams() -> [String: Any] {
-        let params: [String: Any] = ["type": LiQueryConstant.ResponseType.liUserDeviceIdFetchType, "device_id": deviceId, "client_id": LiSDKManager.sharedInstance.liAppCredentials.clientId, "push_notification_provider": pushNotificationProvider, "application_type": LiQueryConstant.ResponseType.liApplicationType]
+        let params: [String: Any] = ["type": LiQueryConstant.ResponseType.liUserDeviceIdFetchType, "device_id": deviceId, "client_id": LiSDKManager.shared().liAppCredentials.clientId, "push_notification_provider": pushNotificationProvider, "application_type": LiQueryConstant.ResponseType.liApplicationType]
         return params
     }
     public enum NotificationProviders: String {

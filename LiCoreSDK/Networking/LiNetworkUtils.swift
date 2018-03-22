@@ -17,21 +17,21 @@ struct LiUrlConstructor {
     static func getBaseURL(client: LiClient) -> String {
         let clientName: String
         let apiProxyHost: String
-        if let tenantId = LiSDKManager.sharedInstance.liAuthState.tenantId {
+        if let tenantId = LiSDKManager.shared().liAuthState.tenantId {
             clientName = tenantId
         } else {
-            clientName = LiSDKManager.sharedInstance.liAppCredentials.tenantID
+            clientName = LiSDKManager.shared().liAppCredentials.tenantID
         }
-        if let apiProxy = LiSDKManager.sharedInstance.liAuthState.apiProxyHost {
+        if let apiProxy = LiSDKManager.shared().liAuthState.apiProxyHost {
             apiProxyHost = apiProxy
         } else {
-            apiProxyHost = LiSDKManager.sharedInstance.liAppCredentials.apiProxyHost
+            apiProxyHost = LiSDKManager.shared().liAppCredentials.apiProxyHost
         }
         switch client {
         case .liUploadImageClient, .liCreateReplyClient, .liKudoClient, .liBeaconClient, .liNoLiqlClient, .liMessagesClient, .liRepliesClient, .liSearchClient, .liCategoryClient, .liBoardsByDepthClient, .liCategoryBoardsClient, .liMessagesByBoardIdClient, .liFloatedMessagesClient, .liCreateMessageClient, .liSdkSettingsClient, .liUserSubscriptionsClient, .liUserMessagesClient, .liUserDetailsClient, .liMessageClient, .liMessagesByIdsClient, .liAcceptSolutionClient, .liReportAbuseClient, .liDeviceIdFetchClient, .liCreateUserClient, .liSubscriptionPostClient, .liSubscriptionDeleteClient, .liMarkMessagePostClient, .liMarkMessagesPostClient, .liMarkTopicPostClient, .liUpdateMessageClient, .liUpdateUserClient, .liGenericPutClient, .liGenericPostClient, .liDeviceIdUpdateClient, .liGenericGetClient, .liGenericDeleteClient, .liMessageDeleteClient, .liUnKudoClient:
             return "https://" + apiProxyHost + "/community/2.0/" + clientName
         case .liSSOTokenRequest:
-            return LiSDKManager.sharedInstance.liAppCredentials.communityURL
+            return LiSDKManager.shared().liAppCredentials.communityURL
         case .getAccessToken, .refreshAccessToken:
             return "https://" + apiProxyHost
         }

@@ -16,51 +16,41 @@ import Foundation
 public final class LiSDKManager {
     //Mark: - Internal
     var liAppCredentials: LiAppCredentials
+    private static var sharedInstance: LiSDKManager!
+    var visitorId: String? {
+        return UserDefaults.standard.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitorId)
+    }
+    private init(credentials: LiAppCredentials) {
+        liAppCredentials = credentials
+        LiSDKManager.sharedInstance = self
+    }
+    //MARK: - Public
+    public var liAuthState: LiAuthState = LiAuthState()
+    public let clientManager: LiClientManager = LiClientManager()
     public lazy var liAuthManager: LiAuthManager = {
         [unowned self] in
         let liAuthManager = LiAuthManager(sdkManager: self)
         return liAuthManager
     }()
-    var visitorId: String? {
-        return UserDefaults.standard.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitorId)
+    /**
+     Use this function to congfigure community credentials.
+     Note: Call this function before using any SDK functionality. Preferably in AppDelegate on app launch.
+     
+     - parameter credentials: LiAppCredentials object
+    */
+    public class func setup(credentials: LiAppCredentials) {
+        sharedInstance = LiSDKManager(credentials: credentials)
     }
-    private init() {
-        var clientId: String = ""
-        var clientSecret: String = ""
-        var communityURL: String = ""
-        var tenantID: String = ""
-        var apiProxyHost: String = ""
-        var clientAppName: String = ""
-        if UserDefaults.standard.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitorId) == nil {
-            UserDefaults.standard.set(UUID.init().uuidString.replacingOccurrences(of: "-", with: ""), forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitorId)
+    /**
+     Returns the sharedInstance for the LiSDKManager singleton.
+     Note: This will throw a fatalError if this function is called before calling `setup`.
+    */
+    public static func shared() -> LiSDKManager {
+        if LiSDKManager.sharedInstance == nil {
+            fatalError("Please call setup function before using this class.")
         }
-        if let fileUrl = Bundle.main.url(forResource: "Info", withExtension: "plist") {
-            do {
-                let data = try Data(contentsOf: fileUrl)
-                if let result = try PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? [String: Any] {
-                    if let SDKKeys = result["LiAPICredentials"] as? [String: String] {
-                        clientId = SDKKeys["LiClientId"]?.trimmingCharacters(in: .whitespaces) ?? ""
-                        clientSecret = SDKKeys["LiClientSecret"]?.trimmingCharacters(in: .whitespaces) ?? ""
-                        communityURL = SDKKeys["LiCommunityUrl"]?.trimmingCharacters(in: .whitespaces) ?? ""
-                        tenantID = SDKKeys["LiTenantId"]?.trimmingCharacters(in: .whitespaces) ?? ""
-                        apiProxyHost = SDKKeys["LiApiProxyHost"]?.trimmingCharacters(in: .whitespaces) ?? ""
-                        clientAppName = SDKKeys["LiClientAppName"] ?? "communityId-sdk"
-                    } else {
-                        fatalError("SDK initalization failed: LiAPICredentials are missing.")
-                    }
-                }
-            } catch let error {
-                print("SDK initalization failed: \(error)")
-            }
-        }
-        let cred = LiAppCredentials(clientId: clientId, clientSecret: clientSecret, communityURL: communityURL, tenantID: tenantID, apiProxyHost: apiProxyHost, clientAppName: clientAppName)
-        liAppCredentials = cred
+        return sharedInstance
     }
-    //MARK: - Public
-    /// Returns the singleton instance of `LiSDKManager`.
-    public static let sharedInstance = LiSDKManager()
-    public var liAuthState: LiAuthState = LiAuthState()
-    public let clientManager: LiClientManager = LiClientManager()
     /**
      This function should used to get response_limit and discussion_style set by admin from the community server.
      */
