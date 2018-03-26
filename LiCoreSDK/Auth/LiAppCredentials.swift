@@ -60,7 +60,7 @@ public struct LiAppCredentials {
     public init(clientId: String, clientSecret: String, communityURL: String, tenantID: String, apiProxyHost: String, clientAppName: String) throws {
         self.clientId = try LiUtils.nonEmptyStringCheck(value: clientId, errorMessage: "SDK initalization failed: clientId cannot be empty.")
         self.clientSecret = try LiUtils.nonEmptyStringCheck(value: clientSecret, errorMessage: "SDK initalization failed: clientSecret cannot be empty.")
-        self.communityURL = try LiUtils.nonEmptyStringCheck(value: communityURL, errorMessage: "SDK initalization failed: communityURL cannot be empty.")
+        self.communityURL = try LiUtils.urlValidation(url: communityURL, message: "SDK initalization failed: communityURL is in invalid format")
         self.tenantID = try LiUtils.nonEmptyStringCheck(value: tenantID, errorMessage: "SDK initalization failed: tenantID cannot be empty.")
         self.apiProxyHost = try LiUtils.nonEmptyStringCheck(value: apiProxyHost, errorMessage: "SDK initalization failed: apiProxyHost cannot be empty.")
         self.clientAppName = try LiUtils.nonEmptyStringCheck(value: clientAppName, errorMessage: "SDK initalization failed: clientAppName cannot be empty.")
@@ -73,11 +73,7 @@ public struct LiAppCredentials {
      - returns: URLRequest containing the url and parameters for login.
      */
     func getURL() throws -> URLRequest {
-        guard communityURL != "" else {
-            throw LiBaseError(errorMessage: "Invalid LiCommunityUrl", httpCode: 0)
-        }
         guard let url = URL(string: authorizeURL) else {
-            print("SDK initalization failed: invalid LiCommunityUrl.")
             throw LiBaseError(errorMessage: "Invalid LiCommunityUrl", httpCode: 0)
         }
         let urlRequest = URLRequest(url: url)

@@ -17,7 +17,7 @@ public final class LiSDKManager {
     //Mark: - Internal
     var liAppCredentials: LiAppCredentials
     private static var sharedInstance: LiSDKManager!
-    var visitorId: String? {
+    private(set) var visitorId: String? {
         get {
             return UserDefaults.standard.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitorId)
         }

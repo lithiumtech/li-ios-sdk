@@ -10,9 +10,9 @@ import Quick
 import Nimble
 @testable import LiCoreSDK
 
-class LiSDKManagerTests:  QuickSpec {
+class LiSDKManagerTests: QuickSpec {
     override func spec() {
-        let cred = LiAppCredentials(clientId: "a", clientSecret: "a", communityURL: "a", tenantID: "a", apiProxyHost: "a", clientAppName: "a")
+        let cred = try! LiAppCredentials(clientId: "a", clientSecret: "a", communityURL: "a", tenantID: "a", apiProxyHost: "a", clientAppName: "a")
         describe("LiSDKManager") {
             LiSDKManager.setup(credentials: cred)
             context("Calling setup before using shared instance") {
