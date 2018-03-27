@@ -135,7 +135,7 @@ extension LiClient {
         case .refreshAccessToken:
             return "/auth/v1/refreshToken"
         case .liSSOTokenRequest:
-            return "/" + LiSDKManager.sharedInstance.liAppCredentials.tenantID + "/api/2.0/auth/authorize"
+            return "/" + LiSDKManager.shared().liAppCredentials.tenantID + "/api/2.0/auth/authorize"
         case .liKudoClient(let requestParams):
             return "/messages/" + requestParams.messageId  + "/kudos"
         case .liUploadImageClient:
@@ -201,14 +201,14 @@ extension LiClient {
         }
     }
     internal var headers: HTTPHeaders {
-        let clientID = LiSDKManager.sharedInstance.liAppCredentials.clientId
-        let clientAppName = LiSDKManager.sharedInstance.liAppCredentials.clientAppName
-        let accessToken = LiSDKManager.sharedInstance.liAuthState.accessToken
+        let clientID = LiSDKManager.shared().liAppCredentials.clientId
+        let clientAppName = LiSDKManager.shared().liAppCredentials.clientAppName
+        let accessToken = LiSDKManager.shared().liAuthState.accessToken
         var headers: [String: String]
-        let visitorId = LiSDKManager.sharedInstance.visitorId ?? ""
+        let visitorId = LiSDKManager.shared().visitorId ?? ""
         switch self {
         case .getAccessToken, .refreshAccessToken, .liSSOTokenRequest, .liMessagesClient, .liRepliesClient, .liKudoClient, .liUploadImageClient, .liCreateReplyClient, .liSearchClient, .liNoLiqlClient, .liCategoryClient, .liBoardsByDepthClient, .liCategoryBoardsClient, .liMessagesByBoardIdClient, .liFloatedMessagesClient, .liCreateMessageClient, .liSdkSettingsClient, .liUserSubscriptionsClient, .liUserMessagesClient, .liUserDetailsClient, .liMessageClient, .liMessagesByIdsClient, .liAcceptSolutionClient, .liReportAbuseClient, .liDeviceIdFetchClient, .liCreateUserClient, .liSubscriptionPostClient, .liSubscriptionDeleteClient, .liMarkMessagePostClient, .liMarkMessagesPostClient, .liMarkTopicPostClient, .liUpdateMessageClient, .liUpdateUserClient, .liDeviceIdUpdateClient, .liGenericGetClient, .liGenericDeleteClient, .liMessageDeleteClient, .liUnKudoClient:
-            if LiSDKManager.sharedInstance.liAuthManager.isUserLoggedIn() {
+            if LiSDKManager.shared().liAuthManager.isUserLoggedIn() {
                 headers = ["client-id": clientID, "Authorization": "Bearer " + (accessToken ?? ""), "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json"]
             } else {
                 headers = ["client-id": clientID, "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json"]
@@ -224,24 +224,24 @@ extension LiClient {
                 headers.update(other: additionalHttpHeaders)
             }
         case .liBeaconClient:
-            if LiSDKManager.sharedInstance.liAuthManager.isUserLoggedIn() {
+            if LiSDKManager.shared().liAuthManager.isUserLoggedIn() {
                 headers = ["client-id": clientID, "Authorization": "Bearer " + (accessToken ?? ""), "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json"]
             } else {
                 headers = ["client-id": clientID, "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json"]
             }
-            if let visitLastIssueTime = LiSDKManager.sharedInstance.liAuthState.visitLastIssueTime {
+            if let visitLastIssueTime = LiSDKManager.shared().liAuthState.visitLastIssueTime {
                 headers["Visit-Last-Issue-Time"] = visitLastIssueTime
             }
-            if let visitOriginTime = LiSDKManager.sharedInstance.liAuthState.visitOriginTime {
+            if let visitOriginTime = LiSDKManager.shared().liAuthState.visitOriginTime {
                 headers["Visit-Origin-Time"] = visitOriginTime
             }
         }
         return headers
     }
     internal var parameters: Parameters? {
-        let clientID =  LiSDKManager.sharedInstance.liAppCredentials.clientId
-        let clientSecret = LiSDKManager.sharedInstance.liAppCredentials.clientSecret
-        let redirectUri = LiSDKManager.sharedInstance.liAppCredentials.redirectURL
+        let clientID =  LiSDKManager.shared().liAppCredentials.clientId
+        let clientSecret = LiSDKManager.shared().liAppCredentials.clientSecret
+        let redirectUri = LiSDKManager.shared().liAppCredentials.redirectURL
         switch self {
         case .getAccessToken(let code):
             return ["code": code,
@@ -250,7 +250,7 @@ extension LiClient {
                     "client_secret": clientSecret,
                     "grant_type": "authorization_code"]
         case .refreshAccessToken:
-            let refreshToken = LiSDKManager.sharedInstance.liAuthState.refreshToken
+            let refreshToken = LiSDKManager.shared().liAuthState.refreshToken
             return ["refresh_token": refreshToken ?? "",
                     "client_id": clientID,
                     "client_secret": clientSecret,

@@ -40,11 +40,11 @@ class SSOHandler: RequestRetrier {
                             return
                         }
                         if let accessToken = accessToken, let refreshToken = refreshToken, let expiresIn = expiresIn {
-                            LiSDKManager.sharedInstance.liAuthState.set(accessToken: accessToken)
-                            LiSDKManager.sharedInstance.liAuthState.set(refreshToken: refreshToken)
+                            LiSDKManager.shared().liAuthState.set(accessToken: accessToken)
+                            LiSDKManager.shared().liAuthState.set(refreshToken: refreshToken)
                             let currentDate = NSDate()
                             let newDate = NSDate(timeInterval: expiresIn, since: currentDate as Date)
-                            LiSDKManager.sharedInstance.liAuthState.set(expiryDate: newDate)
+                            LiSDKManager.shared().liAuthState.set(expiryDate: newDate)
                         }
                         strongSelf.requestsToRetry.forEach { $0(succeeded, 0.0) }
                         strongSelf.requestsToRetry.removeAll()

@@ -27,6 +27,7 @@ public typealias LiErrorResponse = (_ error: Error) -> Void
  Use this class to perform network calls to clients.
  */
 public struct LiClientManager {
+    internal init() {}
     /**
      This method performs network calls to the provided client.
      
@@ -34,7 +35,7 @@ public struct LiClientManager {
      - parameter success:   Closure containing the success response in the form of an array of objects conforming to LiBaseModel protocol from the network call.
      - parameter error:     Closure containing the failure response from the network call.
      */
-    public static func request(client: LiClient, success: @escaping LiSuccessResponse, failure: @escaping LiErrorResponse) {
+    public func request(client: LiClient, success: @escaping LiSuccessResponse, failure: @escaping LiErrorResponse) {
         switch client {
         case .liUploadImageClient:
             LiRestClient.sharedInstance.upload(client: client, success: { (response: LiBaseResponse) in
