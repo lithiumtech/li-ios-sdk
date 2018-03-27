@@ -17,8 +17,13 @@ public final class LiSDKManager {
     //Mark: - Internal
     var liAppCredentials: LiAppCredentials
     private static var sharedInstance: LiSDKManager!
-    var visitorId: String? {
-        return UserDefaults.standard.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitorId)
+    private(set) var visitorId: String? {
+        get {
+            return UserDefaults.standard.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitorId)
+        }
+        set (value) {
+            UserDefaults.standard.set(value, forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitorId)
+        }
     }
     private init(credentials: LiAppCredentials) {
         liAppCredentials = credentials
@@ -31,20 +36,23 @@ public final class LiSDKManager {
         [unowned self] in
         let liAuthManager = LiAuthManager(sdkManager: self)
         return liAuthManager
-    }()
+        }()
     /**
      Use this function to congfigure community credentials.
      Note: Call this function before using any SDK functionality. Preferably in AppDelegate on app launch.
      
      - parameter credentials: LiAppCredentials object
-    */
+     */
     public class func setup(credentials: LiAppCredentials) {
         sharedInstance = LiSDKManager(credentials: credentials)
+        if sharedInstance.visitorId == nil {
+            sharedInstance.visitorId = UUID.init().uuidString.replacingOccurrences(of: "-", with: "")
+        }
     }
     /**
      Returns the sharedInstance for the LiSDKManager singleton.
      Note: This will throw a fatalError if this function is called before calling `setup`.
-    */
+     */
     public static func shared() -> LiSDKManager {
         if LiSDKManager.sharedInstance == nil {
             fatalError("Please call setup function before using this class.")
@@ -56,7 +64,6 @@ public final class LiSDKManager {
      */
     public func syncSettings() {
         if liAuthManager.isUserLoggedIn() {
-            //TODO: - Add do catch
             let requestParams = try! LiSdkSettingsClientRequestParams(clientId: liAppCredentials.clientId)
             LiRestClient.sharedInstance.request(client: LiClient.liSdkSettingsClient(requestParams: requestParams), success: { (response: LiBaseResponse) in
                 if let settingsArray = response.data["items"] as? [[String:Any]] {
