@@ -98,6 +98,8 @@
 		2AD7010F1E9511AE0045D9EC /* LiClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C264B1E9395EA00A7786A /* LiClientManager.swift */; };
 		2AD701101E9513BF0045D9EC /* LiRestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C26461E93916E00A7786A /* LiRestClient.swift */; };
 		2AD701111E9513C30045D9EC /* LiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C264D1E93974500A7786A /* LiClient.swift */; };
+		2ADC3FFA207C7C3900D19318 /* LiApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC3FF9207C7C3900D19318 /* LiApiResponse.swift */; };
+		2ADC3FFB207C7C3900D19318 /* LiApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC3FF9207C7C3900D19318 /* LiApiResponse.swift */; };
 		2AE3898F1FDA9B8000866588 /* LiAppSdkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3898E1FDA9B8000866588 /* LiAppSdkSettings.swift */; };
 		2AE389901FDA9B8000866588 /* LiAppSdkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3898E1FDA9B8000866588 /* LiAppSdkSettings.swift */; };
 		2AE389951FDE7A3300866588 /* LiAuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE389941FDE7A3300866588 /* LiAuthState.swift */; };
@@ -304,6 +306,7 @@
 		2AC66CAF2068C30700ABFBA9 /* LiAppCredentialsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiAppCredentialsTests.swift; sourceTree = "<group>"; };
 		2ACD227F2007AFDE00BD1961 /* LiRanking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiRanking.swift; sourceTree = "<group>"; };
 		2AD4E25F1FB5989600184F3E /* LiQueryClause.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiQueryClause.swift; sourceTree = "<group>"; };
+		2ADC3FF9207C7C3900D19318 /* LiApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiApiResponse.swift; sourceTree = "<group>"; };
 		2AE3898E1FDA9B8000866588 /* LiAppSdkSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiAppSdkSettings.swift; sourceTree = "<group>"; };
 		2AE389941FDE7A3300866588 /* LiAuthState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiAuthState.swift; sourceTree = "<group>"; };
 		2AE389971FDFCE4A00866588 /* LiSSOAuthResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiSSOAuthResponse.swift; sourceTree = "<group>"; };
@@ -525,6 +528,7 @@
 				2A553C641EB9CD37001BF346 /* SSOHandler.swift */,
 				2AAEC2D51F398A820094295A /* LiImageUpload.swift */,
 				2A69BEB71FAC643C004682A6 /* LiRestResponse.swift */,
+				2ADC3FF9207C7C3900D19318 /* LiApiResponse.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -947,6 +951,7 @@
 				2A7C264E1E93974500A7786A /* LiClient.swift in Sources */,
 				2AE876E91EF2745300491680 /* LiDefaultQueryHelper.swift in Sources */,
 				2A2309BE2007C02A002090D1 /* LiRankingDisplay.swift in Sources */,
+				2ADC3FFA207C7C3900D19318 /* LiApiResponse.swift in Sources */,
 				2AA0AA141F0A3C1B0044DE45 /* LiBoard.swift in Sources */,
 				2A7C264C1E9395EA00A7786A /* LiClientManager.swift in Sources */,
 				2A5A35421F2F1BC500A30565 /* LiImageResponse.swift in Sources */,
@@ -1013,6 +1018,7 @@
 				2A5694FF1E9CD95300850867 /* LiBaseResponse.swift in Sources */,
 				2AE389991FDFCE4A00866588 /* LiSSOAuthResponse.swift in Sources */,
 				2A2E33AC204FD33600EDEAFE /* LiUtils.swift in Sources */,
+				2ADC3FFB207C7C3900D19318 /* LiApiResponse.swift in Sources */,
 				2AA0AA181F0A4FD20044DE45 /* LiUser.swift in Sources */,
 				2AE3899C1FDFDEDD00866588 /* LiCoreSDKConstants.swift in Sources */,
 				2A69BEB91FAC643C004682A6 /* LiRestResponse.swift in Sources */,

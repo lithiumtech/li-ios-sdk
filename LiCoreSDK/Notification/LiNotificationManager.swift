@@ -23,7 +23,7 @@ public struct LiNotificationManager {
      - parameter notificationProvider: Your notification provider. Possible values - 'APNS', 'FIREBASE'
      */
     public static func add(deviceToken: String, notificationProvider: String) {
-        //TODO:- Handel errors here
+        //TODO:- Handle errors here
         let requestParams = try! LiDeviceIdFetchClientRequestParams(deviceId: deviceToken, pushNotificationProvider: notificationProvider)
         LiRestClient.sharedInstance.request(client: LiClient.liDeviceIdFetchClient(requestParams: requestParams), success: { (response: LiBaseResponse) in
             if let notificationId = response.data["id"] as? String {
@@ -38,7 +38,6 @@ public struct LiNotificationManager {
      - parameter deviceToken: Updated device token from the `didRegisterForRemoteNotificationsWithDeviceToken` method in AppDelegate.
      */
     public static func update(deviceToken: String) {
-        //TODO: - get notificationId
         let id = LiSDKManager.shared().liAuthState.notificationId ?? ""
         let requestParams = try! LiDeviceIdUpdateClientRequestParams(deviceId: deviceToken, id: id)
         LiRestClient.sharedInstance.request(client: LiClient.liDeviceIdUpdateClient(requestParams: requestParams), success: { (_: LiBaseResponse) in

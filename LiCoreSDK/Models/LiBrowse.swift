@@ -18,7 +18,7 @@ public class LiBrowse: LiBaseModel {
     public private(set) var title: String?
     public private(set) var depth: Int?
     public private(set) var parent: LiBrowse?
-    public init(data: [String: Any]) {
+    public required init(data: [String: Any]) {
         self.id = data["id"] as? String
         self.title = data["title"] as? String
         self.depth = data["depth"] as? Int

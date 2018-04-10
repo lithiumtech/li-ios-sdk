@@ -14,7 +14,9 @@
 
 import Foundation
 
-public protocol LiBaseModel {}
+public protocol LiBaseModel {
+    init(data: [String: Any])
+}
 
 public class LiMessage: LiBaseModel {
     public private(set) var board: LiBoard?
@@ -38,7 +40,7 @@ public class LiMessage: LiBaseModel {
     public private(set) var weight: Int?
     ///Url for the message
     public private(set) var viewHref: String?
-    init(data: [String: Any]) {
+    public required init(data: [String: Any]) {
         if let id = data["id"] as? String {
             self.id = id
         }
