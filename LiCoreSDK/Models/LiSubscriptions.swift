@@ -18,7 +18,7 @@ public struct LiSubscriptions: LiBaseModel {
     public private(set) var type: String?
     public private(set) var targetObject: [String: Any]?
     public private(set) var user: LiUser?
-    init(data: [String: Any]) {
+    public init(data: [String: Any]) {
         self.id = data["id"] as? String
         self.type = data["type"] as? String
         self.targetObject = data["target"] as? [String: Any]

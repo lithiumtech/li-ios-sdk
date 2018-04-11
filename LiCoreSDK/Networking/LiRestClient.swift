@@ -24,6 +24,18 @@ class LiRestClient {
     init() {
         sessionManager.retrier = oauthHandler
     }
+    fileprivate func logBeaconCall(_ response: (DataResponse<Any>)) {
+        if let path = response.request?.url?.path.contains("becon") {
+            if path {
+                if let visitLastIssueTime = response.response?.allHeaderFields["Visit-Last-Issue-Time"] as? String {
+                    LiSDKManager.shared().liAuthState.set(visitLastIssueTime: visitLastIssueTime)
+                }
+                if let visitOriginTime = response.response?.allHeaderFields["Visit-Origin-Time"] as? String {
+                    LiSDKManager.shared().liAuthState.set(visitOriginTime: visitOriginTime)
+                }
+            }
+        }
+    }
     func request <T: Router> (client: T, success: @escaping Success, failure: @escaping Failure) {
         accessToken(client: client) { [weak self] (isValid, error) in
             guard let strongSelf = self else { return }
@@ -32,16 +44,7 @@ class LiRestClient {
                     switch response.result {
                     case .success:
                         do {
-                            if let path = response.request?.url?.path.contains("becon") {
-                                if path {
-                                    if let visitLastIssueTime = response.response?.allHeaderFields["Visit-Last-Issue-Time"] as? String {
-                                        LiSDKManager.shared().liAuthState.set(visitLastIssueTime: visitLastIssueTime)
-                                    }
-                                    if let visitOriginTime = response.response?.allHeaderFields["Visit-Origin-Time"] as? String {
-                                        LiSDKManager.shared().liAuthState.set(visitOriginTime: visitOriginTime)
-                                    }
-                                }
-                            }
+                            strongSelf.logBeaconCall(response)
                             let data = try LiApiResponse.getLiBaseResponse(data: response.data)
                             success(data)
                         } catch let error {
@@ -70,8 +73,6 @@ class LiRestClient {
         }
     }
     private func accessToken <T: Router> (client: T, isValid: @escaping (Bool, Error?) -> Void) {
-//        isValid(true, nil)
-//        return
         if !LiSDKManager.shared().liAuthManager.isUserLoggedIn() {
             isValid(true, nil)
         } else {
@@ -105,33 +106,5 @@ class LiRestClient {
             }
         }
         return false
-    }
-}
-struct LiApiResponse {
-    static func getLiBaseResponse(data: Data?) throws -> LiBaseResponse {
-        if let validData = data {
-            do {
-                let data = try LiBaseResponse(responseData: validData)
-                return data
-            } catch let error as LiBaseError {
-                throw error
-            } catch let error {
-                throw error
-            }
-        } else {
-            throw LiBaseError(errorMessage: "Server returned no response.", httpCode: LiCoreSDKConstants.LiErrorCodes.noResponseFound)
-        }
-    }
-    static func getLiBaseError(data: Data?) throws -> LiBaseError {
-        if let validData = data {
-            do {
-                let data = try LiBaseError(errorData: validData)
-                return data
-            } catch let error {
-                throw error
-            }
-        } else {
-            throw LiBaseError(errorMessage: "Server returned no response.", httpCode: LiCoreSDKConstants.LiErrorCodes.noResponseFound)
-        }
     }
 }

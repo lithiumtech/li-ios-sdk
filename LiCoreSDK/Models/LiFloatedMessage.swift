@@ -20,7 +20,7 @@ public struct LiFloatedMessage: LiBaseModel {
     public private(set) var user: LiUser?
     public private(set) var message: LiMessage?
     public private(set) var scope: String?
-    init(data: [String: Any]) {
+    public init(data: [String: Any]) {
         self.id = data["id"] as? String
         self.href = data["href"] as? String
         if let messageData = data["message"] as? [String: Any] {

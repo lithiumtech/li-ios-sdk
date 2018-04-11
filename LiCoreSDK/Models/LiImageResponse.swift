@@ -17,7 +17,7 @@ import UIKit
 ///Model representing the reponse from liUploadImageClient
 public struct LiImageResponse: LiBaseModel {
     public private(set) var id: String?
-    init(data: [String: Any]) {
+    public init(data: [String: Any]) {
         self.id = data["id"] as? String
     }
 }
