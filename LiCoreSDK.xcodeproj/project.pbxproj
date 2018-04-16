@@ -43,8 +43,6 @@
 		2A63415C203EC31A0057D9A3 /* LiClientRequestParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A63415B203EC31A0057D9A3 /* LiClientRequestParamsTests.swift */; };
 		2A682E4C1EADBD85004EDEAF /* LiAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A682E4B1EADBD85004EDEAF /* LiAuthManager.swift */; };
 		2A682E4D1EADBD85004EDEAF /* LiAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A682E4B1EADBD85004EDEAF /* LiAuthManager.swift */; };
-		2A69BEB81FAC643C004682A6 /* LiRestResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A69BEB71FAC643C004682A6 /* LiRestResponse.swift */; };
-		2A69BEB91FAC643C004682A6 /* LiRestResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A69BEB71FAC643C004682A6 /* LiRestResponse.swift */; };
 		2A7943CD1EA89966009ED79B /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A7943B61EA89959009ED79B /* Nimble.framework */; };
 		2A7943CE1EA89976009ED79B /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A7943B81EA89959009ED79B /* Quick.framework */; };
 		2A7943D81EA899E5009ED79B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A7943D21EA899D9009ED79B /* Alamofire.framework */; };
@@ -166,7 +164,6 @@
 		2A5A35411F2F1BC500A30565 /* LiImageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiImageResponse.swift; sourceTree = "<group>"; };
 		2A63415B203EC31A0057D9A3 /* LiClientRequestParamsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiClientRequestParamsTests.swift; sourceTree = "<group>"; };
 		2A682E4B1EADBD85004EDEAF /* LiAuthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiAuthManager.swift; sourceTree = "<group>"; };
-		2A69BEB71FAC643C004682A6 /* LiRestResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiRestResponse.swift; sourceTree = "<group>"; };
 		2A7943A31EA890A5009ED79B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		2A7943A61EA8983E009ED79B /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		2A7943A71EA8983E009ED79B /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
@@ -527,7 +524,6 @@
 				2A7C26461E93916E00A7786A /* LiRestClient.swift */,
 				2A553C641EB9CD37001BF346 /* SSOHandler.swift */,
 				2AAEC2D51F398A820094295A /* LiImageUpload.swift */,
-				2A69BEB71FAC643C004682A6 /* LiRestResponse.swift */,
 				2ADC3FF9207C7C3900D19318 /* LiApiResponse.swift */,
 			);
 			path = Networking;
@@ -927,7 +923,6 @@
 				2AE389951FDE7A3300866588 /* LiAuthState.swift in Sources */,
 				2A7D8BB120480127009596BF /* LiUtils.swift in Sources */,
 				2A90749C1EFA632800D4F2AF /* LiClientConfig.swift in Sources */,
-				2A69BEB81FAC643C004682A6 /* LiRestResponse.swift in Sources */,
 				2A682E4C1EADBD85004EDEAF /* LiAuthManager.swift in Sources */,
 				2A9ECDCF200F482C00801C26 /* LiAuthorizationDelegate.swift in Sources */,
 				2A553C6F1EBC6E81001BF346 /* LiClientRequestParams.swift in Sources */,
@@ -1021,7 +1016,6 @@
 				2ADC3FFB207C7C3900D19318 /* LiApiResponse.swift in Sources */,
 				2AA0AA181F0A4FD20044DE45 /* LiUser.swift in Sources */,
 				2AE3899C1FDFDEDD00866588 /* LiCoreSDKConstants.swift in Sources */,
-				2A69BEB91FAC643C004682A6 /* LiRestResponse.swift in Sources */,
 				2AE876EA1EF2745300491680 /* LiDefaultQueryHelper.swift in Sources */,
 				2AD4E2611FB5989600184F3E /* LiQueryClause.swift in Sources */,
 				2AAAD9B91E9C999C00E9C40F /* LiAvatar.swift in Sources */,

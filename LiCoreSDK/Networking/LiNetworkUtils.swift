@@ -15,25 +15,13 @@
 import Foundation
 struct LiUrlConstructor {
     static func getBaseURL(client: LiClient) -> String {
-        let clientName: String
-        let apiProxyHost: String
-        if let tenantId = LiSDKManager.shared().liAuthState.tenantId {
-            clientName = tenantId
-        } else {
-            clientName = LiSDKManager.shared().liAppCredentials.tenantID
-        }
-        if let apiProxy = LiSDKManager.shared().liAuthState.apiProxyHost {
-            apiProxyHost = apiProxy
-        } else {
-            apiProxyHost = LiSDKManager.shared().liAppCredentials.apiProxyHost
-        }
+        let clientName: String = LiSDKManager.shared().liAppCredentials.tenantID
+        let communityURL: String = LiSDKManager.shared().liAppCredentials.communityURL
         switch client {
-        case .liUploadImageClient, .liCreateReplyClient, .liKudoClient, .liBeaconClient, .liNoLiqlClient, .liMessagesClient, .liRepliesClient, .liSearchClient, .liCategoryClient, .liBoardsByDepthClient, .liCategoryBoardsClient, .liMessagesByBoardIdClient, .liFloatedMessagesClient, .liCreateMessageClient, .liSdkSettingsClient, .liUserSubscriptionsClient, .liUserMessagesClient, .liUserDetailsClient, .liMessageClient, .liMessagesByIdsClient, .liAcceptSolutionClient, .liReportAbuseClient, .liDeviceIdFetchClient, .liCreateUserClient, .liSubscriptionPostClient, .liSubscriptionDeleteClient, .liMarkMessagePostClient, .liMarkMessagesPostClient, .liMarkTopicPostClient, .liUpdateMessageClient, .liUpdateUserClient, .liGenericPutClient, .liGenericPostClient, .liDeviceIdUpdateClient, .liGenericGetClient, .liGenericDeleteClient, .liMessageDeleteClient, .liUnKudoClient:
-            return "https://" + apiProxyHost + "/community/2.0/" + clientName
+        case .liUploadImageClient, .liCreateReplyClient, .liKudoClient, .liBeaconClient, .liNoLiqlClient, .liMessagesClient, .liRepliesClient, .liSearchClient, .liCategoryClient, .liBoardsByDepthClient, .liCategoryBoardsClient, .liMessagesByBoardIdClient, .liFloatedMessagesClient, .liCreateMessageClient, .liSdkSettingsClient, .liUserSubscriptionsClient, .liUserMessagesClient, .liUserDetailsClient, .liMessageClient, .liMessagesByIdsClient, .liAcceptSolutionClient, .liReportAbuseClient, .liDeviceIdFetchClient, .liCreateUserClient, .liSubscriptionPostClient, .liSubscriptionDeleteClient, .liMarkMessagePostClient, .liMarkMessagesPostClient, .liMarkTopicPostClient, .liUpdateMessageClient, .liUpdateUserClient, .liGenericPutClient, .liGenericPostClient, .liDeviceIdUpdateClient, .liGenericGetClient, .liGenericDeleteClient, .liMessageDeleteClient, .liUnKudoClient, .getAccessToken, .refreshAccessToken:
+            return communityURL + "/" + clientName + "/api/2.0/"
         case .liSSOTokenRequest:
             return LiSDKManager.shared().liAppCredentials.communityURL
-        case .getAccessToken, .refreshAccessToken:
-            return "https://" + apiProxyHost
         }
     }
     static func getLiqlQuery(client: LiClient) -> String {
