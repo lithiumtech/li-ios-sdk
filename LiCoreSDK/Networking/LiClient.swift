@@ -131,9 +131,9 @@ extension LiClient {
     internal var path: String {
         switch self {
         case .getAccessToken:
-            return "/auth/v1/accessToken"
+            return "auth/accessToken"
         case .refreshAccessToken:
-            return "/auth/v1/refreshToken"
+            return "auth/refreshToken"
         case .liSSOTokenRequest:
             return "/" + LiSDKManager.shared().liAppCredentials.tenantID + "/api/2.0/auth/authorize"
         case .liKudoClient(let requestParams):
@@ -187,12 +187,9 @@ extension LiClient {
     }
     internal var method: HTTPMethod {
         switch self {
-        case .getAccessToken, .refreshAccessToken, .liSSOTokenRequest:
-            return .post
-        //Clients
         case .liMessagesClient, .liMessagesByBoardIdClient, .liSdkSettingsClient, .liUserSubscriptionsClient, .liCategoryBoardsClient, .liBoardsByDepthClient, .liRepliesClient, .liSearchClient, .liUserMessagesClient, .liCategoryClient, .liUserDetailsClient, .liMessageClient, .liFloatedMessagesClient, .liMessagesByIdsClient, .liGenericGetClient, .liNoLiqlClient:
             return .get
-        case .liKudoClient, .liAcceptSolutionClient, .liCreateMessageClient, .liCreateReplyClient, .liUploadImageClient, .liReportAbuseClient, .liDeviceIdFetchClient, .liDeviceIdUpdateClient, .liCreateUserClient, .liMarkMessagePostClient, .liMarkMessagesPostClient, .liMarkTopicPostClient, .liSubscriptionPostClient, .liGenericPostClient, .liBeaconClient:
+        case .getAccessToken, .refreshAccessToken, .liSSOTokenRequest, .liKudoClient, .liAcceptSolutionClient, .liCreateMessageClient, .liCreateReplyClient, .liUploadImageClient, .liReportAbuseClient, .liDeviceIdFetchClient, .liDeviceIdUpdateClient, .liCreateUserClient, .liMarkMessagePostClient, .liMarkMessagesPostClient, .liMarkTopicPostClient, .liSubscriptionPostClient, .liGenericPostClient, .liBeaconClient:
             return .post
         case .liUnKudoClient, .liSubscriptionDeleteClient, .liGenericDeleteClient, .liMessageDeleteClient:
             return .delete
@@ -204,37 +201,30 @@ extension LiClient {
         let clientID = LiSDKManager.shared().liAppCredentials.clientId
         let clientAppName = LiSDKManager.shared().liAppCredentials.clientAppName
         let accessToken = LiSDKManager.shared().liAuthState.accessToken
-        var headers: [String: String]
         let visitorId = LiSDKManager.shared().visitorId ?? ""
+        var headers: [String: String] = ["client-id": clientID, "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json" ]
+        if LiSDKManager.shared().liAuthManager.isUserLoggedIn() {
+            headers["Authorization"] = "Bearer " + (accessToken ?? "")
+            headers["Auth-Service-Authorization"] = "default"
+        }
         switch self {
-        case .getAccessToken, .refreshAccessToken, .liSSOTokenRequest, .liMessagesClient, .liRepliesClient, .liKudoClient, .liUploadImageClient, .liCreateReplyClient, .liSearchClient, .liNoLiqlClient, .liCategoryClient, .liBoardsByDepthClient, .liCategoryBoardsClient, .liMessagesByBoardIdClient, .liFloatedMessagesClient, .liCreateMessageClient, .liSdkSettingsClient, .liUserSubscriptionsClient, .liUserMessagesClient, .liUserDetailsClient, .liMessageClient, .liMessagesByIdsClient, .liAcceptSolutionClient, .liReportAbuseClient, .liDeviceIdFetchClient, .liCreateUserClient, .liSubscriptionPostClient, .liSubscriptionDeleteClient, .liMarkMessagePostClient, .liMarkMessagesPostClient, .liMarkTopicPostClient, .liUpdateMessageClient, .liUpdateUserClient, .liDeviceIdUpdateClient, .liGenericGetClient, .liGenericDeleteClient, .liMessageDeleteClient, .liUnKudoClient:
-            if LiSDKManager.shared().liAuthManager.isUserLoggedIn() {
-                headers = ["client-id": clientID, "Authorization": "Bearer " + (accessToken ?? ""), "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json"]
-            } else {
-                headers = ["client-id": clientID, "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json"]
-            }
         case .liGenericPutClient(let requestParams):
-            headers = ["client-id": clientID, "Authorization": "Bearer " + (accessToken ?? ""), "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json"]
             if let additionalHttpHeaders = requestParams.additionalHttpHeaders {
                 headers.update(other: additionalHttpHeaders)
             }
         case .liGenericPostClient(let requestParams):
-            headers = ["client-id": clientID, "Authorization": "Bearer " + (accessToken ?? ""), "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json"]
             if let additionalHttpHeaders = requestParams.additionalHttpHeaders {
                 headers.update(other: additionalHttpHeaders)
             }
         case .liBeaconClient:
-            if LiSDKManager.shared().liAuthManager.isUserLoggedIn() {
-                headers = ["client-id": clientID, "Authorization": "Bearer " + (accessToken ?? ""), "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json"]
-            } else {
-                headers = ["client-id": clientID, "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json"]
-            }
             if let visitLastIssueTime = LiSDKManager.shared().liAuthState.visitLastIssueTime {
                 headers["Visit-Last-Issue-Time"] = visitLastIssueTime
             }
             if let visitOriginTime = LiSDKManager.shared().liAuthState.visitOriginTime {
                 headers["Visit-Origin-Time"] = visitOriginTime
             }
+        default:
+            break
         }
         return headers
     }
@@ -351,12 +341,9 @@ extension LiClient {
     }
     internal var encoding: ParameterEncoding {
         switch  self {
-        case .getAccessToken, .refreshAccessToken, .liSSOTokenRequest:
-            return JSONEncoding.prettyPrinted
-        //clients
         case .liMessagesClient, .liMessagesByBoardIdClient, .liSdkSettingsClient, .liUserSubscriptionsClient, .liCategoryBoardsClient, .liBoardsByDepthClient, .liRepliesClient, .liSearchClient, .liUserMessagesClient, .liCategoryClient, .liUserDetailsClient, .liMessageClient, .liFloatedMessagesClient, .liMessagesByIdsClient, .liGenericGetClient, .liUnKudoClient, .liSubscriptionDeleteClient, .liGenericDeleteClient, .liMessageDeleteClient, .liNoLiqlClient:
             return URLEncoding.queryString
-        case .liKudoClient, .liAcceptSolutionClient, .liCreateMessageClient, .liCreateReplyClient, .liUploadImageClient, .liReportAbuseClient, .liDeviceIdFetchClient, .liDeviceIdUpdateClient, .liCreateUserClient, .liMarkMessagePostClient, .liMarkMessagesPostClient, .liMarkTopicPostClient, .liSubscriptionPostClient, .liGenericPostClient, .liUpdateMessageClient, .liUpdateUserClient, .liGenericPutClient, .liBeaconClient:
+        case .getAccessToken, .refreshAccessToken, .liSSOTokenRequest, .liKudoClient, .liAcceptSolutionClient, .liCreateMessageClient, .liCreateReplyClient, .liUploadImageClient, .liReportAbuseClient, .liDeviceIdFetchClient, .liDeviceIdUpdateClient, .liCreateUserClient, .liMarkMessagePostClient, .liMarkMessagesPostClient, .liMarkTopicPostClient, .liSubscriptionPostClient, .liGenericPostClient, .liUpdateMessageClient, .liUpdateUserClient, .liGenericPutClient, .liBeaconClient:
             return JSONEncoding.prettyPrinted
         }
     }
@@ -386,13 +373,6 @@ extension LiClient {
             return response
         } catch let error {
             throw error
-        }
-    }
-}
-extension Dictionary {
-    mutating func update(other: Dictionary) {
-        for (key, value) in other {
-            self.updateValue(value, forKey:key)
         }
     }
 }

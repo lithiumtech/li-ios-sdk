@@ -68,12 +68,7 @@ class SSOHandler: RequestRetrier {
                     if let responseData = response.data {
                         do {
                             let json =  try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
-                            if let jsonData = json?["response"] as? [String: Any] {
-                                guard let data = jsonData["data"] as? [String: Any] else {
-                                    let error = LiBaseError(data: jsonData)
-                                    completion(false, nil, nil, nil, error)
-                                    return
-                                }
+                            if let data = json?["data"] as? [String: Any] {
                                 let accessToken = data["access_token"] as? String
                                 let refreshToken = data["refresh_token"] as? String
                                 let expiresIn = data["expires_in"] as? Double
