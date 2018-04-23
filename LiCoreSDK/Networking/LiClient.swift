@@ -137,7 +137,7 @@ extension LiClient {
         case .liSSOTokenRequest:
             return "/" + LiSDKManager.shared().liAppCredentials.tenantID + "/api/2.0/auth/authorize"
         case .liKudoClient(let requestParams):
-            return "/messages/" + requestParams.messageId  + "/kudos"
+            return "messages/" + requestParams.messageId  + "/kudos"
         case .liUploadImageClient:
             return "images"
         case .liCreateReplyClient, .liCreateMessageClient:
