@@ -52,7 +52,8 @@ class LiAuthService {
                 vc = LiLoginViewController(url: url, sdkManager: sdkManager)
                 vc?.delegate = self
                 guard let vc = vc else { return }
-                fromViewController.present(vc, animated: true, completion: nil)
+                let navController = UINavigationController(rootViewController: vc)
+                fromViewController.present(navController, animated: true, completion: nil)
             } catch let error {
                 self.authDelegate?.login(status: false, userId: nil, error: error)
             }
