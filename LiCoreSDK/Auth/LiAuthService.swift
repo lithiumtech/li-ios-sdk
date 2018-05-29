@@ -27,7 +27,7 @@ class LiAuthService {
     /// SSO token for login
     let ssoToken: String?
     var webView: UIWebView?
-    var vc: LiLoginViewController?
+    var loginViewController: LiLoginViewController?
     weak var authDelegate: InternalLiLoginDelegate?
     var sdkManager: LiSDKManager
     /**
@@ -49,9 +49,9 @@ class LiAuthService {
                  Performs login using webView.
                  */
                 let url = try sdkManager.liAppCredentials.getURL()
-                vc = LiLoginViewController(url: url, sdkManager: sdkManager)
-                vc?.delegate = self
-                guard let vc = vc else { return }
+                loginViewController = LiLoginViewController(url: url, sdkManager: sdkManager)
+                loginViewController?.delegate = self
+                guard let vc = loginViewController else { return }
                 let navController = UINavigationController(rootViewController: vc)
                 fromViewController.present(navController, animated: true, completion: nil)
             } catch let error {
@@ -100,7 +100,7 @@ extension LiAuthService: LiLoginViewControllerProtocol {
                 let lithiumUserID = response.data["lithiumUserId"] as? String,
                 let expiresIn = response.data["expires_in"] as? Double else {
                     let error = LiBaseError(errorMessage: "Invalid access token received", httpCode: LiCoreSDKConstants.LiErrorCodes.httpCodeForbidden)
-                    self.vc?.dismiss(animated: true, completion: nil)
+                    self.loginViewController?.dismiss(animated: true, completion: nil)
                     self.authDelegate?.login(status: false, userId: nil, error: error)
                     return
             }
@@ -112,11 +112,11 @@ extension LiAuthService: LiLoginViewControllerProtocol {
             let newDate = NSDate(timeInterval: expiresIn, since: currentDate as Date)
             self.sdkManager.liAuthState.set(expiryDate: newDate)
             self.sdkManager.liAuthState.loginSuccessfull()
-            self.vc?.dismiss(animated: true, completion: { self.vc?.delegate = nil })
+            self.loginViewController?.dismiss(animated: true, completion: { self.loginViewController?.delegate = nil })
             self.authDelegate?.login(status: true, userId: userID, error: nil)
             return
         }) { (error) in
-            self.vc?.dismiss(animated: true, completion: nil)
+            self.loginViewController?.dismiss(animated: true, completion: nil)
             self.authDelegate?.login(status: false, userId: nil, error:error)
         }
     }
