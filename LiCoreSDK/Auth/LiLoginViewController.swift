@@ -38,18 +38,25 @@ class LiLoginViewController: UIViewController, UIWebViewDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    override func viewDidLoad() {
-        let nav = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 64))
-        self.view.addSubview(nav)
-        let navItem = UINavigationItem(title: "Login")
-        let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(LiLoginViewController.onClose))
-        navItem.rightBarButtonItem = cancelItem
-        nav.setItems([navItem], animated: false)
-        let webViewFrame = CGRect(x: 0, y: 65, width: self.view.frame.size.width, height: self.view.frame.size.height - 65)
-        let webView = UIWebView(frame: webViewFrame)
+    fileprivate func setupWebView() {
+        let webView = UIWebView()
+        webView.translatesAutoresizingMaskIntoConstraints = false
         webView.loadRequest(url)
         webView.delegate = self
         self.view.addSubview(webView)
+        webView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        webView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        webView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        webView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+    fileprivate func setupTitle() {
+        title = "Login"
+        let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(LiLoginViewController.onClose))
+        self.navigationItem.setRightBarButton(cancelItem, animated: true)
+    }
+    override func viewDidLoad() {
+        setupTitle()
+        setupWebView()
     }
     func onClose() {
         self.dismiss(animated: true)
