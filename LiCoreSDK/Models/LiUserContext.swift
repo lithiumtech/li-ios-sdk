@@ -18,11 +18,13 @@ public struct LiUserContext {
     public private(set) var isRead: Bool?
     public private(set) var canKudo: Bool?
     public private(set) var canReply: Bool?
+    public private(set) var canDelete: Bool?
     public init(data: [String: Any]) {
         self.kudo = data["kudo"] as? Bool
         self.isRead = data["read"] as? Bool
         self.canKudo = data["can_kudo"] as? Bool
         self.canReply = data["can_reply"] as? Bool
+        self.canDelete = data["can_delete"] as? Bool
     }
     ///Method used to update kudo/unkudo state of message with respect to current user.
     /// - parameter value: `true` for kudo and `false` for unkudo.
@@ -33,13 +35,5 @@ public struct LiUserContext {
     /// - parameter value: `true` for read and `false` for unread.
     mutating public func set(isRead: Bool?) {
         self.isRead = isRead
-    }
-    ///Method used to update kudo/unkudo state of message with respect to current user.
-    /// - parameter value: `true` for kudo and `false` for unkudo.
-    /// - returns: new LiUserContext object containting the updated vaule.
-    public func updateKudo(value: Bool) -> LiUserContext {
-        var newUserContext = self
-        newUserContext.kudo = value
-        return newUserContext
     }
 }
