@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1114" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kqD-W4-g15">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Li Home View Controller-->
+        <scene sceneID="DlE-tJ-91q">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="kqD-W4-g15" customClass="LiHomeViewController" customModule="LiSDKUIComponents" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HKq-es-Wi6"/>
+                        <viewControllerLayoutGuide type="bottom" id="xAG-gi-ANz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IiG-Da-LLj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="92" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="bGz-aU-GFI">
+                                <rect key="frame" x="0.0" y="68" width="375" height="599"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Lithium Community" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4td-sc-nhb">
+                                <rect key="frame" x="16" y="27" width="197" height="26"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PAy-Yo-AJk" customClass="LiButton" customModule="LiSDKUIComponents" customModuleProvider="target">
+                                <rect key="frame" x="334" y="31" width="17" height="18"/>
+                                <state key="normal" image="li-PlusIcon"/>
+                                <connections>
+                                    <action selector="onAdd:" destination="kqD-W4-g15" eventType="touchUpInside" id="wEd-rD-HGW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cXq-XY-Ki4" customClass="LiButton" customModule="LiSDKUIComponents" customModuleProvider="target">
+                                <rect key="frame" x="293" y="27.5" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="B3C-6d-Atw"/>
+                                    <constraint firstAttribute="height" constant="25" id="v8J-pj-i7s"/>
+                                </constraints>
+                                <state key="normal" image="li-profileImage"/>
+                                <connections>
+                                    <action selector="onProfile:" destination="kqD-W4-g15" eventType="touchUpInside" id="1Sg-x2-JAQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PAy-Yo-AJk" firstAttribute="leading" secondItem="cXq-XY-Ki4" secondAttribute="trailing" constant="16" id="0yh-0I-OVh"/>
+                            <constraint firstItem="4td-sc-nhb" firstAttribute="leading" secondItem="IiG-Da-LLj" secondAttribute="leading" constant="16" id="AEd-En-EeP"/>
+                            <constraint firstItem="4td-sc-nhb" firstAttribute="top" secondItem="IiG-Da-LLj" secondAttribute="top" constant="27" id="EJS-0l-rds"/>
+                            <constraint firstItem="bGz-aU-GFI" firstAttribute="leading" secondItem="IiG-Da-LLj" secondAttribute="leading" id="IJx-wB-cJT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PAy-Yo-AJk" secondAttribute="trailing" constant="8" id="Oue-Dp-5I1"/>
+                            <constraint firstItem="PAy-Yo-AJk" firstAttribute="centerY" secondItem="4td-sc-nhb" secondAttribute="centerY" id="VBy-h1-3um"/>
+                            <constraint firstItem="cXq-XY-Ki4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4td-sc-nhb" secondAttribute="trailing" priority="750" constant="8" symbolic="YES" id="YdP-U0-I3A"/>
+                            <constraint firstItem="bGz-aU-GFI" firstAttribute="top" secondItem="4td-sc-nhb" secondAttribute="bottom" constant="15" id="jmF-1o-HK1"/>
+                            <constraint firstItem="xAG-gi-ANz" firstAttribute="top" secondItem="bGz-aU-GFI" secondAttribute="bottom" id="t40-rY-Ie7"/>
+                            <constraint firstAttribute="trailing" secondItem="bGz-aU-GFI" secondAttribute="trailing" id="vvX-gQ-ORf"/>
+                            <constraint firstItem="cXq-XY-Ki4" firstAttribute="centerY" secondItem="4td-sc-nhb" secondAttribute="centerY" id="ysf-6J-a6o"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnAddOrSignIn" destination="PAy-Yo-AJk" id="uqd-Wt-gfz"/>
+                        <outlet property="btnProfile" destination="cXq-XY-Ki4" id="G91-7f-E8p"/>
+                        <outlet property="homeScreenTableView" destination="bGz-aU-GFI" id="E4k-Oh-829"/>
+                        <outlet property="lblCommunityName" destination="4td-sc-nhb" id="Pvg-iz-Fll"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BLd-6Z-SQj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1959.2" y="-121.88905547226388"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="li-PlusIcon" width="17" height="17"/>
+        <image name="li-profileImage" width="63" height="63"/>
+    </resources>
+</document>

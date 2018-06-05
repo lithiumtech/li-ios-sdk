@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1114" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LiMessageDetailTableViewCell" rowHeight="197" id="gxH-BK-Y0T" customClass="LiMessageDetailTableViewCell" customModule="LiSDKUIComponents" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="621" height="197"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gxH-BK-Y0T" id="mZd-yZ-ypJ">
+                <rect key="frame" x="0.0" y="0.0" width="621" height="197"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zFr-mb-l4E">
+                        <rect key="frame" x="20" y="18" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="gAi-Nj-eGk"/>
+                            <constraint firstAttribute="height" constant="30" id="wQE-jH-xUh"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What does the red ring of death mean?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqK-bW-YCJ">
+                        <rect key="frame" x="61" y="20" width="552" height="25.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <webView contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyE-mL-5r7">
+                        <rect key="frame" x="50" y="76.5" width="563" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="999" constant="1" identifier="1" id="kbh-jb-n8c"/>
+                        </constraints>
+                    </webView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gavin.douglas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOB-lw-Yol">
+                        <rect key="frame" x="61" y="48.5" width="92" height="17"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Eo-73-TDL" customClass="LiButton" customModule="LiSDKUIComponents" customModuleProvider="target">
+                        <rect key="frame" x="61" y="89.5" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="cUF-bH-IZ7"/>
+                            <constraint firstAttribute="height" constant="30" id="x8o-7a-AqC"/>
+                        </constraints>
+                        <state key="normal" image="li-Kudo"/>
+                        <connections>
+                            <action selector="onKudo:" destination="gxH-BK-Y0T" eventType="touchUpInside" id="pIY-Re-aIv"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OWI-WK-3mf">
+                        <rect key="frame" x="96" y="99.5" width="8" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 days ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jVx-U6-zGl">
+                        <rect key="frame" x="161" y="50.5" width="62" height="14.5"/>
+                        <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YLR-ip-4de" customClass="LiButton" customModule="LiSDKUIComponents" customModuleProvider="target">
+                        <rect key="frame" x="575" y="18" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="gqI-RM-6Vt"/>
+                            <constraint firstAttribute="width" constant="30" id="gxn-JL-dRb"/>
+                        </constraints>
+                        <state key="normal" image="li-action-menu"/>
+                        <connections>
+                            <action selector="onOptions:" destination="gxH-BK-Y0T" eventType="touchUpInside" id="h7l-Pl-w4R"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="OWI-WK-3mf" firstAttribute="leading" secondItem="5Eo-73-TDL" secondAttribute="trailing" constant="5" identifier="id39" id="0sN-Rv-sbf"/>
+                    <constraint firstItem="oqK-bW-YCJ" firstAttribute="top" secondItem="mZd-yZ-ypJ" secondAttribute="topMargin" constant="12" identifier="idBetweenTitleAndMargin" id="CV8-48-H8u"/>
+                    <constraint firstItem="jVx-U6-zGl" firstAttribute="centerY" secondItem="OOB-lw-Yol" secondAttribute="centerY" id="KcC-zL-1S5"/>
+                    <constraint firstItem="oqK-bW-YCJ" firstAttribute="leading" secondItem="zFr-mb-l4E" secondAttribute="trailing" constant="11" identifier="id25" id="LOr-CW-wom"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="jyE-mL-5r7" secondAttribute="trailing" identifier="id27" id="Ol8-BI-0nb"/>
+                    <constraint firstItem="5Eo-73-TDL" firstAttribute="top" secondItem="jyE-mL-5r7" secondAttribute="bottom" constant="12" id="PZ2-Cq-jz7"/>
+                    <constraint firstItem="zFr-mb-l4E" firstAttribute="leading" secondItem="mZd-yZ-ypJ" secondAttribute="leadingMargin" constant="12" identifier="id23" id="RQf-xh-aHL"/>
+                    <constraint firstItem="5Eo-73-TDL" firstAttribute="leading" secondItem="OOB-lw-Yol" secondAttribute="leading" id="U6k-Ug-AcM"/>
+                    <constraint firstItem="OWI-WK-3mf" firstAttribute="centerY" secondItem="5Eo-73-TDL" secondAttribute="centerY" constant="2" identifier="id40" id="Usq-de-Aja"/>
+                    <constraint firstItem="zFr-mb-l4E" firstAttribute="top" secondItem="mZd-yZ-ypJ" secondAttribute="topMargin" constant="10" identifier="id24" id="Vpd-wa-BEz"/>
+                    <constraint firstItem="OOB-lw-Yol" firstAttribute="top" secondItem="oqK-bW-YCJ" secondAttribute="bottom" constant="3" id="a8y-eC-AGI"/>
+                    <constraint firstItem="OOB-lw-Yol" firstAttribute="leading" secondItem="zFr-mb-l4E" secondAttribute="trailing" constant="11" identifier="id29" id="aGc-cc-3G8"/>
+                    <constraint firstAttribute="trailing" secondItem="YLR-ip-4de" secondAttribute="trailing" constant="16" id="j0m-qo-tDn"/>
+                    <constraint firstItem="jyE-mL-5r7" firstAttribute="leading" secondItem="zFr-mb-l4E" secondAttribute="trailing" identifier="id28" id="k6o-ld-z0W"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="oqK-bW-YCJ" secondAttribute="trailing" identifier="id26" id="mpL-dD-iAM"/>
+                    <constraint firstItem="jyE-mL-5r7" firstAttribute="top" secondItem="OOB-lw-Yol" secondAttribute="bottom" constant="11" id="mwu-Gd-KH0"/>
+                    <constraint firstItem="jVx-U6-zGl" firstAttribute="leading" secondItem="OOB-lw-Yol" secondAttribute="trailing" constant="8" symbolic="YES" id="nbc-mk-COd"/>
+                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="5Eo-73-TDL" secondAttribute="bottom" constant="16" id="wmv-ij-qC2"/>
+                    <constraint firstItem="YLR-ip-4de" firstAttribute="centerY" secondItem="oqK-bW-YCJ" secondAttribute="centerY" id="zTn-qM-hF2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="btnKudo" destination="5Eo-73-TDL" id="ADn-cO-qXE"/>
+                <outlet property="constrainAuthorImageWidth" destination="gAi-Nj-eGk" id="QWI-gP-MPg"/>
+                <outlet property="constrainHeightOfWebView" destination="kbh-jb-n8c" id="tf8-Bc-g9X"/>
+                <outlet property="constrainSpaceFromTitleToAuthorLabel" destination="a8y-eC-AGI" id="21F-sB-EdP"/>
+                <outlet property="imgAuthorImage" destination="zFr-mb-l4E" id="ba5-ss-CN9"/>
+                <outlet property="lblAuthorName" destination="OOB-lw-Yol" id="kiZ-tQ-kF3"/>
+                <outlet property="lblKudo" destination="OWI-WK-3mf" id="LHA-Tx-E1r"/>
+                <outlet property="lblMessageAge" destination="jVx-U6-zGl" id="qXz-c1-294"/>
+                <outlet property="lblMessageTitle" destination="oqK-bW-YCJ" id="mmW-Yl-ASy"/>
+                <outlet property="webViewMessageDetail" destination="jyE-mL-5r7" id="L2E-tW-kf2"/>
+            </connections>
+            <point key="canvasLocation" x="-9444" y="99"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="li-Kudo" width="18" height="20"/>
+        <image name="li-action-menu" width="9" height="6"/>
+    </resources>
+</document>

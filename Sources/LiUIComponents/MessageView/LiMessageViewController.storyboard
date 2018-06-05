@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1114" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="H04-Xh-MTM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Li Message View Controller-->
+        <scene sceneID="a51-aA-1Ig">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="H04-Xh-MTM" customClass="LiMessageViewController" customModule="LiSDKUIComponents" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="htb-e9-UGA"/>
+                        <viewControllerLayoutGuide type="bottom" id="g2v-Xt-MrL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ref-zK-cWi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WCk-Xm-WDc">
+                                <rect key="frame" x="0.0" y="20" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YwS-1w-AOI">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="WB4-AH-EDx"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem systemItem="action" id="P5G-wY-uTI" customClass="LiBarButton" customModule="LiSDKUIComponents" customModuleProvider="target">
+                                        <connections>
+                                            <action selector="onAction:" destination="H04-Xh-MTM" id="xWV-gD-Sje"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="eva-VS-Se1"/>
+                                    <barButtonItem systemItem="reply" id="wIJ-GL-6Hq" customClass="LiBarButton" customModule="LiSDKUIComponents" customModuleProvider="target">
+                                        <connections>
+                                            <action selector="onReply:" destination="H04-Xh-MTM" id="WKf-f3-chr"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2do-wo-NI1" userLabel="BorderLine">
+                                <rect key="frame" x="0.0" y="623" width="375" height="0.0"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="RzG-tV-jbc" userLabel="height = 0"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WCk-Xm-WDc" firstAttribute="top" secondItem="htb-e9-UGA" secondAttribute="bottom" id="6ex-jm-f6T"/>
+                            <constraint firstItem="g2v-Xt-MrL" firstAttribute="top" secondItem="YwS-1w-AOI" secondAttribute="bottom" id="80h-Fm-tHY"/>
+                            <constraint firstItem="YwS-1w-AOI" firstAttribute="leading" secondItem="ref-zK-cWi" secondAttribute="leading" id="TcJ-Ri-QQH"/>
+                            <constraint firstAttribute="trailing" secondItem="YwS-1w-AOI" secondAttribute="trailing" id="Y1R-O3-okM"/>
+                            <constraint firstItem="2do-wo-NI1" firstAttribute="top" secondItem="WCk-Xm-WDc" secondAttribute="bottom" id="ZCb-s6-43s"/>
+                            <constraint firstAttribute="trailing" secondItem="WCk-Xm-WDc" secondAttribute="trailing" id="c0m-2f-egH"/>
+                            <constraint firstAttribute="trailing" secondItem="2do-wo-NI1" secondAttribute="trailing" id="kUw-bi-2c1"/>
+                            <constraint firstItem="2do-wo-NI1" firstAttribute="leading" secondItem="ref-zK-cWi" secondAttribute="leading" id="ntf-9z-tpF"/>
+                            <constraint firstItem="YwS-1w-AOI" firstAttribute="top" secondItem="2do-wo-NI1" secondAttribute="bottom" id="sM7-gE-plz"/>
+                            <constraint firstItem="WCk-Xm-WDc" firstAttribute="leading" secondItem="ref-zK-cWi" secondAttribute="leading" id="tdf-EX-ZLR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnReply" destination="wIJ-GL-6Hq" id="F6D-Mu-nas"/>
+                        <outlet property="btnShare" destination="P5G-wY-uTI" id="x1T-A3-gnE"/>
+                        <outlet property="tableView" destination="WCk-Xm-WDc" id="bdO-nY-qvy"/>
+                        <outlet property="toolbar" destination="YwS-1w-AOI" id="2l0-0G-wKH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GM1-0y-3I2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="240.80000000000001" y="156.97151424287858"/>
+        </scene>
+    </scenes>
+</document>

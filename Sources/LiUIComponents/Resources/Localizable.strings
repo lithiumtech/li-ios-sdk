@@ -1,0 +1,101 @@
+// Copyright 2018 Lithium Technologies 
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// Text in LiMessageViewController
+"Accepted Solution" = "Accepted Solution";
+"Discussion" = "Discussion";
+"messages" = "messages";
+"Share post" = "Share post";
+"Report inappropriate content" = "Report inappropriate content";
+"Notify Moderator" ="Notify Moderator";
+"Tell us why you believe this content is inappropriate." = "Tell us why you believe this content is inappropriate.";
+"Reply to post" = "Reply to post";
+"Subscribe to topic" = "Subscribe to topic";
+"Message successfully reported." = "Message successfully reported.";
+"Report abuse" = "Report abuse";
+"Submit" = "Submit";
+"Report Submitted" = "Report Submitted";
+"Login error" = "Login error";
+// Text in LiHomeViewControllerTableViewDelegate
+"My Activity" = "My Activity";
+"Recent Activity" = "Recent Activity";
+"Browse community" = "Browse community";
+"Failed to retrive messages." = "Failed to retrive messages.";
+"Failed to retrive user activity." = "Failed to retrive user activity.";
+"Failed to retrive user data." = "Failed to retrive user data.";
+// Text in LiMessageDetailTableViewCell
+"Accept as Solution" = "Accept as Solution";
+"Accepted Solution" = "Accepted Solution";
+"anonymous" = "anonymous";
+"Yes" = "Yes";
+"No" = "No";
+"Delete message" = "Delete message";
+"Delete" = "Delete";
+"Are you sure you want to delete this message?" = "Are you sure you want to delete this message?";
+// Text in LiHelperFunctions
+"years ago" = "years ago";
+"1 year ago" = "1 year ago";
+"Last year" = "Last year";
+"months ago" = "months ago";
+"1 month ago" = "1 month ago";
+"last month" = "last month";
+"weeks ago" = "weeks ago";
+"1 week ago" = "1 week ago";
+"Last week" = "Last week";
+"days ago" = "days ago";
+"1 day ago" = "1 day ago";
+"Yesterday" = "Yesterday";
+"hours ago" = "hours ago";
+"1 hour ago" = "1 hour ago";
+"An hour ago" = "An hour ago";
+"minutes ago" = "minutes ago";
+"1 minute ago" = "1 minute ago";
+"A minute ago" = "A minute ago";
+"seconds ago" = "seconds ago";
+"Just now" = "Just now";
+// Text in LiNewMessageViewController
+"Post" = "Post";
+"Form incomplete" = "Form incomplete";
+"Please select the board you want to post the message in." = "Please select the board you want to post the message in.";
+"Topic cannot be empty." = "Topic cannot be empty.";
+"Post body cannot be empty." = "Post body cannot be empty.";
+"Ok" = "Ok";
+"Error" = "Error";
+"Please try again" = "Please try again.";
+"Add image" = "Add image";
+"Cancel" = "Cancel";
+"Photo Library" = "Photo Library";
+"Camera" = "Camera";
+// Text in LiReply
+"Reply" = "Reply";
+"Image compression failed" = "Image compression failed";
+"New Message" = "New Message";
+// Text in LiTopicNameTableViewCell
+"Topic:" = "Topic:";
+"Topic name" = "Topic name";
+// Text in LiBrowseViewController
+"No discussions yet" = "No discussions yet";
+//
+"Select board" = "Select board";
+"Post in" = "Post in";
+// Text in LiTopicListViewController
+"No results found." = "No results found.";
+// Text in LiProfileViewController
+"Profile" = "Profile";
+"Sign in" = "Sign in";
+"Sign out" = "Sign out";
+"Register" = "Register";
+// Text in LiClientService
+"Something went wrong. Please try again." = "Something went wrong. Please try again.";
+"Invalid data format" = "Invalid data format";
