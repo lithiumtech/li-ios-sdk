@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A03E8DD20D8C6E300B089E9 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35E920C13BEC00A98328 /* Alamofire.framework */; };
+		2A03E8DE20D8C6E300B089E9 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35E920C13BEC00A98328 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2A0C354F20C138CB00A98328 /* LiCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C354620C138CB00A98328 /* LiCore.framework */; };
 		2A0C355820C138CB00A98328 /* LiCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A0C354820C138CB00A98328 /* LiCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A0C355B20C138CB00A98328 /* LiCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C354620C138CB00A98328 /* LiCore.framework */; };
@@ -190,6 +192,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				2A0C355C20C138CB00A98328 /* LiCore.framework in Embed Frameworks */,
+				2A03E8DE20D8C6E300B089E9 /* Alamofire.framework in Embed Frameworks */,
 				2A27A98420C1466300AD2F77 /* LiUIComponents.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -372,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A0C355B20C138CB00A98328 /* LiCore.framework in Frameworks */,
+				2A03E8DD20D8C6E300B089E9 /* Alamofire.framework in Frameworks */,
 				2A27A98320C1466300AD2F77 /* LiUIComponents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -545,13 +549,13 @@
 				2A27A99C20C146A200AD2F77 /* Browse */,
 				2A27A98E20C146A200AD2F77 /* Common */,
 				2A27A9BB20C146A300AD2F77 /* HomeView */,
-				2A27A9CF20C146A300AD2F77 /* Images.xcassets */,
 				2A27A9A620C146A300AD2F77 /* MessageView */,
 				2A27A9B020C146A300AD2F77 /* NewMessage */,
 				2A27A9C020C146A300AD2F77 /* Profile */,
 				2A27A99320C146A200AD2F77 /* Resources */,
 				2A27A9A120C146A300AD2F77 /* TopicList */,
 				2A27A99620C146A200AD2F77 /* Utils */,
+				2A27A9CF20C146A300AD2F77 /* Images.xcassets */,
 				2A27A97020C1466300AD2F77 /* LiUIComponents.h */,
 				2A27A97120C1466300AD2F77 /* Info.plist */,
 			);
@@ -1537,6 +1541,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DD62CH3UG6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/LithiumExample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shek.LithiumExample;
@@ -1553,6 +1561,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DD62CH3UG6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/LithiumExample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shek.LithiumExample;

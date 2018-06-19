@@ -121,11 +121,12 @@ extension LiBaseNewMessageViewController: LiImagePostDelegate {
         if let imageURL = info[UIImagePickerControllerReferenceURL] as? URL {
             let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
             let asset = result.firstObject
-            imageFileName = asset?.value(forKey: "filename") as? String ?? "image.JPG"
+            imageFileName = asset?.value(forKey: "filename") as? String ?? LiUIConstants.defaultImageName
         }
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             selectedImage = image
             heightOfImage = (image.size.height / image.size.width) * view.frame.size.width
+            imageFileName = LiUIConstants.defaultImageName
             tableView.reloadData()
         }
     }

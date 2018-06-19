@@ -20,4 +20,5 @@ struct LiUIConstants {
         static let appleBlue = UIColor(red:0.00, green:0.52, blue:1.00, alpha:1.0)
         static let fadedGray = UIColor(red:0.78, green:0.78, blue:0.8, alpha:1.0)
     }
+    static let defaultImageName = "image.JPG"
 }
