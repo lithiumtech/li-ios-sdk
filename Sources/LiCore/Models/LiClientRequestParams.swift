@@ -358,10 +358,6 @@ public struct LiDeviceIdFetchClientRequestParams: LiClientRequestParams {
         let params: [String: Any] = ["type": LiQueryConstant.ResponseType.liUserDeviceIdFetchType, "device_id": deviceId, "client_id": LiSDKManager.shared().appCredentials.clientId, "push_notification_provider": pushNotificationProvider, "application_type": LiQueryConstant.ResponseType.liApplicationType]
         return params
     }
-    public enum NotificationProviders: String {
-        case apns = "APNS"
-        case firebase = "FIREBASE"
-    }
 }
 /// Model used to create liDeviceIdUpdateClient request parameters.
 public struct LiDeviceIdUpdateClientRequestParams: LiClientRequestParams {

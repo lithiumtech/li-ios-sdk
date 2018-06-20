@@ -13,20 +13,25 @@
 // limitations under the License.
 
 import Foundation
-public struct LiCoreSDKConstants {
-    public struct LiErrorCodes {
-        public static let httpCodeForbidden = 403
-        public static let httpCodeUnauthorized = 401
-        public static let httpCodeServerError = 500
-        public static let httpCodeServiceUnavailable = 503
+public struct LiCoreConstants {
+    public struct ErrorCodes {
+        public static let forbidden = 403
+        public static let unauthorized = 401
+        public static let serverError = 500
+        public static let serviceUnavailable = 503
         ///Thrown when unknown error json format is recieved.
         public static let jsonSyntaxError = 104
         public static let noResponseFound = 105
     }
-    public struct LiErrorMessages {
+    public struct ErrorMessages {
         public static let unknownError = "Something seems wrong with the service. Please try again."
+        public static let notLoggedInError = "User not logged in."
+        public static let invalidAccessToken = "Invalid access token received"
+        public static let invalidAuthCode = "Response does not contain authCode"
+        public static let refreshFailed = "Failed to refresh access token."
+        public static let noResponse = "Server returned no response."
     }
-    public struct LiUserDefaultConstants {
+    public struct UserDefaultConstants {
         public static let liAccessToken = "LiAccessToken"
         public static let liRefreshToken = "LiRefreshToken"
         public static let liUserId = "LiUserId"
@@ -38,5 +43,6 @@ public struct LiCoreSDKConstants {
         public static let liNotificationId = "LiNotificationId"
         public static let liTenantId = "LiTenantId"
         public static let liVisitorId = "LiVisitorId"
+        public static let liDeviceToken = "LiDeviceToken"
     }
 }

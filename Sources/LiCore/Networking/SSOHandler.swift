@@ -80,14 +80,14 @@ class SSOHandler: RequestRetrier {
                                     let error = LiBaseError(data: jsonData)
                                     completion(false, nil, nil, nil, error)
                                 } else {
-                                    completion(false, nil, nil, nil, LiBaseError(errorMessage: "Failed to refresh access token.", httpCode: LiCoreSDKConstants.LiErrorCodes.httpCodeServerError))
+                                    completion(false, nil, nil, nil, LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.refreshFailed, httpCode: LiCoreConstants.ErrorCodes.serverError))
                                 }
                             }
                         } catch let error {
                             completion(false, nil, nil, nil, error)
                         }
                     } else {
-                        completion(false, nil, nil, nil, LiBaseError(errorMessage: "Failed to refresh access token.", httpCode: LiCoreSDKConstants.LiErrorCodes.httpCodeUnauthorized))
+                        completion(false, nil, nil, nil, LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.refreshFailed, httpCode: LiCoreConstants.ErrorCodes.unauthorized))
                     }
                 case .failure:
                     completion(false, nil, nil, nil, response.error)

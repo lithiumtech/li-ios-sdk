@@ -61,7 +61,7 @@
 		2A0C35D720C13A0A00A98328 /* LiAppSdkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C35A420C13A0A00A98328 /* LiAppSdkSettings.swift */; };
 		2A0C35D820C13A0A00A98328 /* LiBaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C35A520C13A0A00A98328 /* LiBaseError.swift */; };
 		2A0C35D920C13A0A00A98328 /* LiBaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C35A620C13A0A00A98328 /* LiBaseResponse.swift */; };
-		2A0C35DA20C13A0A00A98328 /* LiCoreSDKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C35A720C13A0A00A98328 /* LiCoreSDKConstants.swift */; };
+		2A0C35DA20C13A0A00A98328 /* LiCoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C35A720C13A0A00A98328 /* LiCoreConstants.swift */; };
 		2A0C35DB20C13A0A00A98328 /* LiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C35A820C13A0A00A98328 /* LiError.swift */; };
 		2A0C35DC20C13A0A00A98328 /* LiUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C35A920C13A0A00A98328 /* LiUtils.swift */; };
 		2A0C35E220C13A2400A98328 /* LiClientRequestParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C35DD20C13A2300A98328 /* LiClientRequestParamsTests.swift */; };
@@ -137,6 +137,8 @@
 		2ADFE61720BEA48F006B3F83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ADFE61520BEA48F006B3F83 /* Main.storyboard */; };
 		2ADFE61920BEA48F006B3F83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2ADFE61820BEA48F006B3F83 /* Assets.xcassets */; };
 		2ADFE61C20BEA48F006B3F83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ADFE61A20BEA48F006B3F83 /* LaunchScreen.storyboard */; };
+		2AFC13BD20DA5643004A2E8B /* NotificationProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC13BC20DA5643004A2E8B /* NotificationProviders.swift */; };
+		2AFC13BE20DA5643004A2E8B /* NotificationProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC13BC20DA5643004A2E8B /* NotificationProviders.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -254,7 +256,7 @@
 		2A0C35A420C13A0A00A98328 /* LiAppSdkSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiAppSdkSettings.swift; sourceTree = "<group>"; };
 		2A0C35A520C13A0A00A98328 /* LiBaseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiBaseError.swift; sourceTree = "<group>"; };
 		2A0C35A620C13A0A00A98328 /* LiBaseResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiBaseResponse.swift; sourceTree = "<group>"; };
-		2A0C35A720C13A0A00A98328 /* LiCoreSDKConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiCoreSDKConstants.swift; sourceTree = "<group>"; };
+		2A0C35A720C13A0A00A98328 /* LiCoreConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiCoreConstants.swift; sourceTree = "<group>"; };
 		2A0C35A820C13A0A00A98328 /* LiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiError.swift; sourceTree = "<group>"; };
 		2A0C35A920C13A0A00A98328 /* LiUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiUtils.swift; sourceTree = "<group>"; };
 		2A0C35DD20C13A2300A98328 /* LiClientRequestParamsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiClientRequestParamsTests.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 		2ADFE61820BEA48F006B3F83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2ADFE61B20BEA48F006B3F83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2ADFE61D20BEA48F006B3F83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2AFC13BC20DA5643004A2E8B /* NotificationProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationProviders.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -523,9 +526,10 @@
 				2A0C35A420C13A0A00A98328 /* LiAppSdkSettings.swift */,
 				2A0C35A520C13A0A00A98328 /* LiBaseError.swift */,
 				2A0C35A620C13A0A00A98328 /* LiBaseResponse.swift */,
-				2A0C35A720C13A0A00A98328 /* LiCoreSDKConstants.swift */,
+				2A0C35A720C13A0A00A98328 /* LiCoreConstants.swift */,
 				2A0C35A820C13A0A00A98328 /* LiError.swift */,
 				2A0C35A920C13A0A00A98328 /* LiUtils.swift */,
+				2AFC13BC20DA5643004A2E8B /* NotificationProviders.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1025,6 +1029,7 @@
 				2A0C35CF20C13A0A00A98328 /* LiSDKManager.swift in Sources */,
 				2A0C35B220C13A0A00A98328 /* LiDefaultQueryHelper.swift in Sources */,
 				2A0C35C220C13A0A00A98328 /* LiMessage.swift in Sources */,
+				2AFC13BD20DA5643004A2E8B /* NotificationProviders.swift in Sources */,
 				2A0C35AC20C13A0A00A98328 /* LiAuthRequestStore.swift in Sources */,
 				2A0C35B420C13A0A00A98328 /* LiQueryClause.swift in Sources */,
 				2A0C35B720C13A0A00A98328 /* LiAvatar.swift in Sources */,
@@ -1053,7 +1058,7 @@
 				2A0C35C720C13A0A00A98328 /* LiSubscriptions.swift in Sources */,
 				2A0C35BA20C13A0A00A98328 /* LiClientRequestParams.swift in Sources */,
 				2A0C35CE20C13A0A00A98328 /* LiClientManager.swift in Sources */,
-				2A0C35DA20C13A0A00A98328 /* LiCoreSDKConstants.swift in Sources */,
+				2A0C35DA20C13A0A00A98328 /* LiCoreConstants.swift in Sources */,
 				2A0C35BB20C13A0A00A98328 /* LiConversation.swift in Sources */,
 				2A0C35D920C13A0A00A98328 /* LiBaseResponse.swift in Sources */,
 				2A0C35BF20C13A0A00A98328 /* LiImageMetaData.swift in Sources */,
@@ -1081,6 +1086,7 @@
 				2A0C35E220C13A2400A98328 /* LiClientRequestParamsTests.swift in Sources */,
 				2A0C35E420C13A2400A98328 /* LiAppCredentialsTests.swift in Sources */,
 				2A0C35E320C13A2400A98328 /* LiSDKManagerTests.swift in Sources */,
+				2AFC13BE20DA5643004A2E8B /* NotificationProviders.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

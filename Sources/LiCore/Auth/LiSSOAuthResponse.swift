@@ -22,7 +22,7 @@ public struct LiSSOAuthResponse {
     var userId: String?
     init(data: [String: Any]) throws {
         guard let authCode = data["code"] as? String else {
-            throw LiBaseError(errorMessage: "Response does not contain authCode", httpCode: LiCoreSDKConstants.LiErrorCodes.httpCodeForbidden)
+            throw LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.invalidAuthCode, httpCode: LiCoreConstants.ErrorCodes.forbidden)
         }
         self.authCode = authCode
         if let tenantId = data["tenant-id"] as? String {

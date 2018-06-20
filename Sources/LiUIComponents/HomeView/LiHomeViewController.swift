@@ -33,7 +33,7 @@ open class LiHomeViewController: UIViewController {
     ///Device token for notification
     var deviceToken: String?
     ///Notification provider
-    var notificationProvider: String?
+    var notificationProvider: NotificationProviders?
     /**
      This function return the instance of LiHomeViewController.
      
@@ -42,7 +42,7 @@ open class LiHomeViewController: UIViewController {
      - parameter deviceToken: Optional, device token from the `didRegisterForRemoteNotificationsWithDeviceToken` method in AppDelegate.
      - parameter notificationProvider: Optional, your notification provider. Possible values - 'APNS', 'FIREBASE'
      */
-    public static func makeHomeViewController(isSSOLogin: Bool, ssoToken: String?, deviceToken: String?, notificationProvider: String?) -> LiHomeViewController? {
+    public static func makeHomeViewController(isSSOLogin: Bool, ssoToken: String?, deviceToken: String?, notificationProvider: NotificationProviders?) -> LiHomeViewController? {
         guard let vc = UIStoryboard.init(name: "LiHomeViewController", bundle: Bundle(for: LiHomeViewController.self)).instantiateInitialViewController() as? LiHomeViewController else {
             print("Failed to inialize LiHomeViewController")
             return nil
