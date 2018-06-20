@@ -86,11 +86,7 @@ public class LiQueryBuilder {
             query.append(`where`)
             for index in 0..<queryWhereClauseSize {
                 query.append(space)
-                query.append(liQuerySetting.whereClauses[index].key)
-                query.append(space)
-                query.append(liQuerySetting.whereClauses[index].clause.getString())
-                query.append(space)
-                query.append(liQuerySetting.whereClauses[index].value)
+                query.append(liQuerySetting.whereClauses[index].toString())
                 if index < queryWhereClauseSize - 1 {
                     query.append(space)
                     query.append(liQuerySetting.whereClauses[index].operator)
@@ -101,9 +97,7 @@ public class LiQueryBuilder {
             query.append(space)
             query.append(orderBy)
             query.append(space)
-            query.append(ordering.key)
-            query.append(space)
-            query.append(ordering.type)
+            query.append(ordering.map{$0.toString()}.joined(separator: " ,"))
         }
         if let limitSetting = liQuerySetting.limit {
             query.append(space)

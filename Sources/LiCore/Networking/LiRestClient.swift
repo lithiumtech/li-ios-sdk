@@ -24,18 +24,6 @@ class LiRestClient {
     init() {
         sessionManager.retrier = oauthHandler
     }
-    fileprivate func logBeaconCall(_ response: (DataResponse<Any>)) {
-        if let path = response.request?.url?.path.contains("becon") {
-            if path {
-                if let visitLastIssueTime = response.response?.allHeaderFields["Visit-Last-Issue-Time"] as? String {
-                    LiSDKManager.shared().authState.set(visitLastIssueTime: visitLastIssueTime)
-                }
-                if let visitOriginTime = response.response?.allHeaderFields["Visit-Origin-Time"] as? String {
-                    LiSDKManager.shared().authState.set(visitOriginTime: visitOriginTime)
-                }
-            }
-        }
-    }
     func request <T: Router> (client: T, success: @escaping Success, failure: @escaping Failure) {
         accessToken(client: client) { [weak self] (isValid, error) in
             guard let strongSelf = self else { return }
@@ -106,5 +94,17 @@ class LiRestClient {
             }
         }
         return false
+    }
+    fileprivate func logBeaconCall(_ response: (DataResponse<Any>)) {
+        if let path = response.request?.url?.path.contains("becon") {
+            if path {
+                if let visitLastIssueTime = response.response?.allHeaderFields["Visit-Last-Issue-Time"] as? String {
+                    LiSDKManager.shared().authState.set(visitLastIssueTime: visitLastIssueTime)
+                }
+                if let visitOriginTime = response.response?.allHeaderFields["Visit-Origin-Time"] as? String {
+                    LiSDKManager.shared().authState.set(visitOriginTime: visitOriginTime)
+                }
+            }
+        }
     }
 }
