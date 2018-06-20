@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A03E8DD20D8C6E300B089E9 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35E920C13BEC00A98328 /* Alamofire.framework */; };
-		2A03E8DE20D8C6E300B089E9 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35E920C13BEC00A98328 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2A03E8DF20D90BE500B089E9 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35E920C13BEC00A98328 /* Alamofire.framework */; };
+		2A03E8E020D90BE500B089E9 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35E920C13BEC00A98328 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2A0C354F20C138CB00A98328 /* LiCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C354620C138CB00A98328 /* LiCore.framework */; };
 		2A0C355820C138CB00A98328 /* LiCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A0C354820C138CB00A98328 /* LiCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A0C355B20C138CB00A98328 /* LiCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C354620C138CB00A98328 /* LiCore.framework */; };
@@ -192,7 +192,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				2A0C355C20C138CB00A98328 /* LiCore.framework in Embed Frameworks */,
-				2A03E8DE20D8C6E300B089E9 /* Alamofire.framework in Embed Frameworks */,
+				2A03E8E020D90BE500B089E9 /* Alamofire.framework in Embed Frameworks */,
 				2A27A98420C1466300AD2F77 /* LiUIComponents.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -375,7 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A0C355B20C138CB00A98328 /* LiCore.framework in Frameworks */,
-				2A03E8DD20D8C6E300B089E9 /* Alamofire.framework in Frameworks */,
+				2A03E8DF20D90BE500B089E9 /* Alamofire.framework in Frameworks */,
 				2A27A98320C1466300AD2F77 /* LiUIComponents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

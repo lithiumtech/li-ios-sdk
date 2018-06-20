@@ -30,6 +30,9 @@ public class LiQuerySetting {
             self.key = key
             self.type = type
         }
+        func toString() -> String {
+            return key + " " + type
+        }
     }
     public struct WhereClause {
         var clause: LiWhereClause
@@ -49,11 +52,14 @@ public class LiQuerySetting {
             self.value = value
             self.`operator` = `operator`
         }
+        func toString() -> String {
+            return key + " " + clause.getString() + " " + value
+        }
     }
     public fileprivate(set) var whereClauses: [WhereClause]
-    public fileprivate(set) var ordering: Ordering?
+    public fileprivate(set) var ordering: [Ordering]?
     public fileprivate(set) var limit: String?
-    public init(whereClauses: [WhereClause], ordering: Ordering, limit: String) {
+    public init(whereClauses: [WhereClause], ordering: [Ordering], limit: String) {
         self.whereClauses = whereClauses
         self.ordering = ordering
         self.limit = limit
@@ -64,7 +70,7 @@ public class LiQuerySetting {
             for elm in clauseArray {
                 guard let clause = WhereClause(data: elm) else {
                     print("Where clause set error")
-                    return nil
+                    break
                 }
                 tempWhereClauses.append(clause)
             }
@@ -72,8 +78,16 @@ public class LiQuerySetting {
         } else {
             self.whereClauses = []
         }
-        if let ordering = Ordering(data: data["ordering"] as? [String: String]) {
-            self.ordering = ordering
+        if let orderingArray = data["ordering"] as? [[String: String]] {
+            var tempOrdering: [Ordering] = []
+            for elm in orderingArray {
+                guard let ordering = Ordering(data: elm) else {
+                    print("Ordering set error")
+                    break
+                }
+                tempOrdering.append(ordering)
+            }
+            self.ordering = tempOrdering
         } else {
             self.ordering = nil
         }
