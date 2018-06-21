@@ -42,7 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func registerForPushNotifications() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
             (granted, error) in
-            print("Permission granted: \(granted)")
             guard granted else { return }
             self.getNotificationSettings()
         }
@@ -57,7 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UserDefaults.standard.string(forKey: "deviceToken") == nil {
             UserDefaults.standard.set(token, forKey: "deviceToken")
         }
-        print("Device Token: \(token)")
     }
     
     func application(_ application: UIApplication,
