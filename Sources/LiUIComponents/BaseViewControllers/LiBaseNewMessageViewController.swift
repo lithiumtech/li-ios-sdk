@@ -58,6 +58,7 @@ open class LiBaseNewMessageViewController: UIViewController, UINavigationControl
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
     }
     func setupTableView() {
         tableView = UITableView()

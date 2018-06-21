@@ -35,15 +35,11 @@ class LiReplyViewController: LiBaseNewMessageViewController {
         setupToolbar()
     }
     func setupNavigationController() {
-        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 64))
-        self.view.addSubview(navBar)
-        let navItem = UINavigationItem(title: LiHelperFunctions.localizedString(for: "Reply"))
+        title = LiHelperFunctions.localizedString(for: "Reply")
         let cancelItem = LiBarButton(barButtonSystemItem: .cancel, target: self, action: #selector(LiBaseNewMessageViewController.onCancel))
         let postItem = LiBarButton(title: LiHelperFunctions.localizedString(for: "Post"), style: .plain, target: self, action: #selector(LiReplyViewController.onPost))
-        navItem.rightBarButtonItem = postItem
-        navItem.leftBarButtonItem = cancelItem
-        navBar.setItems([navItem], animated: false)
-        tableView.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
+        self.navigationItem.setLeftBarButton(cancelItem, animated: true)
+        self.navigationItem.setRightBarButton(postItem, animated: true)
     }
     func setupToolbar() {
         inputAccessoryToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 50))
