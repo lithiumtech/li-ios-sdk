@@ -87,7 +87,10 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
                     self.clearLocalData()
                     completionHandler(true, nil)
                 case .failure(let error):
-                    completionHandler(false, error)
+                    //TODO: -  Temporary fix to allow testing, while new logout api is under development.
+                    self.clearLocalData()
+                    completionHandler(true, nil)
+                    //completionHandler(false, error)
                 }
             })
         } else {
