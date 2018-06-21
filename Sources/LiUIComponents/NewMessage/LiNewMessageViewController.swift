@@ -45,7 +45,6 @@ open class LiNewMessageViewController: LiBaseNewMessageViewController {
         let postItem = LiBarButton(title: LiHelperFunctions.localizedString(for: "Post"), style: .plain, target: self, action: #selector(LiNewMessageViewController.onPost))
         self.navigationItem.setLeftBarButton(cancelItem, animated: true)
         self.navigationItem.setRightBarButton(postItem, animated: true)
-        tableView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
     }
     func setupToolbar() {
         inputAccessoryToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 50))

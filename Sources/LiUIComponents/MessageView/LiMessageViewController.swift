@@ -83,7 +83,8 @@ open class LiMessageViewController: UIViewController {
     @IBAction func onReply(_ sender: UIBarButtonItem) {
         let model = LiReply(messageId: originalMessageId!, topic: messageObject?.originalMessage.subject ?? "")
         let  vc = LiReplyViewController(model: model)
-        self.present(vc, animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: vc)
+        self.present(navController, animated: true, completion: nil)
     }
 }
 // MARK :- LiMessageActionsDelegate
