@@ -22,12 +22,13 @@ public struct LiNotificationManager {
      - parameter deviceToken: Device token from the `didRegisterForRemoteNotificationsWithDeviceToken` method in AppDelegate.
      - parameter notificationProvider: Your notification provider. Possible values - 'APNS', 'FIREBASE'
      */
-    public static func add(deviceToken: String, notificationProvider: String) {
+    public static func subscribe(deviceToken: String, notificationProvider: NotificationProviders) {
         //TODO:- Handle errors here
         let requestParams = try! LiDeviceIdFetchClientRequestParams(deviceId: deviceToken, pushNotificationProvider: notificationProvider)
         LiRestClient.sharedInstance.request(client: LiClient.liDeviceIdFetchClient(requestParams: requestParams), success: { (response: LiBaseResponse) in
             if let notificationId = response.data["id"] as? String {
                 LiSDKManager.shared().authState.set(notificationId: notificationId)
+                LiSDKManager.shared().authState.set(deviceToken: deviceToken)
             }
         }) { (error : Error) in
             print("Failed to update device token: - \(error)")
@@ -41,6 +42,7 @@ public struct LiNotificationManager {
         let id = LiSDKManager.shared().authState.notificationId ?? ""
         let requestParams = try! LiDeviceIdUpdateClientRequestParams(deviceId: deviceToken, id: id)
         LiRestClient.sharedInstance.request(client: LiClient.liDeviceIdUpdateClient(requestParams: requestParams), success: { (_: LiBaseResponse) in
+            LiSDKManager.shared().authState.set(deviceToken: deviceToken)
         }) { (error: Error) in
             print("Failed to update device token: - \(error)")
         }

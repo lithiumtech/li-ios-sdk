@@ -14,7 +14,7 @@
 
 import UIKit
 import LiUIComponents
-
+import LiCore
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +25,15 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func onStartCommunity(_ sender: UIButton) {
+        let deviceToken = UserDefaults.standard.string(forKey: "deviceToken")
+        /*
+         Get an instance of LiHomeViewController and push it on the navigation controller.
+         You can set your community name here as well as tint color for your action items.
+         LiHomeViewController takes care of login for you.
+         */
         LiUISDKManager.sharedInstance.set(globalTintColor: .red)
-        let vc1 =  LiHomeViewController.makeHomeViewController(isSSOLogin: false, ssoToken: nil, deviceToken: nil, notificationProvider: nil)
+        LiUISDKManager.sharedInstance.set(communityName: "<YOUR COMMUNITY NAME>")
+        let vc1 =  LiHomeViewController.makeHomeViewController(isSSOLogin: false, ssoToken: nil, deviceToken: deviceToken, notificationProvider: NotificationProviders.apns)
         self.navigationController?.pushViewController(vc1!, animated: true)
     }
 }

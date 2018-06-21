@@ -25,7 +25,7 @@ struct LiApiResponse {
                 throw error
             }
         } else {
-            throw LiBaseError(errorMessage: "Server returned no response.", httpCode: LiCoreSDKConstants.LiErrorCodes.noResponseFound)
+            throw LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.noResponse, httpCode: LiCoreConstants.ErrorCodes.noResponseFound)
         }
     }
     static func getLiBaseError(data: Data?) throws -> LiBaseError {
@@ -37,7 +37,7 @@ struct LiApiResponse {
                 throw error
             }
         } else {
-            throw LiBaseError(errorMessage: "Server returned no response.", httpCode: LiCoreSDKConstants.LiErrorCodes.noResponseFound)
+            throw LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.noResponse, httpCode: LiCoreConstants.ErrorCodes.noResponseFound)
         }
     }
 }

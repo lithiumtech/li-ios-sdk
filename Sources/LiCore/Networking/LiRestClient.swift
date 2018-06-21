@@ -56,7 +56,7 @@ class LiRestClient {
                     }
                 }
             } else {
-                failure(error ?? LiBaseError(errorMessage: "Failed to refresh access token.", httpCode: LiCoreSDKConstants.LiErrorCodes.httpCodeUnauthorized))
+                failure(error ?? LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.refreshFailed, httpCode: LiCoreConstants.ErrorCodes.unauthorized))
             }
         }
     }

@@ -19,67 +19,73 @@ public struct LiAuthState {
         keychainWrapperInstance = KeychainWrapper.standard
     }
     public var tenantId: String? {
-        return keychainWrapperInstance.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liTenantId)
+        return keychainWrapperInstance.string(forKey: LiCoreConstants.UserDefaultConstants.liTenantId)
     }
     public var userId: String? {
-        return keychainWrapperInstance.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liUserId)
+        return keychainWrapperInstance.string(forKey: LiCoreConstants.UserDefaultConstants.liUserId)
     }
     public var refreshToken: String? {
-        return keychainWrapperInstance.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liRefreshToken)
+        return keychainWrapperInstance.string(forKey: LiCoreConstants.UserDefaultConstants.liRefreshToken)
     }
     public var accessToken: String? {
-        return keychainWrapperInstance.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liAccessToken)
+        return keychainWrapperInstance.string(forKey: LiCoreConstants.UserDefaultConstants.liAccessToken)
     }
     public var lithiumUserID: String? {
-        return keychainWrapperInstance.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liLithiumUserId)
+        return keychainWrapperInstance.string(forKey: LiCoreConstants.UserDefaultConstants.liLithiumUserId)
     }
     public var expiryDate: NSDate? {
-        return keychainWrapperInstance.object(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liExpiryDate) as? NSDate
+        return keychainWrapperInstance.object(forKey: LiCoreConstants.UserDefaultConstants.liExpiryDate) as? NSDate
     }
     public var visitOriginTime: String? {
-        return keychainWrapperInstance.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitOriginTime)
+        return keychainWrapperInstance.string(forKey: LiCoreConstants.UserDefaultConstants.liVisitOriginTime)
     }
     public var visitLastIssueTime: String? {
-        return keychainWrapperInstance.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitLastIssueTime)
+        return keychainWrapperInstance.string(forKey: LiCoreConstants.UserDefaultConstants.liVisitLastIssueTime)
+    }
+    public var deviceToken: String? {
+        return keychainWrapperInstance.string(forKey: LiCoreConstants.UserDefaultConstants.liDeviceToken)
+    }
+    func set(deviceToken: String) {
+        keychainWrapperInstance.set(deviceToken, forKey: LiCoreConstants.UserDefaultConstants.liDeviceToken)
     }
     func set(visitLastIssueTime: String) {
-        keychainWrapperInstance.set(visitLastIssueTime, forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitLastIssueTime)
+        keychainWrapperInstance.set(visitLastIssueTime, forKey: LiCoreConstants.UserDefaultConstants.liVisitLastIssueTime)
     }
     func set(visitOriginTime: String) {
-        keychainWrapperInstance.set(visitOriginTime, forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitOriginTime)
+        keychainWrapperInstance.set(visitOriginTime, forKey: LiCoreConstants.UserDefaultConstants.liVisitOriginTime)
     }
     func set(expiryDate: NSDate) {
-        keychainWrapperInstance.set(expiryDate as NSCoding, forKey: LiCoreSDKConstants.LiUserDefaultConstants.liExpiryDate)
+        keychainWrapperInstance.set(expiryDate as NSCoding, forKey: LiCoreConstants.UserDefaultConstants.liExpiryDate)
     }
     func set(lithiumUserID: String) {
-        keychainWrapperInstance.set(lithiumUserID, forKey: LiCoreSDKConstants.LiUserDefaultConstants.liLithiumUserId)
+        keychainWrapperInstance.set(lithiumUserID, forKey: LiCoreConstants.UserDefaultConstants.liLithiumUserId)
     }
     func set(userID: String) {
-        keychainWrapperInstance.set(userID, forKey: LiCoreSDKConstants.LiUserDefaultConstants.liUserId)
+        keychainWrapperInstance.set(userID, forKey: LiCoreConstants.UserDefaultConstants.liUserId)
     }
     func set(accessToken: String) {
-       keychainWrapperInstance.set(accessToken, forKey: LiCoreSDKConstants.LiUserDefaultConstants.liAccessToken)
+       keychainWrapperInstance.set(accessToken, forKey: LiCoreConstants.UserDefaultConstants.liAccessToken)
     }
     func set(refreshToken: String) {
-        keychainWrapperInstance.set(refreshToken, forKey: LiCoreSDKConstants.LiUserDefaultConstants.liRefreshToken)
+        keychainWrapperInstance.set(refreshToken, forKey: LiCoreConstants.UserDefaultConstants.liRefreshToken)
     }
     func set(tenantId: String) {
-        keychainWrapperInstance.set(tenantId, forKey: LiCoreSDKConstants.LiUserDefaultConstants.liTenantId)
+        keychainWrapperInstance.set(tenantId, forKey: LiCoreConstants.UserDefaultConstants.liTenantId)
     }
     var isLoggedIn: Bool {
-        if let loggedIn = keychainWrapperInstance.bool(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liUserLoginStatus){
+        if let loggedIn = keychainWrapperInstance.bool(forKey: LiCoreConstants.UserDefaultConstants.liUserLoginStatus){
             return loggedIn
         }
         return false
     }
     ///Id that identifies notification token in lia. Used to update notification token.
     var notificationId: String? {
-        return keychainWrapperInstance.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liNotificationId)
+        return keychainWrapperInstance.string(forKey: LiCoreConstants.UserDefaultConstants.liNotificationId)
     }
     func loginSuccessfull() {
-        keychainWrapperInstance.set(true, forKey: LiCoreSDKConstants.LiUserDefaultConstants.liUserLoginStatus)
+        keychainWrapperInstance.set(true, forKey: LiCoreConstants.UserDefaultConstants.liUserLoginStatus)
     }
     func set(notificationId value: String) {
-        keychainWrapperInstance.set(value, forKey: LiCoreSDKConstants.LiUserDefaultConstants.liNotificationId)
+        keychainWrapperInstance.set(value, forKey: LiCoreConstants.UserDefaultConstants.liNotificationId)
     }
 }

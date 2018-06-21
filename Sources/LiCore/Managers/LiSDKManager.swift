@@ -19,10 +19,10 @@ public final class LiSDKManager {
     private static var sharedInstance: LiSDKManager!
     private(set) var visitorId: String? {
         get {
-            return UserDefaults.standard.string(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitorId)
+            return UserDefaults.standard.string(forKey: LiCoreConstants.UserDefaultConstants.liVisitorId)
         }
         set (value) {
-            UserDefaults.standard.set(value, forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitorId)
+            UserDefaults.standard.set(value, forKey: LiCoreConstants.UserDefaultConstants.liVisitorId)
         }
     }
     private init(credentials: LiAppCredentials) {

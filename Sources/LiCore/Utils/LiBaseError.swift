@@ -28,7 +28,7 @@ public struct LiBaseError: Error {
             if let data = jsonData?["data"] as? [String: Any], let errorCode = data["code"] as? Int {
                 self.httpCode = errorCode
                 self.status = data["status"] as? String ?? ""
-                self.errorMessage = data["developer_message"] as? String ?? LiCoreSDKConstants.LiErrorMessages.unknownError
+                self.errorMessage = data["developer_message"] as? String ?? LiCoreConstants.ErrorMessages.unknownError
                 self.errorJson = jsonData
             } else if let statusCode = jsonData?["statusCode"] as? Int,
                 let status = jsonData?["status"] as? String,
@@ -37,8 +37,8 @@ public struct LiBaseError: Error {
                 self.status = status
                 self.errorMessage = errorMessage
             } else {
-                self.httpCode = jsonData?["httpCode"] as? Int ?? LiCoreSDKConstants.LiErrorCodes.jsonSyntaxError
-                self.errorMessage = jsonData?["message"] as? String ?? LiCoreSDKConstants.LiErrorMessages.unknownError
+                self.httpCode = jsonData?["httpCode"] as? Int ?? LiCoreConstants.ErrorCodes.jsonSyntaxError
+                self.errorMessage = jsonData?["message"] as? String ?? LiCoreConstants.ErrorMessages.unknownError
                 self.status = jsonData?["status"] as? String ?? "error"
                 self.errorJson = jsonData
             }
@@ -53,7 +53,7 @@ public struct LiBaseError: Error {
     }
     init(data: [String: Any]) {
         self.status = data["status"] as? String ?? ""
-        self.errorMessage = data["message"] as? String ?? LiCoreSDKConstants.LiErrorMessages.unknownError
+        self.errorMessage = data["message"] as? String ?? LiCoreConstants.ErrorMessages.unknownError
         self.httpCode = data["statusCode"] as? Int ?? data["httpCode"] as? Int ?? 400
     }
 }

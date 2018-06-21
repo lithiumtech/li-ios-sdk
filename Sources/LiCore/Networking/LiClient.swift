@@ -25,6 +25,7 @@ public enum LiClient: Router {
     case liSSOTokenRequest(ssoToken: String)
     case getAccessToken(code: String)
     case refreshAccessToken
+    case signout(deivceId: String)
     //MARK: Utility Providers
     case liSdkSettingsClient(requestParams: LiSdkSettingsClientRequestParams)
     case liDeviceIdFetchClient(requestParams: LiDeviceIdFetchClientRequestParams)
@@ -134,6 +135,8 @@ extension LiClient {
             return "auth/accessToken"
         case .refreshAccessToken:
             return "auth/refreshToken"
+        case .signout:
+            return "auth/signout"
         case .liSSOTokenRequest:
             return "/" + LiSDKManager.shared().appCredentials.tenantID + "/api/2.0/auth/authorize"
         case .liKudoClient(let requestParams):
@@ -189,7 +192,7 @@ extension LiClient {
         switch self {
         case .liMessagesClient, .liMessagesByBoardIdClient, .liSdkSettingsClient, .liUserSubscriptionsClient, .liCategoryBoardsClient, .liBoardsByDepthClient, .liRepliesClient, .liSearchClient, .liUserMessagesClient, .liCategoryClient, .liUserDetailsClient, .liMessageClient, .liFloatedMessagesClient, .liMessagesByIdsClient, .liGenericGetClient, .liNoLiqlClient:
             return .get
-        case .getAccessToken, .refreshAccessToken, .liSSOTokenRequest, .liKudoClient, .liAcceptSolutionClient, .liCreateMessageClient, .liCreateReplyClient, .liUploadImageClient, .liReportAbuseClient, .liDeviceIdFetchClient, .liDeviceIdUpdateClient, .liCreateUserClient, .liMarkMessagePostClient, .liMarkMessagesPostClient, .liMarkTopicPostClient, .liSubscriptionPostClient, .liGenericPostClient, .liBeaconClient:
+        case .getAccessToken, .refreshAccessToken, .signout, .liSSOTokenRequest, .liKudoClient, .liAcceptSolutionClient, .liCreateMessageClient, .liCreateReplyClient, .liUploadImageClient, .liReportAbuseClient, .liDeviceIdFetchClient, .liDeviceIdUpdateClient, .liCreateUserClient, .liMarkMessagePostClient, .liMarkMessagesPostClient, .liMarkTopicPostClient, .liSubscriptionPostClient, .liGenericPostClient, .liBeaconClient:
             return .post
         case .liUnKudoClient, .liSubscriptionDeleteClient, .liGenericDeleteClient, .liMessageDeleteClient:
             return .delete
@@ -253,6 +256,8 @@ extension LiClient {
                     "redirectUri": redirectUri,
                     "state": state,
                     "deviceGroup": "iOS"]
+        case .signout(let deivceId):
+            return ["deviceId": deivceId]
         case .liKudoClient(let requestParams):
             return ["data": requestParams.getPostParams()]
         case .liCreateReplyClient(let requestParams):
@@ -343,7 +348,7 @@ extension LiClient {
         switch  self {
         case .liMessagesClient, .liMessagesByBoardIdClient, .liSdkSettingsClient, .liUserSubscriptionsClient, .liCategoryBoardsClient, .liBoardsByDepthClient, .liRepliesClient, .liSearchClient, .liUserMessagesClient, .liCategoryClient, .liUserDetailsClient, .liMessageClient, .liFloatedMessagesClient, .liMessagesByIdsClient, .liGenericGetClient, .liUnKudoClient, .liSubscriptionDeleteClient, .liGenericDeleteClient, .liMessageDeleteClient, .liNoLiqlClient:
             return URLEncoding.queryString
-        case .getAccessToken, .refreshAccessToken, .liSSOTokenRequest, .liKudoClient, .liAcceptSolutionClient, .liCreateMessageClient, .liCreateReplyClient, .liUploadImageClient, .liReportAbuseClient, .liDeviceIdFetchClient, .liDeviceIdUpdateClient, .liCreateUserClient, .liMarkMessagePostClient, .liMarkMessagesPostClient, .liMarkTopicPostClient, .liSubscriptionPostClient, .liGenericPostClient, .liUpdateMessageClient, .liUpdateUserClient, .liGenericPutClient, .liBeaconClient:
+        case .getAccessToken, .refreshAccessToken, .liSSOTokenRequest, .signout, .liKudoClient, .liAcceptSolutionClient, .liCreateMessageClient, .liCreateReplyClient, .liUploadImageClient, .liReportAbuseClient, .liDeviceIdFetchClient, .liDeviceIdUpdateClient, .liCreateUserClient, .liMarkMessagePostClient, .liMarkMessagesPostClient, .liMarkTopicPostClient, .liSubscriptionPostClient, .liGenericPostClient, .liUpdateMessageClient, .liUpdateUserClient, .liGenericPutClient, .liBeaconClient:
             return JSONEncoding.prettyPrinted
         }
     }

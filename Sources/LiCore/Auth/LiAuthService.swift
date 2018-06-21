@@ -96,7 +96,7 @@ extension LiAuthService: LiLoginViewControllerProtocol {
                 let userID = response.data["userId"] as? String,
                 let lithiumUserID = response.data["lithiumUserId"] as? String,
                 let expiresIn = response.data["expires_in"] as? Double else {
-                    let error = LiBaseError(errorMessage: "Invalid access token received", httpCode: LiCoreSDKConstants.LiErrorCodes.httpCodeForbidden)
+                    let error = LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.invalidAccessToken, httpCode: LiCoreConstants.ErrorCodes.forbidden)
                     self.loginViewController?.dismiss(animated: true, completion: nil)
                     self.authDelegate?.login(status: false, userId: nil, error: error)
                     return

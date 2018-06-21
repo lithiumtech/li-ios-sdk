@@ -19,7 +19,7 @@ import UIKit
  */
 public class LiAuthManager: NSObject, InternalLiLoginDelegate {
     var deviceToken: String?
-    var notificationProvider: String?
+    var notificationProvider: NotificationProviders?
     ///delegate for `LiAuthorizationDelegate`
     weak public var liLoginDelegate: LiAuthorizationDelegate?
     weak var sdkManager: LiSDKManager?
@@ -34,7 +34,7 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
      - parameter deviceToken:            Optional device token obtained from the `didRegisterForRemoteNotificationsWithDeviceToken` method in `AppDelegate`.
      - parameter notificationProvider:   Optional Your notification provider. Possible values - 'APNS', 'FIREBASE'.
      */
-    public func initLoginFlow(from viewController: UIViewController, deviceToken: String?, notificationProvider: String?) {
+    public func initLoginFlow(from viewController: UIViewController, deviceToken: String?, notificationProvider: NotificationProviders?) {
         guard let sdkManager = sdkManager else {
             assert(self.sdkManager == nil, "LiSDKManger should not be nil")
             return
@@ -54,7 +54,7 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
      - parameter deviceToken:            Optional device token obtained from the `didRegisterForRemoteNotificationsWithDeviceToken` method in `AppDelegate`.
      - parameter notificationProvider:   Optional Your notification provider. Possible values - 'APNS', 'FIREBASE'.
      */
-    public func initLoginFlow(from viewController: UIViewController, withSSOToken ssoToken: String, deviceToken: String?, notificationProvider: String?) {
+    public func initLoginFlow(from viewController: UIViewController, withSSOToken ssoToken: String, deviceToken: String?, notificationProvider: NotificationProviders?) {
         guard let sdkManager = sdkManager else {
             assert(self.sdkManager == nil, "LiSDKManger should not be nil")
             return
@@ -79,17 +79,46 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
     /**
      Use this function to logout the logged in user.
      */
-    public func logoutUser() {
-        KeychainWrapper.standard.removeObject(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liAccessToken)
-        KeychainWrapper.standard.removeObject(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liRefreshToken)
-        KeychainWrapper.standard.removeObject(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liUserLoginStatus)
-        KeychainWrapper.standard.removeObject(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liNotificationId)
-        KeychainWrapper.standard.removeObject(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitLastIssueTime)
-        KeychainWrapper.standard.removeObject(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liVisitOriginTime)
-        KeychainWrapper.standard.removeObject(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liExpiryDate)
-        KeychainWrapper.standard.removeObject(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liLithiumUserId)
-        KeychainWrapper.standard.removeObject(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liUserId)
-        KeychainWrapper.standard.removeObject(forKey: LiCoreSDKConstants.LiUserDefaultConstants.liTenantId)
+    public func logoutUser(completionHandler: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        if isUserLoggedIn() {
+            sdkManager?.clientManager.request(client: .signout(deivceId: sdkManager?.authState.deviceToken ?? ""), completionHandler: { (result: Result<[LiGenericQueryResponse]>) in
+                switch result {
+                case .success:
+                    self.clearLocalData()
+                    completionHandler(true, nil)
+                case .failure(let error):
+                    //TODO: -  Temporary fix to allow testing, while new logout api is under development.
+                    self.clearLocalData()
+                    completionHandler(true, nil)
+                    //completionHandler(false, error)
+                }
+            })
+        } else {
+            completionHandler(false, LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.notLoggedInError, httpCode: LiCoreConstants.ErrorCodes.unauthorized))
+        }
+    }
+    //MARK: - Internal
+    func login(status: Bool, userId: String?, error: Error?) {
+        if status {
+            if let notificationProvider = notificationProvider, let deviceToken = deviceToken {
+                LiNotificationManager.subscribe(deviceToken: deviceToken, notificationProvider: notificationProvider)
+            }
+            sdkManager?.syncSettings()
+        }
+        liLoginDelegate?.login(status: status, userId: userId, error: error)
+    }
+    fileprivate func clearLocalData() {
+        KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liDeviceToken)
+        KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liAccessToken)
+        KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liRefreshToken)
+        KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liUserLoginStatus)
+        KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liNotificationId)
+        KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liVisitLastIssueTime)
+        KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liVisitOriginTime)
+        KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liExpiryDate)
+        KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liLithiumUserId)
+        KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liUserId)
+        KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liTenantId)
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 0
         URLCache.shared.memoryCapacity = 0
@@ -99,15 +128,5 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
                 storage.deleteCookie(cookie)
             }
         }
-    }
-    //MARK: - Internal
-    func login(status: Bool, userId: String?, error: Error?) {
-        if status {
-            if let notificationProvider = notificationProvider, let deviceToken = deviceToken {
-                LiNotificationManager.add(deviceToken: deviceToken, notificationProvider: notificationProvider)
-            }
-            sdkManager?.syncSettings()
-        }
-        liLoginDelegate?.login(status: status, userId: userId, error: error)
     }
 }
