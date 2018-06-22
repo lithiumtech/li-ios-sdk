@@ -91,6 +91,7 @@ extension LiAuthService: LiLoginViewControllerProtocol {
      */
     func requestAccessToken(authCode: String) {
         LiRestClient.sharedInstance.request(client: LiClient.getAccessToken(code: authCode), success: { (response: LiBaseResponse) in
+            //TODO: Move this logic to LiAuthResponse
             guard let accessToken = response.data["access_token"] as? String,
                 let refreshToken = response.data["refresh_token"] as? String,
                 let userID = response.data["userId"] as? String,

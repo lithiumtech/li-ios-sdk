@@ -69,6 +69,7 @@ class LiRestClient {
             } else {
                 oauthHandler.refreshTokens(completion: { succeeded, accessToken, refreshToken, expiresIn, error in
                     if succeeded {
+                        //TODO: Move this logic to LiAuthResponse
                         if let accessToken = accessToken, let refreshToken = refreshToken, let expiresIn = expiresIn {
                             LiSDKManager.shared().authState.set(accessToken: accessToken)
                             LiSDKManager.shared().authState.set(refreshToken: refreshToken)

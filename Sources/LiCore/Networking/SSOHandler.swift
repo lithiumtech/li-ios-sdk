@@ -26,47 +26,42 @@ class SSOHandler: RequestRetrier {
     private var requestsToRetry: [RequestRetryCompletion] = []
     func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
         let data = request.delegate.data
-        do {
-            let error = try LiApiResponse.getLiBaseError(data: data)
-            if error.httpCode == 401 {
-                requestsToRetry.append(completion)
-                if !isRefreshing {
-                    refreshTokens { [weak self] succeeded, accessToken, refreshToken, expiresIn, error in
-                        guard let strongSelf = self else { return }
-                        strongSelf.lock.lock() ; defer { strongSelf.lock.unlock() }
-                        if error != nil {
-                            strongSelf.requestsToRetry.forEach { $0(false, 0.0) }
-                            strongSelf.requestsToRetry.removeAll()
-                            return
-                        }
-                        if let accessToken = accessToken, let refreshToken = refreshToken, let expiresIn = expiresIn {
-                            LiSDKManager.shared().authState.set(accessToken: accessToken)
-                            LiSDKManager.shared().authState.set(refreshToken: refreshToken)
-                            let currentDate = NSDate()
-                            let newDate = NSDate(timeInterval: expiresIn, since: currentDate as Date)
-                            LiSDKManager.shared().authState.set(expiryDate: newDate)
-                        }
-                        strongSelf.requestsToRetry.forEach { $0(succeeded, 0.0) }
-                        strongSelf.requestsToRetry.removeAll()
-                    }
+        requestsToRetry.append(completion)
+        if !isRefreshing {
+            refreshTokens { [weak self] succeeded, accessToken, refreshToken, expiresIn, error in
+                guard let strongSelf = self else { return }
+                strongSelf.lock.lock() ; defer { strongSelf.lock.unlock() }
+                if error != nil {
+                    strongSelf.requestsToRetry.forEach { $0(false, 0.0) }
+                    strongSelf.requestsToRetry.removeAll()
+                    return
                 }
-            } else {
-                completion(false, 0.0)
+                //TODO: Move this logic to LiAuthResponse
+                if let accessToken = accessToken, let refreshToken = refreshToken, let expiresIn = expiresIn {
+                    LiSDKManager.shared().authState.set(accessToken: accessToken)
+                    LiSDKManager.shared().authState.set(refreshToken: refreshToken)
+                    let currentDate = NSDate()
+                    let newDate = NSDate(timeInterval: expiresIn, since: currentDate as Date)
+                    LiSDKManager.shared().authState.set(expiryDate: newDate)
+                }
+                strongSelf.requestsToRetry.forEach { $0(succeeded, 0.0) }
+                strongSelf.requestsToRetry.removeAll()
             }
-        } catch {
+        } else {
             completion(false, 0.0)
         }
     }
     func refreshTokens(completion: @escaping RefreshCompletion) {
         guard !isRefreshing else { return }
         isRefreshing = true
-        sessionManager.request(LiClient.refreshAccessToken)
+        sessionManager.request(LiClient.refreshAccessToken).validate()
             .responseJSON { [weak self] response in
                 guard let strongSelf = self else { return }
                 switch response.result {
                 case .success:
                     if let responseData = response.data {
                         do {
+                            //TODO: Move this logic to LiAuthResponse
                             let json =  try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
                             if let data = json?["data"] as? [String: Any] {
                                 let accessToken = data["access_token"] as? String
@@ -84,12 +79,15 @@ class SSOHandler: RequestRetrier {
                                 }
                             }
                         } catch let error {
+                            strongSelf.isRefreshing = false
                             completion(false, nil, nil, nil, error)
                         }
                     } else {
+                        strongSelf.isRefreshing = false
                         completion(false, nil, nil, nil, LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.refreshFailed, httpCode: LiCoreConstants.ErrorCodes.unauthorized))
                     }
                 case .failure:
+                    strongSelf.isRefreshing = false
                     completion(false, nil, nil, nil, response.error)
                 }
         }
