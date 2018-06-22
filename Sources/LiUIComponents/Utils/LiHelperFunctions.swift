@@ -30,7 +30,7 @@ public class LiHelperFunctions {
     // swiftlint:disable function_body_length
     public static func timeAgoSinceDate(date: Date, numericDates: Bool) -> String {
         let calendar = Calendar.current
-        let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .weekOfYear, .month, .year, .second]
+        let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .second]
         let now = Date()
         let latest = (date == now as Date) ? date : now
         let components = calendar.dateComponents(unitFlags, from: date, to: latest)
