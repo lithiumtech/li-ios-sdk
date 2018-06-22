@@ -26,6 +26,7 @@ class SSOHandler: RequestRetrier {
     private var requestsToRetry: [RequestRetryCompletion] = []
     func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
         let data = request.delegate.data
+        //Do specific check for 401/403. Failure should return 401 according to oauth docs, check with team.
         requestsToRetry.append(completion)
         if !isRefreshing {
             refreshTokens { [weak self] succeeded, accessToken, refreshToken, expiresIn, error in

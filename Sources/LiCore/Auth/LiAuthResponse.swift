@@ -21,4 +21,24 @@ struct LiAuthResponse {
     var userId: String?
     var lithiumUserId: String?
     //TODO:- Move the logic to parse and save tokens here.
+    func setAuthResponse(data: [String: Any]) -> Error? {
+        guard let accessToken = data["access_token"] as? String,
+            let refreshToken = data["refresh_token"] as? String,
+            let userID = data["userId"] as? String,
+            let lithiumUserID = data["lithiumUserId"] as? String,
+            let expiresIn = data["expires_in"] as? Double else {
+                let error = LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.invalidAccessToken, httpCode: LiCoreConstants.ErrorCodes.forbidden)
+                //self.loginViewController?.dismiss(animated: true, completion: nil)
+                // self.authDelegate?.login(status: false, userId: nil, error: error)
+                return error
+        }
+        LiSDKManager.shared().authState.set(accessToken: accessToken)
+        LiSDKManager.shared().authState.set(refreshToken: refreshToken)
+        LiSDKManager.shared().authState.set(userID: userID)
+        LiSDKManager.shared().authState.set(lithiumUserID: lithiumUserID)
+        let currentDate = NSDate()
+        let newDate = NSDate(timeInterval: expiresIn, since: currentDate as Date)
+        LiSDKManager.shared().authState.set(expiryDate: newDate)
+        return nil
+    }
 }
