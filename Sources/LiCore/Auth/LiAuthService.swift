@@ -87,34 +87,23 @@ extension LiAuthService: LiLoginViewControllerProtocol {
     }
     /**
      Gets access token.
-     - parameter authCode: AuthCode obtained from login successfully with either webview or sso token.
+     - parameter authCode: AuthCode obtained by login successfully with either webview or sso token.
      */
     func requestAccessToken(authCode: String) {
-        LiRestClient.sharedInstance.request(client: LiClient.getAccessToken(code: authCode), success: { (response: LiBaseResponse) in
-            guard let accessToken = response.data["access_token"] as? String,
-                let refreshToken = response.data["refresh_token"] as? String,
-                let userID = response.data["userId"] as? String,
-                let lithiumUserID = response.data["lithiumUserId"] as? String,
-                let expiresIn = response.data["expires_in"] as? Double else {
-                    let error = LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.invalidAccessToken, httpCode: LiCoreConstants.ErrorCodes.forbidden)
-                    self.loginViewController?.dismiss(animated: true, completion: nil)
-                    self.authDelegate?.login(status: false, userId: nil, error: error)
-                    return
+        LiRestClient.sharedInstance.request(client: LiClient.getAccessToken(code: authCode), success: { [weak self] (response: LiBaseResponse) in
+            let error = AuthResponse().setAuthResponse(data: response.data)
+            if error != nil {
+                self?.loginViewController?.dismiss(animated: true, completion: nil)
+                self?.authDelegate?.login(status: false, userId: nil, error: error)
+                return
             }
-            self.sdkManager.authState.set(accessToken: accessToken)
-            self.sdkManager.authState.set(refreshToken: refreshToken)
-            self.sdkManager.authState.set(userID: userID)
-            self.sdkManager.authState.set(lithiumUserID: lithiumUserID)
-            let currentDate = NSDate()
-            let newDate = NSDate(timeInterval: expiresIn, since: currentDate as Date)
-            self.sdkManager.authState.set(expiryDate: newDate)
-            self.sdkManager.authState.loginSuccessfull()
-            self.loginViewController?.dismiss(animated: true, completion: { self.loginViewController?.delegate = nil })
-            self.authDelegate?.login(status: true, userId: userID, error: nil)
+            self?.sdkManager.authState.loginSuccessfull()
+            self?.loginViewController?.dismiss(animated: true, completion: { self?.loginViewController?.delegate = nil })
+            self?.authDelegate?.login(status: true, userId: self?.sdkManager.authState.userId, error: nil)
             return
-        }) { (error) in
-            self.loginViewController?.dismiss(animated: true, completion: nil)
-            self.authDelegate?.login(status: false, userId: nil, error:error)
+        }) { [weak self](error) in
+            self?.loginViewController?.dismiss(animated: true, completion: nil)
+            self?.authDelegate?.login(status: false, userId: nil, error:error)
         }
     }
 }

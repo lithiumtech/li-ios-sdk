@@ -15,7 +15,6 @@
 import Foundation
 import Alamofire
 class SSOHandler: RequestRetrier {
-    typealias RefreshCompletion = (_ succeeded: Bool, _ accessToken: String?, _ refreshToken: String?, _ expiresIn: Double?, _ error: Error?) -> Void
     private let sessionManager: SessionManager = {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
@@ -25,72 +24,49 @@ class SSOHandler: RequestRetrier {
     private var isRefreshing = false
     private var requestsToRetry: [RequestRetryCompletion] = []
     func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
-        let data = request.delegate.data
-        do {
-            let error = try LiApiResponse.getLiBaseError(data: data)
-            if error.httpCode == 401 {
-                requestsToRetry.append(completion)
-                if !isRefreshing {
-                    refreshTokens { [weak self] succeeded, accessToken, refreshToken, expiresIn, error in
-                        guard let strongSelf = self else { return }
-                        strongSelf.lock.lock() ; defer { strongSelf.lock.unlock() }
-                        if error != nil {
-                            strongSelf.requestsToRetry.forEach { $0(false, 0.0) }
-                            strongSelf.requestsToRetry.removeAll()
-                            return
-                        }
-                        if let accessToken = accessToken, let refreshToken = refreshToken, let expiresIn = expiresIn {
-                            LiSDKManager.shared().authState.set(accessToken: accessToken)
-                            LiSDKManager.shared().authState.set(refreshToken: refreshToken)
-                            let currentDate = NSDate()
-                            let newDate = NSDate(timeInterval: expiresIn, since: currentDate as Date)
-                            LiSDKManager.shared().authState.set(expiryDate: newDate)
-                        }
-                        strongSelf.requestsToRetry.forEach { $0(succeeded, 0.0) }
+        lock.lock() ; defer { lock.unlock() }
+        if request.response?.statusCode == LiCoreConstants.ErrorCodes.unauthorized {
+            requestsToRetry.append(completion)
+            if !isRefreshing {
+                refreshTokens { [weak self] succeeded, error in
+                    guard let strongSelf = self else { return }
+                    strongSelf.lock.lock() ; defer { strongSelf.lock.unlock() }
+                    if error != nil {
+                        strongSelf.requestsToRetry.forEach { $0(false, 0.0) }
                         strongSelf.requestsToRetry.removeAll()
+                        return
                     }
+                    strongSelf.requestsToRetry.forEach { $0(succeeded, 0.0) }
+                    strongSelf.requestsToRetry.removeAll()
+                    return
                 }
-            } else {
-                completion(false, 0.0)
             }
-        } catch {
-            completion(false, 0.0)
+        } else {
+            if request.retryCount == LiCoreConstants.maxRetry {
+                completion(false, 0.0)
+                return
+            }
+            completion(true, 1.0)
         }
     }
     func refreshTokens(completion: @escaping RefreshCompletion) {
         guard !isRefreshing else { return }
         isRefreshing = true
-        sessionManager.request(LiClient.refreshAccessToken)
+        sessionManager.request(LiClient.refreshAccessToken).validate()
             .responseJSON { [weak self] response in
                 guard let strongSelf = self else { return }
                 switch response.result {
                 case .success:
-                    if let responseData = response.data {
-                        do {
-                            let json =  try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
-                            if let data = json?["data"] as? [String: Any] {
-                                let accessToken = data["access_token"] as? String
-                                let refreshToken = data["refresh_token"] as? String
-                                let expiresIn = data["expires_in"] as? Double
-                                strongSelf.isRefreshing = false
-                                completion(true, accessToken, refreshToken, expiresIn, nil)
-                            } else {
-                                strongSelf.isRefreshing = false
-                                if let jsonData = json {
-                                    let error = LiBaseError(data: jsonData)
-                                    completion(false, nil, nil, nil, error)
-                                } else {
-                                    completion(false, nil, nil, nil, LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.refreshFailed, httpCode: LiCoreConstants.ErrorCodes.serverError))
-                                }
-                            }
-                        } catch let error {
-                            completion(false, nil, nil, nil, error)
-                        }
+                    let error = AuthResponse().setAuthResponse(data: response.data)
+                    strongSelf.isRefreshing = false
+                    if error == nil {
+                        completion(true, nil)
                     } else {
-                        completion(false, nil, nil, nil, LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.refreshFailed, httpCode: LiCoreConstants.ErrorCodes.unauthorized))
+                        completion(false, error)
                     }
                 case .failure:
-                    completion(false, nil, nil, nil, response.error)
+                    strongSelf.isRefreshing = false
+                    completion(false, response.error)
                 }
         }
     }

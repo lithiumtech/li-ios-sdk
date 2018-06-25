@@ -132,6 +132,7 @@
 		2A27AA0520C1470D00AD2F77 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35E920C13BEC00A98328 /* Alamofire.framework */; };
 		2A27AA0820C14C9400AD2F77 /* LiUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A27A96E20C1466300AD2F77 /* LiUIComponents.framework */; };
 		2A27AA0B20C5260E00AD2F77 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35E920C13BEC00A98328 /* Alamofire.framework */; };
+		2A86142720DCF79E0040781E /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A86142620DCF79E0040781E /* AuthResponse.swift */; };
 		2ADFE61220BEA48F006B3F83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADFE61120BEA48F006B3F83 /* AppDelegate.swift */; };
 		2ADFE61420BEA48F006B3F83 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADFE61320BEA48F006B3F83 /* ViewController.swift */; };
 		2ADFE61720BEA48F006B3F83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ADFE61520BEA48F006B3F83 /* Main.storyboard */; };
@@ -327,6 +328,7 @@
 		2A27A9CE20C146A300AD2F77 /* LiBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiBoardViewController.swift; sourceTree = "<group>"; };
 		2A27A9CF20C146A300AD2F77 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2A27AA0920C5258900AD2F77 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		2A86142620DCF79E0040781E /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		2ADFE60E20BEA48F006B3F83 /* LithiumExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LithiumExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2ADFE61120BEA48F006B3F83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2ADFE61320BEA48F006B3F83 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 				2A0C357320C13A0900A98328 /* LiAuthState.swift */,
 				2A0C357420C13A0900A98328 /* LiLoginViewController.swift */,
 				2A0C357520C13A0900A98328 /* LiSSOAuthResponse.swift */,
+				2A86142620DCF79E0040781E /* AuthResponse.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1081,6 +1084,7 @@
 				2A0C35C820C13A0A00A98328 /* LiUser.swift in Sources */,
 				2A0C35BD20C13A0A00A98328 /* LiGenericQueryResponse.swift in Sources */,
 				2A0C35D320C13A0A00A98328 /* LiImageUpload.swift in Sources */,
+				2A86142720DCF79E0040781E /* AuthResponse.swift in Sources */,
 				2A0C35B620C13A0A00A98328 /* LiQuerySetting.swift in Sources */,
 				2A0C35CA20C13A0A00A98328 /* KeychainItemAccessibility.swift in Sources */,
 			);

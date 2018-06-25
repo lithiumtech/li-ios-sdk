@@ -14,6 +14,7 @@
 
 import Foundation
 public struct LiCoreConstants {
+    public static let maxRetry = 3
     public struct ErrorCodes {
         public static let forbidden = 403
         public static let unauthorized = 401
