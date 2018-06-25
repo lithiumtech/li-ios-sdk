@@ -15,7 +15,6 @@
 import Foundation
 import Alamofire
 class SSOHandler: RequestRetrier {
-    typealias RefreshCompletion = (_ succeeded: Bool, _ accessToken: String?, _ refreshToken: String?, _ expiresIn: Double?, _ error: Error?) -> Void
     private let sessionManager: SessionManager = {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
@@ -29,21 +28,13 @@ class SSOHandler: RequestRetrier {
         //Do specific check for 401/403. Failure should return 401 according to oauth docs, check with team.
         requestsToRetry.append(completion)
         if !isRefreshing {
-            refreshTokens { [weak self] succeeded, accessToken, refreshToken, expiresIn, error in
+            refreshTokens { [weak self] succeeded, error in
                 guard let strongSelf = self else { return }
                 strongSelf.lock.lock() ; defer { strongSelf.lock.unlock() }
                 if error != nil {
                     strongSelf.requestsToRetry.forEach { $0(false, 0.0) }
                     strongSelf.requestsToRetry.removeAll()
                     return
-                }
-                //TODO: Move this logic to LiAuthResponse
-                if let accessToken = accessToken, let refreshToken = refreshToken, let expiresIn = expiresIn {
-                    LiSDKManager.shared().authState.set(accessToken: accessToken)
-                    LiSDKManager.shared().authState.set(refreshToken: refreshToken)
-                    let currentDate = NSDate()
-                    let newDate = NSDate(timeInterval: expiresIn, since: currentDate as Date)
-                    LiSDKManager.shared().authState.set(expiryDate: newDate)
                 }
                 strongSelf.requestsToRetry.forEach { $0(succeeded, 0.0) }
                 strongSelf.requestsToRetry.removeAll()
@@ -60,36 +51,15 @@ class SSOHandler: RequestRetrier {
                 guard let strongSelf = self else { return }
                 switch response.result {
                 case .success:
-                    if let responseData = response.data {
-                        do {
-                            //TODO: Move this logic to LiAuthResponse
-                            let json =  try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
-                            if let data = json?["data"] as? [String: Any] {
-                                let accessToken = data["access_token"] as? String
-                                let refreshToken = data["refresh_token"] as? String
-                                let expiresIn = data["expires_in"] as? Double
-                                strongSelf.isRefreshing = false
-                                completion(true, accessToken, refreshToken, expiresIn, nil)
-                            } else {
-                                strongSelf.isRefreshing = false
-                                if let jsonData = json {
-                                    let error = LiBaseError(data: jsonData)
-                                    completion(false, nil, nil, nil, error)
-                                } else {
-                                    completion(false, nil, nil, nil, LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.refreshFailed, httpCode: LiCoreConstants.ErrorCodes.serverError))
-                                }
-                            }
-                        } catch let error {
-                            strongSelf.isRefreshing = false
-                            completion(false, nil, nil, nil, error)
-                        }
+                    let error = LiAuthResponse().setAuthResponse(data: response.data)
+                    if error == nil {
+                        completion(true, nil)
                     } else {
-                        strongSelf.isRefreshing = false
-                        completion(false, nil, nil, nil, LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.refreshFailed, httpCode: LiCoreConstants.ErrorCodes.unauthorized))
+                        completion(false, error)
                     }
                 case .failure:
                     strongSelf.isRefreshing = false
-                    completion(false, nil, nil, nil, response.error)
+                    completion(false, response.error)
                 }
         }
     }

@@ -17,6 +17,8 @@ import Alamofire
 
 typealias Success = (_ data: LiBaseResponse) -> Void
 typealias Failure = (_ error: Error) -> Void
+typealias RefreshCompletion = (_ succeeded: Bool, _ error: Error?) -> Void
+
 class LiRestClient {
     static let sharedInstance = LiRestClient()
     internal let sessionManager = SessionManager()
@@ -60,23 +62,15 @@ class LiRestClient {
             }
         }
     }
-    private func accessToken <T: Router> (client: T, isValid: @escaping (Bool, Error?) -> Void) {
+    private func accessToken <T: Router> (client: T, isValid: @escaping RefreshCompletion) {
         if !LiSDKManager.shared().authManager.isUserLoggedIn() {
             isValid(true, nil)
         } else {
             if isAccessTokenValid() {
                 isValid(true, nil)
             } else {
-                oauthHandler.refreshTokens(completion: { succeeded, accessToken, refreshToken, expiresIn, error in
+                oauthHandler.refreshTokens(completion: { succeeded, error in
                     if succeeded {
-                        //TODO: Move this logic to LiAuthResponse
-                        if let accessToken = accessToken, let refreshToken = refreshToken, let expiresIn = expiresIn {
-                            LiSDKManager.shared().authState.set(accessToken: accessToken)
-                            LiSDKManager.shared().authState.set(refreshToken: refreshToken)
-                            let currentDate = NSDate()
-                            let newDate = NSDate(timeInterval: expiresIn, since: currentDate as Date)
-                            LiSDKManager.shared().authState.set(expiryDate: newDate)
-                        }
                         isValid(true, nil)
                     } else {
                         isValid(false, error)

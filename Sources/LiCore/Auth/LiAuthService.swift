@@ -87,11 +87,10 @@ extension LiAuthService: LiLoginViewControllerProtocol {
     }
     /**
      Gets access token.
-     - parameter authCode: AuthCode obtained from login successfully with either webview or sso token.
+     - parameter authCode: AuthCode obtained by login successfully with either webview or sso token.
      */
     func requestAccessToken(authCode: String) {
         LiRestClient.sharedInstance.request(client: LiClient.getAccessToken(code: authCode), success: { [weak self] (response: LiBaseResponse) in
-            //TODO: Move this logic to LiAuthResponse
             let error = LiAuthResponse().setAuthResponse(data: response.data)
             if error != nil {
                 self?.loginViewController?.dismiss(animated: true, completion: nil)
