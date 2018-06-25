@@ -14,20 +14,22 @@
 
 import Foundation
 
-struct LiAuthResponse {
+struct AuthResponse {
     func setAuthResponse(data: [String: Any]) -> Error? {
         guard let accessToken = data["access_token"] as? String,
             let refreshToken = data["refresh_token"] as? String,
-            let userID = data["userId"] as? String,
-            let lithiumUserID = data["lithiumUserId"] as? String,
             let expiresIn = data["expires_in"] as? Double else {
                 let error = LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.invalidAccessToken, httpCode: LiCoreConstants.ErrorCodes.forbidden)
                 return error
         }
         LiSDKManager.shared().authState.set(accessToken: accessToken)
         LiSDKManager.shared().authState.set(refreshToken: refreshToken)
-        LiSDKManager.shared().authState.set(userID: userID)
-        LiSDKManager.shared().authState.set(lithiumUserID: lithiumUserID)
+        if let userId =  data["userId"] as? String {
+            LiSDKManager.shared().authState.set(userID: userId)
+        }
+        if let lithiumUserId =  data["lithiumUserId"] as? String {
+            LiSDKManager.shared().authState.set(lithiumUserID: lithiumUserId)
+        }
         let currentDate = NSDate()
         let newDate = NSDate(timeInterval: expiresIn, since: currentDate as Date)
         LiSDKManager.shared().authState.set(expiryDate: newDate)
@@ -40,7 +42,7 @@ struct LiAuthResponse {
         do {
             let json =  try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
             if let data = json?["data"] as? [String: Any] {
-                let error =  LiAuthResponse().setAuthResponse(data: data)
+                let error =  AuthResponse().setAuthResponse(data: data)
                 return error
             } else {
                 if let jsonData = json {

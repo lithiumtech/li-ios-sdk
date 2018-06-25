@@ -91,7 +91,7 @@ extension LiAuthService: LiLoginViewControllerProtocol {
      */
     func requestAccessToken(authCode: String) {
         LiRestClient.sharedInstance.request(client: LiClient.getAccessToken(code: authCode), success: { [weak self] (response: LiBaseResponse) in
-            let error = LiAuthResponse().setAuthResponse(data: response.data)
+            let error = AuthResponse().setAuthResponse(data: response.data)
             if error != nil {
                 self?.loginViewController?.dismiss(animated: true, completion: nil)
                 self?.authDelegate?.login(status: false, userId: nil, error: error)

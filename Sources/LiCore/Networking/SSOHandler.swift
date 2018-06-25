@@ -24,23 +24,29 @@ class SSOHandler: RequestRetrier {
     private var isRefreshing = false
     private var requestsToRetry: [RequestRetryCompletion] = []
     func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
-        let data = request.delegate.data
-        //Do specific check for 401/403. Failure should return 401 according to oauth docs, check with team.
-        requestsToRetry.append(completion)
-        if !isRefreshing {
-            refreshTokens { [weak self] succeeded, error in
-                guard let strongSelf = self else { return }
-                strongSelf.lock.lock() ; defer { strongSelf.lock.unlock() }
-                if error != nil {
-                    strongSelf.requestsToRetry.forEach { $0(false, 0.0) }
+        lock.lock() ; defer { lock.unlock() }
+        if request.response?.statusCode == 401 {
+            requestsToRetry.append(completion)
+            if !isRefreshing {
+                refreshTokens { [weak self] succeeded, error in
+                    guard let strongSelf = self else { return }
+                    strongSelf.lock.lock() ; defer { strongSelf.lock.unlock() }
+                    if error != nil {
+                        strongSelf.requestsToRetry.forEach { $0(false, 0.0) }
+                        strongSelf.requestsToRetry.removeAll()
+                        return
+                    }
+                    strongSelf.requestsToRetry.forEach { $0(succeeded, 0.0) }
                     strongSelf.requestsToRetry.removeAll()
                     return
                 }
-                strongSelf.requestsToRetry.forEach { $0(succeeded, 0.0) }
-                strongSelf.requestsToRetry.removeAll()
             }
         } else {
-            completion(false, 0.0)
+            if request.retryCount == 3 {
+                completion(false, 0.0)
+                return
+            }
+            completion(true, 1.0)
         }
     }
     func refreshTokens(completion: @escaping RefreshCompletion) {
@@ -51,7 +57,8 @@ class SSOHandler: RequestRetrier {
                 guard let strongSelf = self else { return }
                 switch response.result {
                 case .success:
-                    let error = LiAuthResponse().setAuthResponse(data: response.data)
+                    let error = AuthResponse().setAuthResponse(data: response.data)
+                    strongSelf.isRefreshing = false
                     if error == nil {
                         completion(true, nil)
                     } else {
