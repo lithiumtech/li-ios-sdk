@@ -25,7 +25,7 @@ class SSOHandler: RequestRetrier {
     private var requestsToRetry: [RequestRetryCompletion] = []
     func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
         lock.lock() ; defer { lock.unlock() }
-        if request.response?.statusCode == 401 {
+        if request.response?.statusCode == LiCoreConstants.ErrorCodes.unauthorized {
             requestsToRetry.append(completion)
             if !isRefreshing {
                 refreshTokens { [weak self] succeeded, error in
@@ -42,7 +42,7 @@ class SSOHandler: RequestRetrier {
                 }
             }
         } else {
-            if request.retryCount == 3 {
+            if request.retryCount == LiCoreConstants.maxRetry {
                 completion(false, 0.0)
                 return
             }

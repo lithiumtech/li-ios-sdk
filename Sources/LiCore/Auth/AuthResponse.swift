@@ -37,7 +37,7 @@ struct AuthResponse {
     }
     func setAuthResponse(data: Data?) -> Error? {
         guard let responseData = data else {
-            return LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.refreshFailed, httpCode: LiCoreConstants.ErrorCodes.unauthorized)
+            return LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.refreshFailed, httpCode: LiCoreConstants.ErrorCodes.forbidden)
         }
         do {
             let json =  try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
@@ -49,7 +49,7 @@ struct AuthResponse {
                     let error = LiBaseError(data: jsonData)
                     return error
                 } else {
-                    return LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.refreshFailed, httpCode: LiCoreConstants.ErrorCodes.serverError)
+                    return LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.refreshFailed, httpCode: LiCoreConstants.ErrorCodes.forbidden)
                 }
             }
         } catch let error {
