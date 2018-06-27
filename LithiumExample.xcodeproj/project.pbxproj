@@ -72,7 +72,6 @@
 		2A0C35EC20C13CDB00A98328 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35E920C13BEC00A98328 /* Alamofire.framework */; };
 		2A0C35EF20C13CDC00A98328 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35ED20C13CDB00A98328 /* Nimble.framework */; };
 		2A0C35F020C13CDC00A98328 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35EE20C13CDC00A98328 /* Quick.framework */; };
-		2A27A97E20C1466300AD2F77 /* LiUIComponentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27A97D20C1466300AD2F77 /* LiUIComponentsTests.swift */; };
 		2A27A98020C1466300AD2F77 /* LiUIComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A27A97020C1466300AD2F77 /* LiUIComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A27A98320C1466300AD2F77 /* LiUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A27A96E20C1466300AD2F77 /* LiUIComponents.framework */; };
 		2A27A98420C1466300AD2F77 /* LiUIComponents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2A27A96E20C1466300AD2F77 /* LiUIComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -133,6 +132,7 @@
 		2A27AA0820C14C9400AD2F77 /* LiUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A27A96E20C1466300AD2F77 /* LiUIComponents.framework */; };
 		2A27AA0B20C5260E00AD2F77 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35E920C13BEC00A98328 /* Alamofire.framework */; };
 		2A86142720DCF79E0040781E /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A86142620DCF79E0040781E /* AuthResponse.swift */; };
+		2AA1CFC620E36417003099EB /* LiHelperFunctionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA1CFC520E36417003099EB /* LiHelperFunctionsTest.swift */; };
 		2ADFE61220BEA48F006B3F83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADFE61120BEA48F006B3F83 /* AppDelegate.swift */; };
 		2ADFE61420BEA48F006B3F83 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADFE61320BEA48F006B3F83 /* ViewController.swift */; };
 		2ADFE61720BEA48F006B3F83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ADFE61520BEA48F006B3F83 /* Main.storyboard */; };
@@ -149,13 +149,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2A0C354520C138CB00A98328;
 			remoteInfo = LiCoreSDK;
-		};
-		2A0C355220C138CB00A98328 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2ADFE60620BEA48F006B3F83 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2ADFE60D20BEA48F006B3F83;
-			remoteInfo = LithiumExample;
 		};
 		2A0C355920C138CB00A98328 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -273,7 +266,6 @@
 		2A27A97020C1466300AD2F77 /* LiUIComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiUIComponents.h; sourceTree = "<group>"; };
 		2A27A97120C1466300AD2F77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A27A97620C1466300AD2F77 /* LiUIComponentsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiUIComponentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2A27A97D20C1466300AD2F77 /* LiUIComponentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiUIComponentsTests.swift; sourceTree = "<group>"; };
 		2A27A97F20C1466300AD2F77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A27A98C20C146A200AD2F77 /* LiBaseBrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiBaseBrowseViewController.swift; sourceTree = "<group>"; };
 		2A27A98D20C146A200AD2F77 /* LiBaseNewMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiBaseNewMessageViewController.swift; sourceTree = "<group>"; };
@@ -329,6 +321,7 @@
 		2A27A9CF20C146A300AD2F77 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2A27AA0920C5258900AD2F77 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		2A86142620DCF79E0040781E /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		2AA1CFC520E36417003099EB /* LiHelperFunctionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiHelperFunctionsTest.swift; sourceTree = "<group>"; };
 		2ADFE60E20BEA48F006B3F83 /* LithiumExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LithiumExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2ADFE61120BEA48F006B3F83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2ADFE61320BEA48F006B3F83 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -574,8 +567,8 @@
 		2A27A97C20C1466300AD2F77 /* LiUIComponentsTests */ = {
 			isa = PBXGroup;
 			children = (
-				2A27A97D20C1466300AD2F77 /* LiUIComponentsTests.swift */,
 				2A27A97F20C1466300AD2F77 /* Info.plist */,
+				2AA1CFC520E36417003099EB /* LiHelperFunctionsTest.swift */,
 			);
 			name = LiUIComponentsTests;
 			path = Sources/LiUIComponentsTests;
@@ -797,13 +790,12 @@
 				2A0C354A20C138CB00A98328 /* Sources */,
 				2A0C354B20C138CB00A98328 /* Frameworks */,
 				2A0C354C20C138CB00A98328 /* Resources */,
-				2A0C35EB20C13CA700A98328 /* ShellScript */,
+				2A0C35EB20C13CA700A98328 /* Run Script */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				2A0C355120C138CB00A98328 /* PBXTargetDependency */,
-				2A0C355320C138CB00A98328 /* PBXTargetDependency */,
 			);
 			name = LiCoreTests;
 			productName = LiCoreSDKTests;
@@ -885,7 +877,6 @@
 					2A0C354D20C138CB00A98328 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
-						TestTargetID = 2ADFE60D20BEA48F006B3F83;
 					};
 					2A27A96D20C1466300AD2F77 = {
 						CreatedOnToolsVersion = 9.2;
@@ -894,7 +885,6 @@
 					2A27A97520C1466300AD2F77 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
-						TestTargetID = 2ADFE60D20BEA48F006B3F83;
 					};
 					2ADFE60D20BEA48F006B3F83 = {
 						CreatedOnToolsVersion = 9.2;
@@ -998,7 +988,7 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
-		2A0C35EB20C13CA700A98328 /* ShellScript */ = {
+		2A0C35EB20C13CA700A98328 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1008,6 +998,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1154,7 +1145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A27A97E20C1466300AD2F77 /* LiUIComponentsTests.swift in Sources */,
+				2AA1CFC620E36417003099EB /* LiHelperFunctionsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1174,11 +1165,6 @@
 			isa = PBXTargetDependency;
 			target = 2A0C354520C138CB00A98328 /* LiCore */;
 			targetProxy = 2A0C355020C138CB00A98328 /* PBXContainerItemProxy */;
-		};
-		2A0C355320C138CB00A98328 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2ADFE60D20BEA48F006B3F83 /* LithiumExample */;
-			targetProxy = 2A0C355220C138CB00A98328 /* PBXContainerItemProxy */;
 		};
 		2A0C355A20C138CB00A98328 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1329,7 +1315,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LithiumExample.app/LithiumExample";
 			};
 			name = Debug;
 		};
@@ -1350,7 +1335,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LithiumExample.app/LithiumExample";
 			};
 			name = Release;
 		};
@@ -1418,13 +1402,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DD62CH3UG6;
-				INFOPLIST_FILE = LiUIComponentsTests/Info.plist;
+				INFOPLIST_FILE = Sources/LiUIComponentsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.LiUIComponentsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LithiumExample.app/LithiumExample";
 			};
 			name = Debug;
 		};
@@ -1434,13 +1417,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DD62CH3UG6;
-				INFOPLIST_FILE = LiUIComponentsTests/Info.plist;
+				INFOPLIST_FILE = Sources/LiUIComponentsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.LiUIComponentsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LithiumExample.app/LithiumExample";
 			};
 			name = Release;
 		};

@@ -14,21 +14,19 @@
 
 import UIKit
 public class LiHelperFunctions {
-    public static func timeSince(post: String?) -> String {
-        guard let post = post else {
+    public static func timeSince(post date: String?) -> String {
+        guard let date = date else {
             return ""
         }
         let formatter = DateFormatter()
         formatter.dateFormat = LiUIConstants.dateTimeUTCFormat
-        guard let localDate = formatter.date(from: post) else {
-            print("Date format failed", post)
+        guard let localDate = formatter.date(from: date) else {
+            print("Invalid date format found", date)
             return ""
         }
-        return LiHelperFunctions.timeAgoSinceDate(date: localDate, numericDates: true)
+        return LiHelperFunctions.timeSince(date: localDate)
     }
-    // swiftlint:disable cyclomatic_complexity
-    // swiftlint:disable function_body_length
-    public static func timeAgoSinceDate(date: Date, numericDates: Bool) -> String {
+    private static func timeSince(date: Date) -> String {
         let calendar = Calendar.current
         let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .second]
         let now = Date()
@@ -43,9 +41,9 @@ public class LiHelperFunctions {
         } else if hour >= 1 {
                 return "\(hour)" + LiHelperFunctions.localizedString(for:"h")
         } else if minute >= 1 {
-            return "\(minute) " + LiHelperFunctions.localizedString(for:"m")
+            return "\(minute)" + LiHelperFunctions.localizedString(for:"m")
         } else if second >= 3 {
-            return "\(second) " + LiHelperFunctions.localizedString(for:"s")
+            return "\(second)" + LiHelperFunctions.localizedString(for:"s")
         } else {
             return LiHelperFunctions.localizedString(for: "Just now")
         }

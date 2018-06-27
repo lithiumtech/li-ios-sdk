@@ -29,7 +29,36 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2A0C354D20C138CB00A98328"
+               BuildableName = "LiCoreTests.xctest"
+               BlueprintName = "LiCoreTests"
+               ReferencedContainer = "container:LithiumExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2A27A97520C1466300AD2F77"
+               BuildableName = "LiUIComponentsTests.xctest"
+               BlueprintName = "LiUIComponentsTests"
+               ReferencedContainer = "container:LithiumExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "2A0C354520C138CB00A98328"
+            BuildableName = "LiCore.framework"
+            BlueprintName = "LiCore"
+            ReferencedContainer = "container:LithiumExample.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
