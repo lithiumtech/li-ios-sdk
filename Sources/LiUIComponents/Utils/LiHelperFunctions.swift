@@ -14,19 +14,19 @@
 
 import UIKit
 public class LiHelperFunctions {
-    public static func timeSince(post date: String?) -> String {
+    public static func timeSince(post date: String?, default: String = "") -> String {
         guard let date = date else {
-            return ""
+            return `default`
         }
         let formatter = DateFormatter()
         formatter.dateFormat = LiUIConstants.dateTimeUTCFormat
         guard let localDate = formatter.date(from: date) else {
             print("Invalid date format found", date)
-            return ""
+            return `default`
         }
-        return LiHelperFunctions.timeSince(date: localDate)
+        return LiHelperFunctions.timeSince(date: localDate, default: `default`)
     }
-    private static func timeSince(date: Date) -> String {
+    private static func timeSince(date: Date, default: String = "") -> String {
         let calendar = Calendar.current
         let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .second]
         let now = Date()
@@ -34,8 +34,13 @@ public class LiHelperFunctions {
         let components = calendar.dateComponents(unitFlags, from: date, to: latest)
         guard let day = components.day, let hour = components.hour, let minute = components.minute, let second = components.second  else {
             assert(false, "One/All time components is/are nil")
-            return ""
+            return `default`
         }
+        guard day >= 0, hour >= 0, minute >= 0, second >= 0 else {
+            print("Invalid time, are you from the future?")
+            return `default`
+        }
+        
         if day >= 1 {
             return "\(day)" + LiHelperFunctions.localizedString(for: "d")
         } else if hour >= 1 {

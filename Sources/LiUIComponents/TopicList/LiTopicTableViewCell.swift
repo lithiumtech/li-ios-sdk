@@ -42,7 +42,7 @@ struct LiTopicCellModel {
             numerOfRepliesLabelText = ""
             arrowImage = UIImage(named: "li-chevron-right", in: Bundle(for: LiMessageDetailTableViewCell.self), compatibleWith: nil)!
         }
-        timeSinceMessageLabelText = LiHelperFunctions.timeSince(post: message.postTime ?? "0")
+        timeSinceMessageLabelText = LiHelperFunctions.timeSince(post: message.postTime)
         if let readStatus = message.userContext?.isRead {
             isRead = readStatus
         } else {
