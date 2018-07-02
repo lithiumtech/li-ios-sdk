@@ -14,38 +14,41 @@
 
 import UIKit
 public class LiHelperFunctions {
-    public static func timeSince(post: String?) -> String {
-        guard let post = post else {
-            return ""
+    public static func timeSince(post date: String?, default: String = "") -> String {
+        guard let date = date else {
+            return `default`
         }
         let formatter = DateFormatter()
         formatter.dateFormat = LiUIConstants.dateTimeUTCFormat
-        guard let localDate = formatter.date(from: post) else {
-            print("Date format failed", post)
-            return ""
+        guard let localDate = formatter.date(from: date) else {
+            print("Invalid date format found", date)
+            return `default`
         }
-        return LiHelperFunctions.timeAgoSinceDate(date: localDate, numericDates: true)
+        return LiHelperFunctions.timeSince(date: localDate, default: `default`)
     }
-    // swiftlint:disable cyclomatic_complexity
-    // swiftlint:disable function_body_length
-    public static func timeAgoSinceDate(date: Date, numericDates: Bool) -> String {
+    private static func timeSince(date: Date, default: String = "") -> String {
         let calendar = Calendar.current
-        let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .weekOfYear, .month, .year, .second]
+        let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .second]
         let now = Date()
         let latest = (date == now as Date) ? date : now
         let components = calendar.dateComponents(unitFlags, from: date, to: latest)
         guard let day = components.day, let hour = components.hour, let minute = components.minute, let second = components.second  else {
             assert(false, "One/All time components is/are nil")
-            return ""
+            return `default`
         }
+        guard day >= 0, hour >= 0, minute >= 0, second >= 0 else {
+            print("Invalid time, are you from the future?")
+            return `default`
+        }
+        
         if day >= 1 {
             return "\(day)" + LiHelperFunctions.localizedString(for: "d")
         } else if hour >= 1 {
                 return "\(hour)" + LiHelperFunctions.localizedString(for:"h")
         } else if minute >= 1 {
-            return "\(minute) " + LiHelperFunctions.localizedString(for:"m")
+            return "\(minute)" + LiHelperFunctions.localizedString(for:"m")
         } else if second >= 3 {
-            return "\(second) " + LiHelperFunctions.localizedString(for:"s")
+            return "\(second)" + LiHelperFunctions.localizedString(for:"s")
         } else {
             return LiHelperFunctions.localizedString(for: "Just now")
         }
