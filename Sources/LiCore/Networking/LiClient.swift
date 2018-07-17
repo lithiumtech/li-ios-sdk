@@ -206,11 +206,10 @@ extension LiClient {
         let accessToken = LiSDKManager.shared().authState.accessToken
         let visitorId = LiSDKManager.shared().visitorId ?? ""
         var headers: [String: String] = ["client-id": clientID, "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json" ]
-        if LiSDKManager.shared().authManager.isUserLoggedIn() {
-            headers["Authorization"] = "Bearer " + (accessToken ?? "")
-            headers["Auth-Service-Authorization"] = "default"
-        }
         switch self {
+        case .refreshAccessToken:
+            // In case of only refresh token call returning early without adding `authorization` header.
+            return headers
         case .liGenericPutClient(let requestParams):
             if let additionalHttpHeaders = requestParams.additionalHttpHeaders {
                 headers.update(other: additionalHttpHeaders)
@@ -228,6 +227,10 @@ extension LiClient {
             }
         default:
             break
+        }
+        if LiSDKManager.shared().authManager.isUserLoggedIn() {
+            headers["Authorization"] = "Bearer " + (accessToken ?? "")
+            headers["Auth-Service-Authorization"] = "default"
         }
         return headers
     }
