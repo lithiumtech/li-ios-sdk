@@ -79,22 +79,19 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
     /**
      Use this function to logout the logged in user.
      */
-    public func logoutUser(completionHandler: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+    public func logoutUser(completionHandler: @escaping (_ error: Error?) -> Void) {
         if isUserLoggedIn() {
+            clearLocalData()
             sdkManager?.clientManager.request(client: .signout(deivceId: sdkManager?.authState.deviceToken ?? ""), completionHandler: { (result: Result<[LiGenericQueryResponse]>) in
                 switch result {
                 case .success:
-                    self.clearLocalData()
-                    completionHandler(true, nil)
+                    completionHandler(nil)
                 case .failure(let error):
-                    //TODO: -  Temporary fix to allow testing, while new logout api is under development.
-                    self.clearLocalData()
-                    completionHandler(true, nil)
-                    //completionHandler(false, error)
+                    completionHandler(error)
                 }
             })
         } else {
-            completionHandler(false, LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.notLoggedInError, httpCode: LiCoreConstants.ErrorCodes.unauthorized))
+            completionHandler(LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.notLoggedInError, httpCode: LiCoreConstants.ErrorCodes.unauthorized))
         }
     }
     //MARK: - Internal

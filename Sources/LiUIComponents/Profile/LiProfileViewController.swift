@@ -98,17 +98,14 @@ public class LiProfileViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     func onSignOut() {
-        LiSDKManager.shared().authManager.logoutUser { (success: Bool, error: Error?) in
-            if success {
-                self.dismiss(animated: true, completion: nil)
-            } else {
-                if let err = error as? LiBaseError {
-                    self.popupAlertWithSingleAction(title: "", message: err.errorMessage, actionTitle: LiHelperFunctions.localizedString(for: "Ok")) { (_) in }
-                } else {
-                    self.popupAlertWithSingleAction(title: "", message: LiCoreConstants.ErrorMessages.unknownError, actionTitle: LiHelperFunctions.localizedString(for: "Ok")) { (_) in }
-                }
+        startActivityIndicator()
+        LiSDKManager.shared().authManager.logoutUser { [weak self] (error: Error?) in
+            self?.stopActivityIndicator()
+            if let err = error {
+                print(err)
             }
         }
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
