@@ -182,9 +182,10 @@ extension LiMessageViewController: LiClientServiceProtocol {
     public func success(client: LiClient, result: [LiBaseModel]?) {
         switch client {
         case .liMessageDeleteClient(_):
-                self.getData()
+            self.getData()
         case .liRepliesClient:
-            guard let data = result as? [LiMessage] else {
+            guard let data = result as? [LiMessage], data.count > 0 else {
+                self.navigationController?.popViewController(animated: true)
                 return
             }
             self.messageObject = LiMessageViewModel(data: data)
