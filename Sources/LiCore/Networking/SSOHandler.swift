@@ -14,7 +14,7 @@
 
 import Foundation
 import Alamofire
-class SSOHandler: RequestRetrier {
+class SSOHandler: RequestAdapter, RequestRetrier {
     private let sessionManager: SessionManager = {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
@@ -23,9 +23,21 @@ class SSOHandler: RequestRetrier {
     private let lock = NSLock()
     private var isRefreshing = false
     private var requestsToRetry: [RequestRetryCompletion] = []
+    // MARK: - RequestAdapter
+    func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
+        if LiSDKManager.shared().authManager.isUserLoggedIn() {
+            var urlRequest = urlRequest
+            let accessToken = LiSDKManager.shared().authState.accessToken ?? ""
+            urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+            urlRequest.setValue("default", forHTTPHeaderField: "Auth-Service-Authorization")
+            return urlRequest
+        }
+        return urlRequest
+    }
+    // MARK: - RequestRetrier
     func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
         lock.lock() ; defer { lock.unlock() }
-        if request.response?.statusCode == LiCoreConstants.ErrorCodes.unauthorized {
+        if request.response?.statusCode == LiCoreConstants.ErrorCodes.unauthorized || request.response?.statusCode == LiCoreConstants.ErrorCodes.forbidden {
             requestsToRetry.append(completion)
             if !isRefreshing {
                 refreshTokens { [weak self] succeeded, error in

@@ -24,6 +24,7 @@ class LiRestClient {
     internal let sessionManager = SessionManager()
     private let oauthHandler = SSOHandler()
     init() {
+        sessionManager.adapter = oauthHandler
         sessionManager.retrier = oauthHandler
     }
     func request <T: Router> (client: T, success: @escaping Success, failure: @escaping Failure) {
