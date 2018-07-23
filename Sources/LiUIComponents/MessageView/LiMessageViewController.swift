@@ -25,9 +25,6 @@ open class LiMessageViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        if let messageId = originalMessageId {
-            LiClientService.sharedInstance.registerEvent(type: LiEventsType.conversation, id: messageId, delegate: self)
-        }
     }
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -187,6 +184,9 @@ extension LiMessageViewController: LiClientServiceProtocol {
             guard let data = result as? [LiMessage], data.count > 0 else {
                 self.navigationController?.popViewController(animated: true)
                 return
+            }
+            if let messageId = originalMessageId {
+                LiClientService.sharedInstance.registerEvent(type: LiEventsType.conversation, id: messageId, delegate: self)
             }
             self.messageObject = LiMessageViewModel(data: data)
             self.postDataUISetup()
