@@ -24,6 +24,7 @@ class LiRestClient {
     internal let sessionManager = SessionManager()
     private let oauthHandler = SSOHandler()
     init() {
+        sessionManager.adapter = oauthHandler
         sessionManager.retrier = oauthHandler
     }
     func request <T: Router> (client: T, success: @escaping Success, failure: @escaping Failure) {
@@ -48,6 +49,11 @@ class LiRestClient {
                                 failure(err)
                                 return
                             }
+                        }
+                        // This is executed when even when the user is logged in and access token is nil.
+                        if let error = response.error as? LiBaseError, error.httpCode == LiCoreConstants.ErrorCodes.emptyAccessTokenError {
+                            failure(error)
+                            return
                         }
                         do {
                             let data = try LiApiResponse.getLiBaseError(data: response.data)

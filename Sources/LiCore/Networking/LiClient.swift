@@ -203,13 +203,8 @@ extension LiClient {
     internal var headers: HTTPHeaders {
         let clientID = LiSDKManager.shared().appCredentials.clientId
         let clientAppName = LiSDKManager.shared().appCredentials.clientAppName
-        let accessToken = LiSDKManager.shared().authState.accessToken
         let visitorId = LiSDKManager.shared().visitorId ?? ""
         var headers: [String: String] = ["client-id": clientID, "Visitor-Id": visitorId, "Application-Identifier": clientAppName, "Application-Version": LiQueryConstant.apiVersion, "Content-Type": "application/json" ]
-        if LiSDKManager.shared().authManager.isUserLoggedIn() {
-            headers["Authorization"] = "Bearer " + (accessToken ?? "")
-            headers["Auth-Service-Authorization"] = "default"
-        }
         switch self {
         case .liGenericPutClient(let requestParams):
             if let additionalHttpHeaders = requestParams.additionalHttpHeaders {
