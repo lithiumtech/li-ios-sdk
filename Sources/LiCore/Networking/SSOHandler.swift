@@ -26,11 +26,14 @@ class SSOHandler: RequestAdapter, RequestRetrier {
     // MARK: - RequestAdapter
     func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
         if LiSDKManager.shared().authManager.isUserLoggedIn() {
-            var urlRequest = urlRequest
-            let accessToken = LiSDKManager.shared().authState.accessToken ?? ""
-            urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
-            urlRequest.setValue("default", forHTTPHeaderField: "Auth-Service-Authorization")
-            return urlRequest
+            if let accessToken = LiSDKManager.shared().authState.accessToken {
+                var urlRequest = urlRequest
+                urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+                urlRequest.setValue("default", forHTTPHeaderField: "Auth-Service-Authorization")
+                return urlRequest
+            } else {
+                throw LiBaseError(errorMessage: LiCoreConstants.ErrorMessages.emptyAccessTokenError, httpCode: LiCoreConstants.ErrorCodes.emptyAccessTokenError)
+            }
         }
         return urlRequest
     }

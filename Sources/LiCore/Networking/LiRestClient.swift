@@ -50,6 +50,11 @@ class LiRestClient {
                                 return
                             }
                         }
+                        // This is executed when even when the user is logged in and access token is nil.
+                        if let error = response.error as? LiBaseError, error.httpCode == LiCoreConstants.ErrorCodes.emptyAccessTokenError {
+                            failure(error)
+                            return
+                        }
                         do {
                             let data = try LiApiResponse.getLiBaseError(data: response.data)
                             failure(data)

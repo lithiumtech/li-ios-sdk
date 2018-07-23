@@ -21,6 +21,7 @@ public struct LiCoreConstants {
         public static let serverError = 500
         public static let serviceUnavailable = 503
         ///Thrown when unknown error json format is recieved.
+        public static let emptyAccessTokenError = 102
         public static let jsonSyntaxError = 104
         public static let noResponseFound = 105
     }
@@ -31,6 +32,7 @@ public struct LiCoreConstants {
         public static let invalidAuthCode = "Response does not contain authCode"
         public static let refreshFailed = "Failed to refresh access token."
         public static let noResponse = "Server returned no response."
+        public static let emptyAccessTokenError = "Invalid Access token, please log out and log in again."
     }
     public struct UserDefaultConstants {
         public static let liAccessToken = "LiAccessToken"
