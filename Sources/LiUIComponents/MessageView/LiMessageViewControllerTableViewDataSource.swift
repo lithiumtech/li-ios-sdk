@@ -71,7 +71,7 @@ extension LiMessageViewController: UITableViewDataSource {
         if messageObject.contentHeightsAcceptedSolutions[indexPath.row] != 0.0 {
             cell.updateHeightConstrain()
         }
-        if let urlString = messageObject.originalMessage.author?.avatar?.profile {
+        if let urlString = messageObject.acceptedSolutions[indexPath.row].author?.avatar?.profile {
             let authorImageUrl = urlString.validateHttps()
             LiImageLoader.sharedInstance.obtainImageWithUrl(imageUrl: authorImageUrl) { [weak self] (image, error) in
                 if let err = error {
@@ -94,7 +94,7 @@ extension LiMessageViewController: UITableViewDataSource {
         if messageObject.contentHeightsDiscussion[indexPath.row] != 0.0 {
             cell.updateHeightConstrain()
         }
-        if let urlString = messageObject.originalMessage.author?.avatar?.profile {
+        if let urlString = messageObject.discussion[indexPath.row].author?.avatar?.profile {
             let authorImageUrl = urlString.validateHttps()
             LiImageLoader.sharedInstance.obtainImageWithUrl(imageUrl: authorImageUrl) { [weak self] (image, error) in
                 if let err = error {
