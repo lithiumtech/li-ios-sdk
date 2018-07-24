@@ -80,17 +80,16 @@ extension LiReplyViewController: LiClientServiceProtocol {
     func success(client: LiClient, result: [LiBaseModel]?) {
         switch client {
         case .liCreateReplyClient:
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: { [weak self] in
+                self?.view.stopActivityIndicator()
+            })
         case .liUploadImageClient:
             if let imageObj = result?.first as? LiImageResponse, let imageId = imageObj.id {
                 postWithImage(imageId: imageId)
             }
-        case .liBeaconClient:
-            return
         default:
             break
         }
-        self.view.stopActivityIndicator()
     }
     func failure(client: LiClient?, errorMessage: String) {
         self.view.stopActivityIndicator()

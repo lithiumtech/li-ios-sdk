@@ -66,7 +66,6 @@ open class LiNewMessageViewController: LiBaseNewMessageViewController {
             alert.addAction(cancelAction)
             self.present(alert, animated: true, completion: nil)
             return
-
         }
         guard model.topic != "" else {
             let alert = UIAlertController(title: LiHelperFunctions.localizedString(for: "Form incomplete"), message: LiHelperFunctions.localizedString(for: "Topic cannot be empty."), preferredStyle: .alert)
@@ -99,17 +98,16 @@ extension LiNewMessageViewController: LiClientServiceProtocol {
     public func success(client: LiClient, result: [LiBaseModel]?) {
         switch client {
         case .liCreateMessageClient:
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: { [weak self] in
+                self?.view.stopActivityIndicator()
+            })
         case .liUploadImageClient:
             if let imageObj = result?.first as? LiImageResponse, let imageId = imageObj.id {
                 postWithImage(imageId: imageId)
             }
-        case .liBeaconClient:
-            return
         default:
             break
         }
-        self.view.stopActivityIndicator()
     }
     public func failure(client: LiClient?, errorMessage: String) {
         self.view.stopActivityIndicator()
