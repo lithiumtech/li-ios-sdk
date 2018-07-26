@@ -92,25 +92,55 @@ extension LiBaseNewMessageViewController: LiImagePostDelegate {
         tableView.reloadData()
     }
     func onAddImage() {
+        view.endEditing(true)
         let actionSheetController = UIAlertController(title: LiHelperFunctions.localizedString(for: "Add image"), message: nil, preferredStyle: .actionSheet)
         let cancelActionButton = UIAlertAction(title: LiHelperFunctions.localizedString(for: "Cancel"), style: .cancel) { _ -> Void in
         }
-        actionSheetController.addAction(cancelActionButton)
-        let saveActionButton = UIAlertAction(title: LiHelperFunctions.localizedString(for: "Photo Library"), style: .default) { _ -> Void in
-            if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-                self.imagePicker.delegate = self
-                self.imagePicker.sourceType = .savedPhotosAlbum
-                self.imagePicker.allowsEditing = false
-                self.present(self.imagePicker, animated: true, completion: nil)
-            }
+        let openSettingsButton = UIAlertAction(title: LiHelperFunctions.localizedString(for: "Open Settings"),style: UIAlertActionStyle.default) { _ -> Void in
+            UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
         }
-        actionSheetController.addAction(saveActionButton)
+        actionSheetController.addAction(cancelActionButton)
+        let photoLibraryActionButton = UIAlertAction(title: LiHelperFunctions.localizedString(for: "Photo Library"), style: .default) { _ -> Void in
+            
+            PHPhotoLibrary.requestAuthorization({ (status) in
+                    if status == PHAuthorizationStatus.authorized {
+                        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+                            self.imagePicker.delegate = self
+                            self.imagePicker.sourceType = .savedPhotosAlbum
+                            self.imagePicker.allowsEditing = false
+                            self.present(self.imagePicker, animated: true, completion: nil)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: LiHelperFunctions.localizedString(for: "This feature requires photo library access"), message: LiHelperFunctions.localizedString(for: "In iPhone settings, enable photos access for this app."), preferredStyle: .alert)
+                            let cancelAction = UIAlertAction(title: LiHelperFunctions.localizedString(for: "Not now"), style: .cancel, handler: nil)
+                            alert.addAction(openSettingsButton)
+                            alert.addAction(cancelAction)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                       
+                    }
+                })
+        }
+        actionSheetController.addAction(photoLibraryActionButton)
         let cameraActionButton = UIAlertAction(title: "Camera", style: .default) { _ -> Void in
-            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                self.imagePicker.delegate = self
-                self.imagePicker.sourceType = .camera
-                self.present(self.imagePicker, animated: true, completion: nil)
-            }
+            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: { (videoGranted: Bool) -> Void in
+                    if (videoGranted) {
+                        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                            self.imagePicker.delegate = self
+                            self.imagePicker.sourceType = .camera
+                            self.present(self.imagePicker, animated: true, completion: nil)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: LiHelperFunctions.localizedString(for: "This feature requires camera access"), message: LiHelperFunctions.localizedString(for: "In iPhone settings, enable camera access for this app."), preferredStyle: .alert)
+                            let cancelAction = UIAlertAction(title: LiHelperFunctions.localizedString(for: "Not now"), style: .cancel, handler: nil)
+                            alert.addAction(cancelAction)
+                            alert.addAction(openSettingsButton)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                }
+                })
         }
         actionSheetController.addAction(cameraActionButton)
         self.present(actionSheetController, animated: true, completion: nil)

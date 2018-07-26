@@ -25,7 +25,6 @@ public class LiBrowseViewController: LiBaseBrowseViewController {
         browseTableView.dataSource = self
         browseTableView.registerReusableCell(LiBrowseTableViewCell.self)
         setupActivityIndicator()
-        loadData()
     }
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -33,6 +32,7 @@ public class LiBrowseViewController: LiBaseBrowseViewController {
     }
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        loadData()
         self.navigationController?.navigationBar.isHidden = false
     }
     public override func viewWillDisappear(_ animated: Bool) {

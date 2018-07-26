@@ -55,6 +55,7 @@ class LiReplyViewController: LiBaseNewMessageViewController {
     }
     ///Post reply
     func onPost() {
+        view.endEditing(true)
         guard let text = textViewText, text != "" else {
             let alert = UIAlertController(title: nil, message: LiHelperFunctions.localizedString(for: "Post body cannot be empty."), preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: LiHelperFunctions.localizedString(for: "Ok"), style: .cancel, handler: nil)
@@ -62,7 +63,6 @@ class LiReplyViewController: LiBaseNewMessageViewController {
             self.present(alert, animated: true, completion: nil)
             return
         }
-        self.resignFirstResponder()
         view.startActivityIndicator(isBlocking: true)
         if imageAdded {
             LiClientService.sharedInstance.uploadImage(topic: model.topic, image: selectedImage!, imageName: imageFileName, delegate: self)
@@ -80,9 +80,8 @@ extension LiReplyViewController: LiClientServiceProtocol {
     func success(client: LiClient, result: [LiBaseModel]?) {
         switch client {
         case .liCreateReplyClient:
-            self.dismiss(animated: true, completion: { [weak self] in
-                self?.view.stopActivityIndicator()
-            })
+            self.view.stopActivityIndicator()
+            self.dismiss(animated: true, completion: nil)
         case .liUploadImageClient:
             if let imageObj = result?.first as? LiImageResponse, let imageId = imageObj.id {
                 postWithImage(imageId: imageId)
