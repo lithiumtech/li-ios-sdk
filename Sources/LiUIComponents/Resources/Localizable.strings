@@ -77,6 +77,12 @@
 "Cancel" = "Cancel";
 "Photo Library" = "Photo Library";
 "Camera" = "Camera";
+"This feature requires photo library access" = "This feature requires photo library access";
+"In iPhone settings, enable photos access for this app." = "In iPhone settings, enable photos access for this app.";
+"This feature requires camera access" = "This feature requires camera access";
+"In iPhone settings, enable camera access for this app." = "In iPhone settings, enable camera access for this app.";
+"Open Settings" = "Open Settings";
+"Not now" = "Not now";
 // Text in LiReply
 "Reply" = "Reply";
 "Image compression failed" = "Image compression failed";

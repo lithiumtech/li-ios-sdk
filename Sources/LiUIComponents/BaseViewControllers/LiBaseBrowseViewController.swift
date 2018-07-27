@@ -27,8 +27,8 @@ public class LiBaseBrowseViewController: UIViewController {
         addTableViewConstrains()
         setupActivityIndicator()
     }
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if currentLevel != "root" {
             LiClientService.sharedInstance.registerEvent(type: .node, id: currentLevel, delegate: self)
         } else {

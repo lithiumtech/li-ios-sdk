@@ -60,6 +60,7 @@ open class LiNewMessageViewController: LiBaseNewMessageViewController {
     }
     //Post the message.
     func onPost() {
+        view.endEditing(true)
         guard let boardId = model.boardId else {
             let alert = UIAlertController(title: LiHelperFunctions.localizedString(for: "Form incomplete"), message: LiHelperFunctions.localizedString(for: "Please select the board you want to post the message in."), preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: LiHelperFunctions.localizedString(for: "Ok"), style: .cancel, handler: nil)
@@ -81,7 +82,6 @@ open class LiNewMessageViewController: LiBaseNewMessageViewController {
             self.present(alert, animated: true, completion: nil)
             return
         }
-        self.resignFirstResponder()
         view.startActivityIndicator(isBlocking: true)
         if imageAdded {
             LiClientService.sharedInstance.uploadImage(topic: model.topic, image: selectedImage!, imageName: imageFileName, delegate: self)
@@ -98,9 +98,8 @@ extension LiNewMessageViewController: LiClientServiceProtocol {
     public func success(client: LiClient, result: [LiBaseModel]?) {
         switch client {
         case .liCreateMessageClient:
-            self.dismiss(animated: true, completion: { [weak self] in
-                self?.view.stopActivityIndicator()
-            })
+            self.view.stopActivityIndicator()
+            self.dismiss(animated: true, completion: nil)
         case .liUploadImageClient:
             if let imageObj = result?.first as? LiImageResponse, let imageId = imageObj.id {
                 postWithImage(imageId: imageId)
