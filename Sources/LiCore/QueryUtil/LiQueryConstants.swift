@@ -18,7 +18,7 @@ public struct LiQueryConstant {
         public static let liSubscriptionsClientBaseLiql = "SELECT id, target.author, target.id, target.subject, target.post_time, target.kudos.sum(weight), target.body, target.conversation.style, target.conversation.solved, target.conversation.last_post_time FROM subscriptions"
         public static let liBrowseClientBaseLiql = "select id, title, parent.id, parent.title, depth from nodes"
         public static let liCategoryClientBaseLiql = "select id, title, parent.id, parent.title, depth from nodes"
-        public static let liUserDetailsClientBaseLiql = "SELECT email, href, last_visit_time, login, id, view_href, avatar from users"
+        public static let liUserDetailsClientBaseLiql = "SELECT email, href, last_visit_time, login, id, view_href, avatar, user_badges from users"
         public static let liFloatedMessageClientBaseLiql = "select * from floated_messages"
         public static let liSdkSettingsClientBaseLiql = "select additional_information from app_sdk_settings"
         public static let liMessageListBaseLiql = "SELECT id, subject, view_href, board.id, post_time, kudos.sum(weight), conversation.style, conversation.solved, conversation.last_post_time, user_context, author, author.id, author.avatar, author.rank, author.login, author.href, author.email, parent.id, metrics, replies.count(*) FROM messages"
