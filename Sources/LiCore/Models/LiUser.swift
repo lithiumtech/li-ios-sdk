@@ -32,6 +32,7 @@ public struct LiUser: LiBaseModel {
     public fileprivate(set) var registrationInstant: String?
     public fileprivate(set) var valid: Bool?
     public fileprivate(set) var avatar: LiAvatar?
+    public fileprivate(set) var userBadges: LiUserBadges?
     public init(data: [String: Any]) {
         self.anonymous = data["anonymous"] as? Bool
         self.averageMessageRating = data["average_message_rating"] as? Float
@@ -49,6 +50,9 @@ public struct LiUser: LiBaseModel {
         self.valid = data["valid"] as? Bool
         if let avatarData = data["avatar"] as? [String: Any] {
             self.avatar = LiAvatar(data: avatarData)
+        }
+        if let userBadgeData = data["user_badges"] as? [String: Any] {
+            self.userBadges = LiUserBadges(data: userBadgeData)
         }
     }
     mutating public func set(anonymous: Bool?) {
@@ -101,5 +105,8 @@ public struct LiUser: LiBaseModel {
     }
     mutating public func set(avatar: LiAvatar?) {
         self.avatar = avatar
+    }
+    mutating public func set(userBadges: LiUserBadges?) {
+        self.userBadges = userBadges
     }
 }
