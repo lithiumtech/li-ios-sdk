@@ -40,6 +40,10 @@ class SSOHandler: RequestAdapter, RequestRetrier {
     // MARK: - RequestRetrier
     func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
         lock.lock() ; defer { lock.unlock() }
+        if request.retryCount == LiCoreConstants.maxRetry {
+            completion(false, 0.0)
+            return
+        }
         if request.response?.statusCode == LiCoreConstants.ErrorCodes.unauthorized || request.response?.statusCode == LiCoreConstants.ErrorCodes.forbidden {
             requestsToRetry.append(completion)
             if !isRefreshing {
@@ -57,10 +61,6 @@ class SSOHandler: RequestAdapter, RequestRetrier {
                 }
             }
         } else {
-            if request.retryCount == LiCoreConstants.maxRetry {
-                completion(false, 0.0)
-                return
-            }
             completion(true, 1.0)
         }
     }

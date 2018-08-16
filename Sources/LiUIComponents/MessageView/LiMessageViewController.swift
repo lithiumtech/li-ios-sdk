@@ -78,10 +78,10 @@ open class LiMessageViewController: UIViewController {
         }
     }
     @IBAction func onReply(_ sender: UIBarButtonItem) {
-        performReplyAction()
+        performReplyAction(id: originalMessageId!)
     }
-    func performReplyAction()  {
-        let model = LiReply(messageId: originalMessageId!, topic: messageObject?.originalMessage.subject ?? "")
+    func performReplyAction(id: String)  {
+        let model = LiReply(messageId: id, topic: messageObject?.originalMessage.subject ?? "")
         let  vc = LiReplyViewController(model: model)
         let navController = UINavigationController(rootViewController: vc)
         self.present(navController, animated: true, completion: nil)
@@ -135,7 +135,7 @@ extension LiMessageViewController: LiMessageActionsDelegate {
             }
         }
         let replyAction = UIAlertAction(title: LiHelperFunctions.localizedString(for: "Reply to post"), style: .default) { _ in
-            self.performReplyAction()
+            self.performReplyAction(id: messageId)
         }
         if LiSDKManager.shared().authManager.isUserLoggedIn() {
             if let userId = LiSDKManager.shared().authState.userId {
