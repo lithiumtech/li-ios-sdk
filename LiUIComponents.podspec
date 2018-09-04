@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.author             = { "Shekhar Dahore" => "shekhar.dahore@lithium.com" }
   s.platform           = :ios, "9.0"
   s.swift_version      = "3.2"
-  s.source             = { :git => "https://github.com/lithiumtech/li-ios-sdk-ui.git", :tag => "0.1.0" }
+  s.source             = { :git => "https://github.com/lithiumtech/li-ios-sdk.git", :tag => "0.1.0" }
   s.source_files       = "Sources/LiUIComponents/*", "Sources/LiUIComponents/**/*.{swift,h,m}"
   s.resource_bundles   = { "LiUIComponents" => ["Sources/LiUIComponents/Resources/*", "Sources/LiUIComponents/**/*.{xib,storyboard}", "Sources/LiUIComponents/**/*.xcassets"]}
   s.resources          = ["Sources/LiUIComponents/Resources/*", "Sources/LiUIComponents/**/*.{xib,storyboard}", "Sources/LiUIComponents/**/*.xcassets" ]
