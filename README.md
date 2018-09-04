@@ -43,9 +43,9 @@ Copyright 2018 Lithium Technologies
 
 ## Documentation and resources
 
-* [Getting Started](Getting-Started) - provides a quick start guide
-* [API reference](API-Reference) - provides reference material for the API, utility methods, and examples for using, customizing, and creating your own APIs
-* [Initializing the SDK](Initializing-the-SDK) - provides initialization examples
-* [Authenticating a user](Authenticating-a-user) - describes the authentication options supported by the SDK
-* [Setting up push notifications](Setting-up-push-notifications) - provides instructions for setting up push notifications for your Community integration
-* [Tutorials](Tutorials) - provides tutorials on working with the API providers
+* [Getting Started](https://github.com/lithiumtech/li-ios-sdk/wiki/Getting-Started-with-the-Community-iOS-SDK) - provides a quick start guide
+* [API reference](https://github.com/lithiumtech/li-ios-sdk/wiki/Community-iOS-SDK-API-reference) - provides reference material for the API, utility methods, and examples for using, customizing, and creating your own APIs
+* [Initializing the SDK](https://github.com/lithiumtech/li-ios-sdk/wiki/Getting-Started-with-the-Community-iOS-SDK#initializing-the-sdk-with-your-credentials) - provides initialization examples
+* [Authenticating a user](https://github.com/lithiumtech/li-ios-sdk/wiki/Authenticating-a-user) - describes the authentication options supported by the SDK
+* [Setting up push notifications](https://github.com/lithiumtech/li-ios-sdk/wiki/Setting-up-push-notifications) - provides instructions for setting up push notifications for your Community integration
+* [Tutorials](https://github.com/lithiumtech/li-ios-sdk/wiki/Tutorials) - provides tutorials on working with the API providers
