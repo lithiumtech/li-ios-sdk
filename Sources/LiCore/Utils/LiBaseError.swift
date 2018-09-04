@@ -20,15 +20,18 @@ public struct LiBaseError: Error {
     public let status: String
     ///Error message
     public let errorMessage: String
+    ///Developer error message
+    public var developerErrorMessage: String?
     ///Error response
     public var errorJson: [String: Any]?
     public init(errorData: Data) throws {
         do {
             let jsonData = try JSONSerialization.jsonObject(with: errorData, options: []) as? [String: Any]
             if let data = jsonData?["data"] as? [String: Any], let errorCode = data["code"] as? Int {
+                self.errorMessage = jsonData?["message"] as? String ?? LiCoreConstants.ErrorMessages.unknownError
                 self.httpCode = errorCode
                 self.status = data["status"] as? String ?? ""
-                self.errorMessage = data["developer_message"] as? String ?? LiCoreConstants.ErrorMessages.unknownError
+                self.developerErrorMessage = data["developer_message"] as? String ?? LiCoreConstants.ErrorMessages.unknownError
                 self.errorJson = jsonData
             } else if let statusCode = jsonData?["statusCode"] as? Int,
                 let status = jsonData?["status"] as? String,
