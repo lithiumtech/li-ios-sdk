@@ -81,8 +81,9 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
      */
     public func logoutUser(completionHandler: @escaping (_ error: Error?) -> Void) {
         if isUserLoggedIn() {
-            clearLocalData()
-            sdkManager?.clientManager.request(client: .signout(deivceId: sdkManager?.authState.deviceToken ?? ""), completionHandler: { (result: Result<[LiGenericQueryResponse]>) in
+            let deviceId = sdkManager?.authState.deviceToken ?? ""
+            sdkManager?.clientManager.request(client: .signout(deivceId: deviceId), completionHandler: { (result: Result<[LiGenericQueryResponse]>) in
+                self.clearLocalData()
                 switch result {
                 case .success:
                     completionHandler(nil)
@@ -99,6 +100,7 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
         if status {
             if let notificationProvider = notificationProvider, let deviceToken = deviceToken {
                 LiNotificationManager.subscribe(deviceToken: deviceToken, notificationProvider: notificationProvider)
+                sdkManager?.authState.set(deviceToken: deviceToken)
             }
             sdkManager?.syncSettings()
         }
