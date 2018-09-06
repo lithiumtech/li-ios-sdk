@@ -252,7 +252,7 @@ extension LiClient {
                     "state": state,
                     "deviceGroup": "iOS"]
         case .signout(let deivceId):
-            return ["deviceId": deivceId]
+            return ["data": ["deviceId": deivceId]]
         case .liKudoClient(let requestParams):
             return ["data": requestParams.getPostParams()]
         case .liCreateReplyClient(let requestParams):
