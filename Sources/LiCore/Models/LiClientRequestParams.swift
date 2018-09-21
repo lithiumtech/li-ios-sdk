@@ -52,10 +52,13 @@ public struct LiBoardsByDepthClientRequestParams: LiClientRequestParams {
 /// Model used to create liRepliesClient request parameters.
 public struct LiRepliesClientRequestParams: LiClientRequestParams {
     var parentId: String
+    var offset: Int
     /// Creates LiRepliesClientRequestParams object to pass onto liRepliesClient2.
     /// - parameter parentId: the ID of the parent message.
-    public init(parentId: String) throws {
+    //TODO: - Add test case for offset
+    public init(parentId: String, offset: Int = 0) throws {
         self.parentId = try LiUtils.nonEmptyStringCheck(value: parentId, errorMessage: "parentId should not be an empty string")
+        self.offset = offset
     }
 }
 /// Model used to create liSearchClient request parameters.

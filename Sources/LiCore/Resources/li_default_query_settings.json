@@ -166,7 +166,8 @@
                      "key": "post_time",
                      "type": "asc"
                      }
-                     ]
+                     ],
+        "offset": "&&"
     },
     "questions": {
         "liDataSource": "messages",
