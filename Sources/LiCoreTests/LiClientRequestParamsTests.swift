@@ -89,17 +89,22 @@ class LiRepliesClientRequestParamsTests: QuickSpec {
         describe("LiRepliesClientRequestParams") {
             context("After being properly initalize") {
                 it("Should not throw error") {
-                    expect { try LiRepliesClientRequestParams(parentId: "123", offset: 20) }.toNot( throwError() )
+                    expect { try LiRepliesClientRequestParams(parentId: "123", limit: 25, offset: 20) }.toNot( throwError() )
                 }
             }
             context("After being initalized with a negative number for offset") {
                 it("should throw an error") {
-                    expect { try LiRepliesClientRequestParams(parentId: "123", offset: -20) }.to( throwError() )
+                    expect { try LiRepliesClientRequestParams(parentId: "123", limit: 25, offset: -20) }.to( throwError() )
+                }
+            }
+            context("After being initalized with a negative number for limit") {
+                it("should throw an error") {
+                    expect { try LiRepliesClientRequestParams(parentId: "123", limit: -25, offset: 20) }.to( throwError() )
                 }
             }
             context("After being initalized with an empty sting") {
                 it("should throw an error") {
-                    expect { try LiRepliesClientRequestParams(parentId: "", offset: 20) }.to( throwError() )
+                    expect { try LiRepliesClientRequestParams(parentId: "", limit: 25, offset: 20) }.to( throwError() )
                 }
             }
         }

@@ -52,12 +52,15 @@ public struct LiBoardsByDepthClientRequestParams: LiClientRequestParams {
 /// Model used to create liRepliesClient request parameters.
 public struct LiRepliesClientRequestParams: LiClientRequestParams {
     var parentId: String
+    var limit: Int
     var offset: Int
     /// Creates LiRepliesClientRequestParams object to pass onto liRepliesClient2.
     /// - parameter parentId: the ID of the parent message.
+    /// - parameter limit: is the number of items to fetch.
     /// - parameter offset: is the number of items to skip before returning results. Default value is 0.
-    public init(parentId: String, offset: Int = 0) throws {
+    public init(parentId: String, limit: Int, offset: Int = 0) throws {
         self.parentId = try LiUtils.nonEmptyStringCheck(value: parentId, errorMessage: "parentId should not be an empty string")
+        self.limit = try LiUtils.positiveIntegerCheck(value: limit, errorMessage: "limit value should be a valid positive integer")
         self.offset = try LiUtils.positiveIntegerCheck(value: offset, errorMessage: "offset value should be a valid positive integer")
     }
 }
