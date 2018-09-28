@@ -93,16 +93,8 @@ public class LiQuerySetting {
         } else {
             self.ordering = nil
         }
-        if let limit = data["limit"] as? String {
-            self.limit = limit
-        } else {
-            self.limit = nil
-        }
-        if let offset = data["offset"] as? String {
-            self.offset = offset
-        } else {
-            self.offset = nil
-        }
+        self.limit = data["limit"] as? String
+        self.offset = data["offset"] as? String
     }
     public enum LiWhereClause: String {
         case equals
