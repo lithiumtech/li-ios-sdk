@@ -23,6 +23,7 @@ class LiRestClient {
     static let sharedInstance = LiRestClient()
     internal let sessionManager = SessionManager()
     private let oauthHandler = SSOHandler()
+    private var refreshQueue: [RefreshCompletion] = []
     init() {
         sessionManager.adapter = oauthHandler
         sessionManager.retrier = oauthHandler
@@ -75,11 +76,15 @@ class LiRestClient {
             if isAccessTokenValid() {
                 isValid(true, nil)
             } else {
-                oauthHandler.refreshTokens(completion: { succeeded, error in
+                refreshQueue.append(isValid)
+                oauthHandler.refreshTokens(completion: { [weak self] succeeded, error in
+                    guard let strongSelf = self else { return }
                     if succeeded {
-                        isValid(true, nil)
+                        strongSelf.refreshQueue.forEach { $0(true, nil) }
+                        strongSelf.refreshQueue.removeAll()
                     } else {
-                        isValid(false, error)
+                        strongSelf.refreshQueue.forEach { $0(false, error) }
+                        strongSelf.refreshQueue.removeAll()
                     }
                 })
             }

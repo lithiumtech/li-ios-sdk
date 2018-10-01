@@ -288,7 +288,7 @@ extension LiClient {
         case .liUploadImageClient:
             return [:]
         case .liRepliesClient(let requestParams):
-            return [LiQueryConstant.liMarkAsRead: "true", "q": LiUrlConstructor.getLiqlQuery(client: self).replacingOccurrences(of: "##", with: requestParams.parentId)]
+            return [LiQueryConstant.liMarkAsRead: "true", "q": LiUrlConstructor.getLiqlQuery(client: self).replacingOccurrences(of: "##", with: requestParams.parentId).replacingOccurrences(of: "**", with: "\(requestParams.limit)").replacingOccurrences(of: "&&", with: "\(requestParams.offset)")]
         case .liMessagesClient:
             return ["q": LiUrlConstructor.getLiqlQuery(client: self).replacingOccurrences(of: "##", with: "0")]
         case .liSearchClient(let requestParams):

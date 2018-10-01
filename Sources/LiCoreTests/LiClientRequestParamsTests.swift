@@ -75,7 +75,7 @@ class LiBoardsByDepthClientRequestParamsTests: QuickSpec {
                     expect { try LiBoardsByDepthClientRequestParams(depth: 0) }.toNot( throwError() )
                 }
             }
-            context("After being initalized with an empty sting") {
+            context("After being initalized with a negative number") {
                 it("should throw an error") {
                     expect { try LiBoardsByDepthClientRequestParams(depth: -21) }.to( throwError() )
                 }
@@ -89,12 +89,22 @@ class LiRepliesClientRequestParamsTests: QuickSpec {
         describe("LiRepliesClientRequestParams") {
             context("After being properly initalize") {
                 it("Should not throw error") {
-                    expect { try LiRepliesClientRequestParams(parentId: "123") }.toNot( throwError() )
+                    expect { try LiRepliesClientRequestParams(parentId: "123", limit: 25, offset: 20) }.toNot( throwError() )
+                }
+            }
+            context("After being initalized with a negative number for offset") {
+                it("should throw an error") {
+                    expect { try LiRepliesClientRequestParams(parentId: "123", limit: 25, offset: -20) }.to( throwError() )
+                }
+            }
+            context("After being initalized with a negative number for limit") {
+                it("should throw an error") {
+                    expect { try LiRepliesClientRequestParams(parentId: "123", limit: -25, offset: 20) }.to( throwError() )
                 }
             }
             context("After being initalized with an empty sting") {
                 it("should throw an error") {
-                    expect { try LiRepliesClientRequestParams(parentId: "") }.to( throwError() )
+                    expect { try LiRepliesClientRequestParams(parentId: "", limit: 25, offset: 20) }.to( throwError() )
                 }
             }
         }
@@ -186,11 +196,6 @@ class LiMessageClientRequestParamsTests: QuickSpec {
 class LiFloatedMessagesClientRequestParamsTests: QuickSpec {
     override func spec() {
         describe("LiFloatedMessagesClientRequestParams") {
-            context("After being properly initalize the depricated initalizer") {
-                it("Should not throw error") {
-                    expect { try LiFloatedMessagesClientRequestParams(boardId:"123", scope: "local") }.toNot( throwError() )
-                }
-            }
             context("After being properly initalized") {
                 it("Should not throw error") {
                     expect { try LiFloatedMessagesClientRequestParams(boardId:"123", scope: LiFloatedMessagesClientRequestParams.Scope.local) }.toNot( throwError() )
@@ -198,17 +203,7 @@ class LiFloatedMessagesClientRequestParamsTests: QuickSpec {
             }
             context("After being initalized with empty board Id") {
                 it("Should throw error") {
-                    expect { try LiFloatedMessagesClientRequestParams(boardId:"", scope: "local") }.to( throwError() )
-                }
-            }
-            context("After being initalized with empty board Id") {
-                it("Should throw error") {
                     expect { try LiFloatedMessagesClientRequestParams(boardId:"", scope: LiFloatedMessagesClientRequestParams.Scope.local) }.to( throwError() )
-                }
-            }
-            context("After being initalized with empty scope string on the depricated initalizer") {
-                it("Should throw error") {
-                    expect { try LiFloatedMessagesClientRequestParams(boardId:"123", scope: "") }.to( throwError() )
                 }
             }
         }
@@ -604,31 +599,16 @@ class LiDeviceIdFetchClientRequestParamsTests: QuickSpec {
         describe("LiReportAbuseClientRequestParams") {
             context("After being properly initalize") {
                 it("Should not throw error") {
-                    expect { try LiDeviceIdFetchClientRequestParams(deviceId: "fsajsfajfjsajfsa", pushNotificationProvider: "APNS") }.toNot( throwError() )
-                }
-            }
-            context("After being properly initalize") {
-                it("Should not throw error") {
-                    expect { try LiDeviceIdFetchClientRequestParams(deviceId: "fsajsfajfjsajfsa", pushNotificationProvider: LiDeviceIdFetchClientRequestParams.NotificationProviders.apns) }.toNot( throwError() )
+                    expect { try LiDeviceIdFetchClientRequestParams(deviceId: "fsajsfajfjsajfsa", pushNotificationProvider: .apns) }.toNot( throwError() )
                 }
             }
             context("After initalizing deviceId with an empty sting") {
                 it("should throw an error") {
-                    expect { try LiDeviceIdFetchClientRequestParams(deviceId: "", pushNotificationProvider: "APNS")  }.to( throwError() )
-                }
-            }
-            context("After initalizing pushNotificationProvider with empty sting") {
-                it("should throw an error") {
-                    expect { try LiDeviceIdFetchClientRequestParams(deviceId: "fsajsfajfjsajfsa", pushNotificationProvider: "")  }.to( throwError() )
-                }
-            }
-            context("After initalizing deviceId with an empty sting") {
-                it("should throw an error") {
-                    expect { try LiDeviceIdFetchClientRequestParams(deviceId: "", pushNotificationProvider: LiDeviceIdFetchClientRequestParams.NotificationProviders.apns)   }.to( throwError() )
+                    expect { try LiDeviceIdFetchClientRequestParams(deviceId: "", pushNotificationProvider: .apns) }.to( throwError() )
                 }
             }
             context("After being initalized correctly") {
-                let params = try!  LiDeviceIdFetchClientRequestParams(deviceId: "dsasadhdash", pushNotificationProvider: LiDeviceIdFetchClientRequestParams.NotificationProviders.apns)
+                let params = try!  LiDeviceIdFetchClientRequestParams(deviceId: "dsasadhdash", pushNotificationProvider: .apns)
                 let postParams = params.getPostParams()
                 it("then post params should be correct") {
                     expect(postParams["type"] as! String) == "user_device_data"
@@ -678,27 +658,12 @@ class LiSubscriptionPostClientRequestParamsTests: QuickSpec {
         describe("LiSubscriptionPostClientRequestParams") {
             context("After being properly initalize") {
                 it("Should not throw error") {
-                    expect { try LiSubscriptionPostClientRequestParams(targetId: "123", targetType: "message") }.toNot( throwError() )
-                }
-            }
-            context("After being properly initalize") {
-                it("Should not throw error") {
                     expect { try LiSubscriptionPostClientRequestParams(targetId: "123", targetType: LiSubscriptionPostClientRequestParams.TargetType.board) }.toNot( throwError() )
                 }
             }
             context("After initalizing targetId with an empty sting") {
                 it("should throw an error") {
-                    expect { try LiSubscriptionPostClientRequestParams(targetId: "", targetType: "message")  }.to( throwError() )
-                }
-            }
-            context("After initalizing targetId with an empty sting") {
-                it("should throw an error") {
                     expect { try LiSubscriptionPostClientRequestParams(targetId: "", targetType: LiSubscriptionPostClientRequestParams.TargetType.board)  }.to( throwError() )
-                }
-            }
-            context("After initalizing targetType with empty sting") {
-                it("should throw an error") {
-                    expect { try LiSubscriptionPostClientRequestParams(targetId: "123", targetType: "")  }.to( throwError() )
                 }
             }
             context("After being initalized correctly") {

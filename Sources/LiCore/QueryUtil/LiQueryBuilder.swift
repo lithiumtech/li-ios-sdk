@@ -18,6 +18,7 @@ public class LiQueryBuilder {
     fileprivate static let space = " "
     fileprivate static let orderBy = "ORDER BY"
     fileprivate static let limit = "LIMIT"
+    fileprivate static let offset = "OFFSET"
     private static func getDefault(client: String) -> [String: Any] {
         // swiftlint:disable:next force_cast
         return LiDefaultQueryHelper.sharedInstance.defaultSettings[client] as! [String: Any]
@@ -104,6 +105,12 @@ public class LiQueryBuilder {
             query.append(limit)
             query.append(space)
             query.append(limitSetting)
+        }
+        if let offsetSetting = liQuerySetting.offset {
+            query.append(space)
+            query.append(offset)
+            query.append(space)
+            query.append(offsetSetting)
         }
         return query
     }
