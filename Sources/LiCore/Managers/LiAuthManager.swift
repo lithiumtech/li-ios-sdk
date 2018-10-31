@@ -42,10 +42,9 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
         }
         self.deviceToken = deviceToken
         self.notificationProvider = notificationProvider
-        let authService: LiAuthService
         authService = LiAuthService.init(context: viewController, ssoToken: nil, sdkManager: sdkManager)
-        authService.authDelegate = self
-        authService.startLoginFlow()
+        authService?.authDelegate = self
+        authService?.startLoginFlow()
     }
     /**
      Use this function to initiate sso token based login.
