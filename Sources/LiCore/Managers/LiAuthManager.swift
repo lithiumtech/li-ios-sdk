@@ -23,6 +23,7 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
     ///delegate for `LiAuthorizationDelegate`
     weak public var liLoginDelegate: LiAuthorizationDelegate?
     weak var sdkManager: LiSDKManager?
+    var authService: LiAuthService?
     init(sdkManager: LiSDKManager) {
         self.sdkManager = sdkManager
     }
@@ -61,10 +62,9 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
         }
         self.deviceToken = deviceToken
         self.notificationProvider = notificationProvider
-        let authService: LiAuthService
         authService = LiAuthService.init(context: viewController, ssoToken: ssoToken, sdkManager: sdkManager)
-        authService.authDelegate = self
-        authService.startLoginFlow()
+        authService?.authDelegate = self
+        authService?.startLoginFlow()
     }
     /**
      Use this function to check the status of login.
