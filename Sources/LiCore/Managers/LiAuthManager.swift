@@ -82,9 +82,9 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
         if isUserLoggedIn() {
             let deviceId = sdkManager?.authState.deviceToken ?? ""
             sdkManager?.clientManager.request(client: .signout(deivceId: deviceId), completionHandler: { (result: Result<[LiGenericQueryResponse]>) in
-                self.clearLocalData()
                 switch result {
                 case .success:
+                    self.clearLocalData()
                     completionHandler(nil)
                 case .failure(let error):
                     completionHandler(error)

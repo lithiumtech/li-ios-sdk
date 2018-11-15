@@ -1,4 +1,4 @@
-// Copyright 2018 Lithium Technologies 
+// Copyright 2018 Lithium Technologies
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -109,11 +109,20 @@ public class LiProfileViewController: UIViewController {
         startActivityIndicator()
         LiSDKManager.shared().authManager.logoutUser { [weak self] (error: Error?) in
             self?.stopActivityIndicator()
-            if let err = error {
-                print(err)
+            if let err = error as? LiBaseError {
+                let errorMessage: String
+                if err.developerErrorMessage == "" {
+                    errorMessage = err.errorMessage
+                } else {
+                    errorMessage = err.developerErrorMessage ?? "Logout failed. Please try again."
+                }
+                self?.popupAlertWithSingleAction(title: "", message: errorMessage, actionTitle: LiHelperFunctions.localizedString(for: "Ok")) { (_) in }
+            } else if let err = error {
+                self?.popupAlertWithSingleAction(title: "", message: err.localizedDescription, actionTitle: LiHelperFunctions.localizedString(for: "Ok")) { (_) in }
+            } else {
+                self?.dismiss(animated: true, completion: nil)
             }
             self?.cancelItem.isEnabled = true
-            self?.dismiss(animated: true, completion: nil)
         }
     }
 }
