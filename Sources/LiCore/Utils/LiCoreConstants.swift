@@ -16,10 +16,13 @@ import Foundation
 public struct LiCoreConstants {
     public static let maxRetry = 3
     public struct ErrorCodes {
-        public static let forbidden = 403
         public static let unauthorized = 401
-        public static let serverError = 500
+        public static let forbidden = 403
+        public static let clientTimeout = 408
+        public static let internalServerError = 500
+        public static let badGateway = 502
         public static let serviceUnavailable = 503
+        public static let gatewayTimeout = 504
         ///Thrown when unknown error json format is recieved.
         public static let emptyAccessTokenError = 102
         public static let jsonSyntaxError = 104
