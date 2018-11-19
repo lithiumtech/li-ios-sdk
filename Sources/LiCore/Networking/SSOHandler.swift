@@ -73,6 +73,7 @@ class SSOHandler: RequestAdapter, RequestRetrier {
     func refreshTokens(completion: @escaping RefreshCompletion) {
         guard !isRefreshing else { return }
         isRefreshing = true
+        sessionManager.retrier = self
         sessionManager.request(LiClient.refreshAccessToken).validate()
             .responseJSON { [weak self] response in
                 guard let strongSelf = self else { return }
