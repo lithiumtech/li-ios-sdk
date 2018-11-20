@@ -17,7 +17,11 @@ import Alamofire
 class SSOHandler: RequestAdapter, RequestRetrier {
     private let sessionManager: SessionManager = {
         let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+        var defaultHeaders = SessionManager.defaultHTTPHeaders
+        let webView = UIWebView(frame: .zero)
+        let secretAgent = webView.stringByEvaluatingJavaScript(from: "navigator.userAgent")
+        defaultHeaders["User-Agent"] = secretAgent
+        configuration.httpAdditionalHeaders = defaultHeaders
         return SessionManager(configuration: configuration)
     }()
     private let lock = NSLock()

@@ -21,7 +21,15 @@ typealias RefreshCompletion = (_ succeeded: Bool, _ error: Error?) -> Void
 
 class LiRestClient {
     static let sharedInstance = LiRestClient()
-    internal let sessionManager = SessionManager()
+    internal let sessionManager: SessionManager = {
+        let configuration = URLSessionConfiguration.default
+        var defaultHeaders = SessionManager.defaultHTTPHeaders
+        let webView = UIWebView(frame: .zero)
+        let secretAgent = webView.stringByEvaluatingJavaScript(from: "navigator.userAgent")
+        defaultHeaders["User-Agent"] = secretAgent
+        configuration.httpAdditionalHeaders = defaultHeaders
+        return SessionManager(configuration: configuration)
+    }()
     private let oauthHandler = SSOHandler()
     private var refreshQueue: [RefreshCompletion] = []
     init() {
