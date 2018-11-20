@@ -15,11 +15,7 @@
 import Foundation
 import Alamofire
 class SSOHandler: RequestAdapter, RequestRetrier {
-    private let sessionManager: SessionManager = {
-        let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
-        return SessionManager(configuration: configuration)
-    }()
+    private let sessionManager: SessionManager = SessionManager.makeSessionManager()
     private let lock = NSLock()
     private var isRefreshing = false
     private var requestsToRetry: [RequestRetryCompletion] = []

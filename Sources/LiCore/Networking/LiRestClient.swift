@@ -21,7 +21,7 @@ typealias RefreshCompletion = (_ succeeded: Bool, _ error: Error?) -> Void
 
 class LiRestClient {
     static let sharedInstance = LiRestClient()
-    internal let sessionManager = SessionManager()
+    internal let sessionManager: SessionManager = SessionManager.makeSessionManager()
     private let oauthHandler = SSOHandler()
     private var refreshQueue: [RefreshCompletion] = []
     init() {

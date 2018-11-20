@@ -51,4 +51,8 @@ public struct LiCoreConstants {
         public static let liVisitorId = "LiVisitorId"
         public static let liDeviceToken = "LiDeviceToken"
     }
+    public static let userAgent: String = {
+        let webView = UIWebView(frame: .zero)
+        return webView.stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? "iOS"
+    }()
 }
