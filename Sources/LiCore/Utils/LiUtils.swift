@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import Foundation
+import Alamofire
 extension String {
     func hasImageExtension() -> Bool {
         let imageExtRegEx = "([^\\s]+(\\.(?i)(jpg|jpeg|png))$)"
@@ -75,5 +76,15 @@ extension Dictionary {
         for (key, value) in other {
             self.updateValue(value, forKey:key)
         }
+    }
+}
+
+extension SessionManager {
+    static func makeSessionManager() -> SessionManager {
+        let configuration = URLSessionConfiguration.default
+        var defaultHeaders = SessionManager.defaultHTTPHeaders
+        defaultHeaders["User-Agent"] = LiCoreConstants.userAgent
+        configuration.httpAdditionalHeaders = defaultHeaders
+        return SessionManager(configuration: configuration)
     }
 }
