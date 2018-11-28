@@ -20,6 +20,15 @@ extension String {
         let extTest =  NSPredicate(format:"SELF MATCHES[c] %@", imageExtRegEx)
         return extTest.evaluate(with: self)
     }
+    func uuidString() -> String {
+        let byte = [UInt8](self.utf8)
+        if byte.count < 16 {
+            return ""
+        }
+        let uuid = UUID(uuid: (byte[0],byte[1],byte[2],byte[3],byte[4],byte[5],byte[6],byte[7],byte[8],byte[9],byte[10],byte[11],byte[12],byte[13],byte[14],byte[15]))
+        return uuid.uuidString.lowercased()
+    }
+    
 }
 //Utils methods
 struct LiUtils {
@@ -69,6 +78,16 @@ struct LiUtils {
         } else {
             throw LiError.invalidArgument(errorMessage: message)
         }
+    }
+    static func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
     }
 }
 extension Dictionary {
