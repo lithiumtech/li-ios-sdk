@@ -62,7 +62,7 @@ public class LiQueryBuilder {
                 var index = 0
                 for whereClause in whereClauses {
                     if let key = whereClause["key"] as? String {
-                        if key == "conversation.style" {
+                        if key == "conversation_style" {
                             whereClauses[index]["value"] = conversationStyleSB
                         }
                     }

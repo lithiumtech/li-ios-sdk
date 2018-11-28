@@ -23,7 +23,7 @@ extension String {
     func uuidString() -> String {
         let byte = [UInt8](self.utf8)
         if byte.count < 16 {
-            return ""
+            return self
         }
         let uuid = UUID(uuid: (byte[0],byte[1],byte[2],byte[3],byte[4],byte[5],byte[6],byte[7],byte[8],byte[9],byte[10],byte[11],byte[12],byte[13],byte[14],byte[15]))
         return uuid.uuidString.lowercased()
