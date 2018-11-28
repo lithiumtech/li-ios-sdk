@@ -30,10 +30,10 @@ public class LiQueryBuilder {
     }
     static func getSettingFromServer() -> [String: Any] {
         var settingsFromServer: [String: Any] = [:]
-        if let responseLimit = LiAppSdkSettings.responseLimit {
+        if let responseLimit = LiAppSdkSettings.getResponseLimit() {
             settingsFromServer["response_limit"] = responseLimit
         }
-        if let discussionStyle = LiAppSdkSettings.discussionStyle {
+        if let discussionStyle = LiAppSdkSettings.getDiscussionStyle() {
             settingsFromServer["discussion_style"] = discussionStyle
         }
         return settingsFromServer
@@ -62,7 +62,7 @@ public class LiQueryBuilder {
                 var index = 0
                 for whereClause in whereClauses {
                     if let key = whereClause["key"] as? String {
-                        if key == "conversation.style" {
+                        if key == "conversation_style" {
                             whereClauses[index]["value"] = conversationStyleSB
                         }
                     }

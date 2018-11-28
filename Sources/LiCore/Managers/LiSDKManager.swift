@@ -64,16 +64,14 @@ public final class LiSDKManager {
      */
     public func syncSettings() {
         if authManager.isUserLoggedIn() {
-            let requestParams = try! LiSdkSettingsClientRequestParams(clientId: appCredentials.clientId)
+            let requestParams = try! LiSdkSettingsClientRequestParams(clientId: appCredentials.clientId.uuidString())
             LiRestClient.sharedInstance.request(client: LiClient.liSdkSettingsClient(requestParams: requestParams), success: { (response: LiBaseResponse) in
-                if let settingsArray = response.data["items"] as? [[String:Any]] {
-                    if let settings = settingsArray.first {
-                        if let responseLimit = settings["response_limit"] as? String {
-                            LiAppSdkSettings.set(responseLimit: responseLimit)
-                        }
-                        if let discussionStyle = response.data["discussion_style"] as? [String] {
-                            LiAppSdkSettings.set(discussionStyle: discussionStyle)
-                        }
+                if let settingsArray = response.data["items"] as? [[String:Any]], let settings = settingsArray.first, let data = settings["additional_information"] as? String, let dataDictionary = LiUtils.convertToDictionary(text: data) {
+                    if let responseLimit = dataDictionary["response_limit"] as? Int {
+                        LiAppSdkSettings.set(responseLimit: "\(responseLimit)")
+                    }
+                    if let discussionStyle = dataDictionary["discussion_style"] as? [String] {
+                        LiAppSdkSettings.set(discussionStyle: discussionStyle)
                     }
                 }
             }, failure: { (error: Error?) in
