@@ -15,7 +15,7 @@
 import Foundation
 /// Model for return object for the getGenericNoLiqlClient
 public struct LiGenericQueryResponse: LiBaseModel {
-    let data: [String: Any]
+    public let data: [String: Any]
     public init(data: [String: Any]) {
         self.data = data
     }
