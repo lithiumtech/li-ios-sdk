@@ -23,6 +23,7 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
     ///delegate for `LiAuthorizationDelegate`
     weak public var liLoginDelegate: LiAuthorizationDelegate?
     weak var sdkManager: LiSDKManager?
+    var authService: LiAuthService?
     init(sdkManager: LiSDKManager) {
         self.sdkManager = sdkManager
     }
@@ -41,10 +42,9 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
         }
         self.deviceToken = deviceToken
         self.notificationProvider = notificationProvider
-        let authService: LiAuthService
         authService = LiAuthService.init(context: viewController, ssoToken: nil, sdkManager: sdkManager)
-        authService.authDelegate = self
-        authService.startLoginFlow()
+        authService?.authDelegate = self
+        authService?.startLoginFlow()
     }
     /**
      Use this function to initiate sso token based login.
@@ -61,10 +61,9 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
         }
         self.deviceToken = deviceToken
         self.notificationProvider = notificationProvider
-        let authService: LiAuthService
         authService = LiAuthService.init(context: viewController, ssoToken: ssoToken, sdkManager: sdkManager)
-        authService.authDelegate = self
-        authService.startLoginFlow()
+        authService?.authDelegate = self
+        authService?.startLoginFlow()
     }
     /**
      Use this function to check the status of login.
@@ -81,10 +80,11 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
      */
     public func logoutUser(completionHandler: @escaping (_ error: Error?) -> Void) {
         if isUserLoggedIn() {
-            clearLocalData()
-            sdkManager?.clientManager.request(client: .signout(deivceId: sdkManager?.authState.deviceToken ?? ""), completionHandler: { (result: Result<[LiGenericQueryResponse]>) in
+            let deviceId = sdkManager?.authState.deviceToken ?? ""
+            sdkManager?.clientManager.request(client: .signout(deivceId: deviceId), completionHandler: { (result: Result<[LiGenericQueryResponse]>) in
                 switch result {
                 case .success:
+                    self.clearLocalData()
                     completionHandler(nil)
                 case .failure(let error):
                     completionHandler(error)
@@ -99,6 +99,7 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
         if status {
             if let notificationProvider = notificationProvider, let deviceToken = deviceToken {
                 LiNotificationManager.subscribe(deviceToken: deviceToken, notificationProvider: notificationProvider)
+                sdkManager?.authState.set(deviceToken: deviceToken)
             }
             sdkManager?.syncSettings()
         }

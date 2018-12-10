@@ -410,7 +410,7 @@ public class LiClientService {
     /// - parameter messageId: Id of the message for which replies are requested.
     public func getReplies(messageId: String, delegate: LiClientServiceProtocol) {
         do {
-            let requestParams = try LiRepliesClientRequestParams(parentId: messageId)
+            let requestParams = try LiRepliesClientRequestParams(parentId: messageId, limit: 25)
             sdkManager.clientManager.request(client: .liRepliesClient(requestParams: requestParams), completionHandler: { (result: Result<[LiMessage]>) in
                 switch result {
                 case .success(let data):

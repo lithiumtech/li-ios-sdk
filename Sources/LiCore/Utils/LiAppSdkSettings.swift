@@ -14,10 +14,10 @@
 
 import Foundation
 struct LiAppSdkSettings {
-    static var responseLimit: String? {
+    static func getResponseLimit() -> String? {
         return UserDefaults.standard.string(forKey: "LiResponseLimit")
     }
-    static var discussionStyle: [String]? {
+    static func getDiscussionStyle() -> [String]? {
         return UserDefaults.standard.array(forKey: "LiDiscussionStyle") as? [String]
     }
     static func set(responseLimit: String) {

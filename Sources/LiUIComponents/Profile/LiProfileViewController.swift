@@ -1,4 +1,4 @@
-// Copyright 2018 Lithium Technologies 
+// Copyright 2018 Lithium Technologies
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ import LiCore
 public class LiProfileViewController: UIViewController {
     var profileTableView: UITableView!
     var activityIndicatorView: UIActivityIndicatorView!
+    var cancelItem: LiBarButton!
     var model: LiHomeModel?
     var user: LiUser?
     var isSSOLogin = false
@@ -32,6 +33,7 @@ public class LiProfileViewController: UIViewController {
     }
     override public func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setupTableView()
         addTableViewConstrains()
         setupNavigationController()
@@ -45,13 +47,18 @@ public class LiProfileViewController: UIViewController {
     }
     func setupActivityIndicator() {
         activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         activityIndicatorView.hidesWhenStopped = true
+        view.addSubview(activityIndicatorView)
+        activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     func startActivityIndicator() {
-        profileTableView.backgroundView = activityIndicatorView
+        profileTableView.isHidden = true
         activityIndicatorView.startAnimating()
     }
     func stopActivityIndicator() {
+        profileTableView.isHidden = false
         activityIndicatorView.stopAnimating()
     }
     func getData() {
@@ -86,7 +93,7 @@ public class LiProfileViewController: UIViewController {
     func setupNavigationController() {
         self.navigationItem.title = LiHelperFunctions.localizedString(for: "Profile")
         self.navigationController?.navigationBar.tintColor = LiUISDKManager.sharedInstance.globalTintColor
-        let cancelItem = LiBarButton(barButtonSystemItem: .cancel, target: self, action: #selector(LiProfileViewController.onCancel))
+        cancelItem = LiBarButton(barButtonSystemItem: .cancel, target: self, action: #selector(LiProfileViewController.onCancel))
         let signOutItem = LiBarButton(title: LiHelperFunctions.localizedString(for: "Sign out"), style: .plain, target: self, action: #selector(LiProfileViewController.onSignOut))
         self.navigationItem.setLeftBarButton(cancelItem, animated: true)
         if !isSSOLogin {
@@ -98,14 +105,25 @@ public class LiProfileViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     func onSignOut() {
+        cancelItem.isEnabled = false
         startActivityIndicator()
         LiSDKManager.shared().authManager.logoutUser { [weak self] (error: Error?) in
             self?.stopActivityIndicator()
-            if let err = error {
-                print(err)
+            if let err = error as? LiBaseError {
+                let errorMessage: String
+                if err.developerErrorMessage == "" {
+                    errorMessage = err.errorMessage
+                } else {
+                    errorMessage = err.developerErrorMessage ?? "Logout failed. Please try again."
+                }
+                self?.popupAlertWithSingleAction(title: "", message: errorMessage, actionTitle: LiHelperFunctions.localizedString(for: "Ok")) { (_) in }
+            } else if let err = error {
+                self?.popupAlertWithSingleAction(title: "", message: err.localizedDescription, actionTitle: LiHelperFunctions.localizedString(for: "Ok")) { (_) in }
+            } else {
+                self?.dismiss(animated: true, completion: nil)
             }
+            self?.cancelItem.isEnabled = true
         }
-        self.dismiss(animated: true, completion: nil)
     }
 }
 

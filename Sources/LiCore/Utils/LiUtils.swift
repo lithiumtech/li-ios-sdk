@@ -13,12 +13,22 @@
 // limitations under the License.
 
 import Foundation
+import Alamofire
 extension String {
     func hasImageExtension() -> Bool {
         let imageExtRegEx = "([^\\s]+(\\.(?i)(jpg|jpeg|png))$)"
         let extTest =  NSPredicate(format:"SELF MATCHES[c] %@", imageExtRegEx)
         return extTest.evaluate(with: self)
     }
+    func uuidString() -> String {
+        let byte = [UInt8](self.utf8)
+        if byte.count < 16 {
+            return self
+        }
+        let uuid = UUID(uuid: (byte[0],byte[1],byte[2],byte[3],byte[4],byte[5],byte[6],byte[7],byte[8],byte[9],byte[10],byte[11],byte[12],byte[13],byte[14],byte[15]))
+        return uuid.uuidString.lowercased()
+    }
+    
 }
 //Utils methods
 struct LiUtils {
@@ -69,11 +79,31 @@ struct LiUtils {
             throw LiError.invalidArgument(errorMessage: message)
         }
     }
+    static func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
 }
 extension Dictionary {
     mutating func update(other: Dictionary) {
         for (key, value) in other {
             self.updateValue(value, forKey:key)
         }
+    }
+}
+
+extension SessionManager {
+    static func makeSessionManager() -> SessionManager {
+        let configuration = URLSessionConfiguration.default
+        var defaultHeaders = SessionManager.defaultHTTPHeaders
+        defaultHeaders["User-Agent"] = LiCoreConstants.userAgent
+        configuration.httpAdditionalHeaders = defaultHeaders
+        return SessionManager(configuration: configuration)
     }
 }

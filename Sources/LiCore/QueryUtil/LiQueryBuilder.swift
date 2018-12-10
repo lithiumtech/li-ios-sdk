@@ -18,6 +18,7 @@ public class LiQueryBuilder {
     fileprivate static let space = " "
     fileprivate static let orderBy = "ORDER BY"
     fileprivate static let limit = "LIMIT"
+    fileprivate static let offset = "OFFSET"
     private static func getDefault(client: String) -> [String: Any] {
         // swiftlint:disable:next force_cast
         return LiDefaultQueryHelper.sharedInstance.defaultSettings[client] as! [String: Any]
@@ -29,10 +30,10 @@ public class LiQueryBuilder {
     }
     static func getSettingFromServer() -> [String: Any] {
         var settingsFromServer: [String: Any] = [:]
-        if let responseLimit = LiAppSdkSettings.responseLimit {
+        if let responseLimit = LiAppSdkSettings.getResponseLimit() {
             settingsFromServer["response_limit"] = responseLimit
         }
-        if let discussionStyle = LiAppSdkSettings.discussionStyle {
+        if let discussionStyle = LiAppSdkSettings.getDiscussionStyle() {
             settingsFromServer["discussion_style"] = discussionStyle
         }
         return settingsFromServer
@@ -61,7 +62,7 @@ public class LiQueryBuilder {
                 var index = 0
                 for whereClause in whereClauses {
                     if let key = whereClause["key"] as? String {
-                        if key == "conversation.style" {
+                        if key == "conversation_style" {
                             whereClauses[index]["value"] = conversationStyleSB
                         }
                     }
@@ -104,6 +105,12 @@ public class LiQueryBuilder {
             query.append(limit)
             query.append(space)
             query.append(limitSetting)
+        }
+        if let offsetSetting = liQuerySetting.offset {
+            query.append(space)
+            query.append(offset)
+            query.append(space)
+            query.append(offsetSetting)
         }
         return query
     }

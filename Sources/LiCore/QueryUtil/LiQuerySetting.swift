@@ -19,6 +19,7 @@ public class LiQuerySetting {
     fileprivate static let whereCondition = "where-condition"
     fileprivate static let order = "order"
     fileprivate static let limit = "limit"
+    fileprivate static let offset = "offset"
     public struct Ordering {
         var key: String
         var type: String
@@ -59,6 +60,7 @@ public class LiQuerySetting {
     public fileprivate(set) var whereClauses: [WhereClause]
     public fileprivate(set) var ordering: [Ordering]?
     public fileprivate(set) var limit: String?
+    public fileprivate(set) var offset: String?
     public init(whereClauses: [WhereClause], ordering: [Ordering], limit: String) {
         self.whereClauses = whereClauses
         self.ordering = ordering
@@ -91,11 +93,8 @@ public class LiQuerySetting {
         } else {
             self.ordering = nil
         }
-        if let limit = data["limit"] as? String {
-            self.limit = limit
-        } else {
-            self.limit = nil
-        }
+        self.limit = data["limit"] as? String
+        self.offset = data["offset"] as? String
     }
     public enum LiWhereClause: String {
         case equals

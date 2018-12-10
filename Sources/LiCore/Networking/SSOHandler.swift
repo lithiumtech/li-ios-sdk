@@ -15,11 +15,7 @@
 import Foundation
 import Alamofire
 class SSOHandler: RequestAdapter, RequestRetrier {
-    private let sessionManager: SessionManager = {
-        let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
-        return SessionManager(configuration: configuration)
-    }()
+    private let sessionManager: SessionManager = SessionManager.makeSessionManager()
     private let lock = NSLock()
     private var isRefreshing = false
     private var requestsToRetry: [RequestRetryCompletion] = []
@@ -44,7 +40,9 @@ class SSOHandler: RequestAdapter, RequestRetrier {
             completion(false, 0.0)
             return
         }
-        if request.response?.statusCode == LiCoreConstants.ErrorCodes.unauthorized || request.response?.statusCode == LiCoreConstants.ErrorCodes.forbidden {
+        let httpCode = request.response?.statusCode
+        switch httpCode {
+        case LiCoreConstants.ErrorCodes.unauthorized, LiCoreConstants.ErrorCodes.forbidden:
             requestsToRetry.append(completion)
             if !isRefreshing {
                 refreshTokens { [weak self] succeeded, error in
@@ -60,13 +58,18 @@ class SSOHandler: RequestAdapter, RequestRetrier {
                     return
                 }
             }
-        } else {
+        case LiCoreConstants.ErrorCodes.internalServerError:
+            request.request?.httpMethod?.lowercased() == "get" ? completion(false, 0.0) : completion(true, 1.0)
+        case LiCoreConstants.ErrorCodes.clientTimeout, LiCoreConstants.ErrorCodes.badGateway, LiCoreConstants.ErrorCodes.serviceUnavailable, LiCoreConstants.ErrorCodes.gatewayTimeout:
             completion(true, 1.0)
+        default:
+            completion(false, 0.0)
         }
     }
     func refreshTokens(completion: @escaping RefreshCompletion) {
         guard !isRefreshing else { return }
         isRefreshing = true
+        sessionManager.retrier = self
         sessionManager.request(LiClient.refreshAccessToken).validate()
             .responseJSON { [weak self] response in
                 guard let strongSelf = self else { return }

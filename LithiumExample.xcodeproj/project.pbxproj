@@ -23,7 +23,6 @@
 		2A0C35B120C13A0A00A98328 /* LiNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C357720C13A0900A98328 /* LiNotificationManager.swift */; };
 		2A0C35B220C13A0A00A98328 /* LiDefaultQueryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C357920C13A0900A98328 /* LiDefaultQueryHelper.swift */; };
 		2A0C35B320C13A0A00A98328 /* LiQueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C357A20C13A0900A98328 /* LiQueryBuilder.swift */; };
-		2A0C35B420C13A0A00A98328 /* LiQueryClause.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C357B20C13A0900A98328 /* LiQueryClause.swift */; };
 		2A0C35B520C13A0A00A98328 /* LiQueryConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C357C20C13A0900A98328 /* LiQueryConstants.swift */; };
 		2A0C35B620C13A0A00A98328 /* LiQuerySetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C357D20C13A0900A98328 /* LiQuerySetting.swift */; };
 		2A0C35B720C13A0A00A98328 /* LiAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C357F20C13A0900A98328 /* LiAvatar.swift */; };
@@ -214,7 +213,6 @@
 		2A0C357720C13A0900A98328 /* LiNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiNotificationManager.swift; sourceTree = "<group>"; };
 		2A0C357920C13A0900A98328 /* LiDefaultQueryHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiDefaultQueryHelper.swift; sourceTree = "<group>"; };
 		2A0C357A20C13A0900A98328 /* LiQueryBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiQueryBuilder.swift; sourceTree = "<group>"; };
-		2A0C357B20C13A0900A98328 /* LiQueryClause.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiQueryClause.swift; sourceTree = "<group>"; };
 		2A0C357C20C13A0900A98328 /* LiQueryConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiQueryConstants.swift; sourceTree = "<group>"; };
 		2A0C357D20C13A0900A98328 /* LiQuerySetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiQuerySetting.swift; sourceTree = "<group>"; };
 		2A0C357F20C13A0900A98328 /* LiAvatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiAvatar.swift; sourceTree = "<group>"; };
@@ -447,7 +445,6 @@
 			children = (
 				2A0C357920C13A0900A98328 /* LiDefaultQueryHelper.swift */,
 				2A0C357A20C13A0900A98328 /* LiQueryBuilder.swift */,
-				2A0C357B20C13A0900A98328 /* LiQueryClause.swift */,
 				2A0C357C20C13A0900A98328 /* LiQueryConstants.swift */,
 				2A0C357D20C13A0900A98328 /* LiQuerySetting.swift */,
 			);
@@ -873,7 +870,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Lithium Technologies Inc.";
 				TargetAttributes = {
 					2A0C354520C138CB00A98328 = {
@@ -1038,7 +1035,6 @@
 				2A0C35C220C13A0A00A98328 /* LiMessage.swift in Sources */,
 				2AFC13BD20DA5643004A2E8B /* NotificationProviders.swift in Sources */,
 				2A0C35AC20C13A0A00A98328 /* LiAuthRequestStore.swift in Sources */,
-				2A0C35B420C13A0A00A98328 /* LiQueryClause.swift in Sources */,
 				2A0C35B720C13A0A00A98328 /* LiAvatar.swift in Sources */,
 				2A0C35D520C13A0A00A98328 /* LiRestClient.swift in Sources */,
 				2A0C35B020C13A0A00A98328 /* LiSSOAuthResponse.swift in Sources */,
@@ -1438,6 +1434,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1448,6 +1445,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1455,6 +1453,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1495,6 +1494,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1505,6 +1505,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1512,6 +1513,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

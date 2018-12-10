@@ -52,10 +52,16 @@ public struct LiBoardsByDepthClientRequestParams: LiClientRequestParams {
 /// Model used to create liRepliesClient request parameters.
 public struct LiRepliesClientRequestParams: LiClientRequestParams {
     var parentId: String
+    var limit: Int
+    var offset: Int
     /// Creates LiRepliesClientRequestParams object to pass onto liRepliesClient2.
     /// - parameter parentId: the ID of the parent message.
-    public init(parentId: String) throws {
+    /// - parameter limit: is the number of items to fetch.
+    /// - parameter offset: is the number of items to skip before returning results. Default value is 0.
+    public init(parentId: String, limit: Int, offset: Int = 0) throws {
         self.parentId = try LiUtils.nonEmptyStringCheck(value: parentId, errorMessage: "parentId should not be an empty string")
+        self.limit = try LiUtils.positiveIntegerCheck(value: limit, errorMessage: "limit value should be a valid positive integer")
+        self.offset = try LiUtils.positiveIntegerCheck(value: offset, errorMessage: "offset value should be a valid positive integer")
     }
 }
 /// Model used to create liSearchClient request parameters.
@@ -103,14 +109,6 @@ public struct LiMessageClientRequestParams: LiClientRequestParams {
 public struct LiFloatedMessagesClientRequestParams: LiClientRequestParams {
     var boardId: String
     var scope: String
-    /// Creates LiFloatedMessagesClientRequestParams object to pass onto liFloatedMessagesClient.
-    /// - parameter boardId:  the ID of the board from which to pull floated (or 'pinned') messages
-    /// - parameter scope: the scope of floated messages to retreive. Supported value is 'local'. Local scope retrieves messages that the user in context floated/pinned, rather than an administrator who might have pinned a message to the top of a board globally for the community.
-    @available(*, deprecated: 0.2.0)
-    public init(boardId: String, scope: String) throws {
-        self.boardId = try LiUtils.nonEmptyStringCheck(value: boardId, errorMessage: "boardId should not be an empty string")
-        self.scope =  try LiUtils.nonEmptyStringCheck(value: scope, errorMessage: "scope should not be an empty string")
-    }
     /// Creates LiFloatedMessagesClientRequestParams object to pass onto liFloatedMessagesClient.
     /// - parameter boardId:  the ID of the board from which to pull floated (or 'pinned') messages
     /// - parameter scope: the scope of floated messages to retreive. Supported value is 'local'. Local scope retrieves messages that the user in context floated/pinned, rather than an administrator who might have pinned a message to the top of a board globally for the community.
@@ -341,14 +339,6 @@ public struct LiDeviceIdFetchClientRequestParams: LiClientRequestParams {
     var pushNotificationProvider: String
     /// Creates LiDeviceIdFetchClientRequestParams object to pass onto liDeviceIdFetchClient.
     /// - parameter deviceId: the device ID registered with the push notificaiton provider.
-    /// - parameter pushNotificationProvider: the Global provider for push notification. Support values: "APNS" and "FIREBASE".
-    @available(*, deprecated: 0.2.0)
-    public init(deviceId: String, pushNotificationProvider: String) throws {
-        self.deviceId = try LiUtils.nonEmptyStringCheck(value: deviceId, errorMessage: "deviceId should not be an empty string")
-        self.pushNotificationProvider = try LiUtils.nonEmptyStringCheck(value: pushNotificationProvider, errorMessage: "pushNotificationProvider should not be an empty string")
-    }
-    /// Creates LiDeviceIdFetchClientRequestParams object to pass onto liDeviceIdFetchClient.
-    /// - parameter deviceId: the device ID registered with the push notificaiton provider.
     /// - parameter pushNotificationProvider: the Global provider for push notification.
     public init(deviceId: String, pushNotificationProvider: NotificationProviders) throws {
         self.deviceId = try LiUtils.nonEmptyStringCheck(value: deviceId, errorMessage: "deviceId should not be an empty string")
@@ -379,14 +369,6 @@ public struct LiDeviceIdUpdateClientRequestParams: LiClientRequestParams {
 public struct LiSubscriptionPostClientRequestParams: LiClientRequestParams {
     var targetId: String
     var targetType: String
-    /// Creates LiSubscriptionPostClientRequestParams object to pass onto liSubscriptionPostClient.
-    /// - parameter targetId: the ID of the target of the subscription, either a message ID or a board ID.
-    /// - parameter targetType: the type of the target of the subscription, either a "message" or a "board".
-    @available(*, deprecated: 0.2.0)
-    public init(targetId: String, targetType: String) throws {
-        self.targetId = try LiUtils.nonEmptyStringCheck(value: targetId, errorMessage: "targetId should not be an empty string")
-        self.targetType = try LiUtils.nonEmptyStringCheck(value: targetType, errorMessage: "targetType should not be an empty string")
-    }
     /// Creates LiSubscriptionPostClientRequestParams object to pass onto liSubscriptionPostClient.
     /// - parameter targetId: the ID of the target of the subscription, either a message ID or a board ID.
     /// - parameter targetType: the type of the target of the subscription.
