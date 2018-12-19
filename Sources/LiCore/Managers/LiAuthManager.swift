@@ -109,6 +109,7 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
         KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liDeviceToken)
         KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liAccessToken)
         KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liRefreshToken)
+        //TODO: Remove the line below in future release.
         KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liUserLoginStatus)
         KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liNotificationId)
         KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liVisitLastIssueTime)
@@ -117,6 +118,7 @@ public class LiAuthManager: NSObject, InternalLiLoginDelegate {
         KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liLithiumUserId)
         KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liUserId)
         KeychainWrapper.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liTenantId)
+        UserDefaults.standard.removeObject(forKey: LiCoreConstants.UserDefaultConstants.liUserLoginStatus)
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 0
         URLCache.shared.memoryCapacity = 0
