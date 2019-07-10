@@ -40,7 +40,7 @@ public class LiBrowseViewController: LiBaseBrowseViewController {
         lblCurrentCategoryTitle.removeFromSuperview()
     }
     ///Open new message screen.
-    func onAdd() {
+    @objc func onAdd() {
         let model = LiNewPost(boardId: nil, boardName: nil)
         let vc = LiNewMessageViewController(model: model)
         let navController = UINavigationController(rootViewController: vc)
@@ -63,7 +63,7 @@ public class LiBrowseViewController: LiBaseBrowseViewController {
                 lblCurrentCategoryTitle.frame = secondFrame
                 lblCurrentCategoryTitle.textAlignment = .center
                 lblCurrentCategoryTitle.font = UIFont.systemFont(ofSize: 17)
-                lblCurrentCategoryTitle.font = UIFont.systemFont(ofSize: 17, weight: 0.4)
+                lblCurrentCategoryTitle.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight(rawValue: 0.4))
                 navigationBar.addSubview(lblParentCategoryTitle)
                 navigationBar.addSubview(lblCurrentCategoryTitle)
                 lblParentCategoryTitle.text = navBarTitle.parent

@@ -46,7 +46,7 @@ public class LiProfileViewController: UIViewController {
         model = LiHomeModel()
     }
     func setupActivityIndicator() {
-        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicatorView = UIActivityIndicatorView(style: .gray)
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         activityIndicatorView.hidesWhenStopped = true
         view.addSubview(activityIndicatorView)
@@ -82,7 +82,7 @@ public class LiProfileViewController: UIViewController {
         profileTableView.dataSource = self
         profileTableView.delegate = self
         profileTableView.estimatedRowHeight = 64.0
-        profileTableView.rowHeight = UITableViewAutomaticDimension
+        profileTableView.rowHeight = UITableView.automaticDimension
     }
     func addTableViewConstrains() {
         profileTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -101,10 +101,10 @@ public class LiProfileViewController: UIViewController {
         }
         profileTableView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
     }
-    func onCancel() {
+    @objc func onCancel() {
         self.dismiss(animated: true, completion: nil)
     }
-    func onSignOut() {
+    @objc func onSignOut() {
         cancelItem.isEnabled = false
         startActivityIndicator()
         LiSDKManager.shared().authManager.logoutUser { [weak self] (error: Error?) in
@@ -186,7 +186,7 @@ extension LiProfileViewController: UITableViewDataSource, UITableViewDelegate {
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return UITableViewAutomaticDimension
+            return UITableView.automaticDimension
         default:
             return 75.0
         }

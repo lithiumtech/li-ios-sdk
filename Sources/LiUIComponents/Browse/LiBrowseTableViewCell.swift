@@ -42,7 +42,7 @@ public class LiBrowseTableViewCell: UITableViewCell, Reusable {
             accessoryType = .disclosureIndicator
         }
     }
-    public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     required public init?(coder aDecoder: NSCoder) {

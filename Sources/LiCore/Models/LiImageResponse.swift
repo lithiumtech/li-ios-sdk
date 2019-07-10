@@ -54,7 +54,7 @@ extension UIImage {
         UIGraphicsBeginImageContext(rect.size)
         self.draw(in: rect)
         if let img = UIGraphicsGetImageFromCurrentImageContext() {
-            imageData = UIImageJPEGRepresentation(img, compressionQuality)
+            imageData = img.jpegData(compressionQuality: compressionQuality)
         }
         UIGraphicsEndImageContext()
         return imageData

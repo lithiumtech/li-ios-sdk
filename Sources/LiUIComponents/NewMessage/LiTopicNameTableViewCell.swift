@@ -44,7 +44,7 @@ class LiTopicNameTableViewCell: UITableViewCell, Reusable, UITextFieldDelegate {
         label.font = UIFont.systemFont(ofSize: 14)
         label.text = LiHelperFunctions.localizedString(for: "Topic:")
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.setContentHuggingPriority(1000, for: .horizontal)
+        label.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: .horizontal)
         return label
     }()
     var txtTopicName: UITextField = {
@@ -55,7 +55,7 @@ class LiTopicNameTableViewCell: UITableViewCell, Reusable, UITextFieldDelegate {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
         addUIConstrains()

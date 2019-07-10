@@ -58,10 +58,10 @@ class LiLoginViewController: UIViewController, UIWebViewDelegate {
         setupTitle()
         setupWebView()
     }
-    func onClose() {
+    @objc func onClose() {
         self.dismiss(animated: true)
     }
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
         let queryParameters = request.url?.liQueryItems ?? [:]
         if queryParameters["response_type"] != nil {
             return true

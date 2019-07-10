@@ -29,7 +29,7 @@ class LiActivityIndicatorView {
             containerView.translatesAutoresizingMaskIntoConstraints = false
         }
         containerView.restorationIdentifier = restorationIdentifier
-        activityIndicatorView.activityIndicatorViewStyle = .gray
+        activityIndicatorView.style = .gray
         activityIndicatorView.startAnimating()
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(activityIndicatorView)

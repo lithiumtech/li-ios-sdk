@@ -43,7 +43,7 @@ class LiReplyViewController: LiBaseNewMessageViewController {
     }
     func setupToolbar() {
         inputAccessoryToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 50))
-        let barButton = LiBarButton(barButtonSystemItem: UIBarButtonSystemItem.camera, target: self, action: #selector(LiReplyViewController.onAddImage))
+        let barButton = LiBarButton(barButtonSystemItem: UIBarButtonItem.SystemItem.camera, target: self, action: #selector(LiReplyViewController.onAddImage))
         inputAccessoryToolbar?.tintColor = LiUISDKManager.sharedInstance.globalTintColor
         inputAccessoryToolbar?.backgroundColor = UIColor.clear
         inputAccessoryToolbar?.items = [barButton]
@@ -54,7 +54,7 @@ class LiReplyViewController: LiBaseNewMessageViewController {
         cell?.textViewPostDetails.becomeFirstResponder()
     }
     ///Post reply
-    func onPost() {
+    @objc func onPost() {
         view.endEditing(true)
         guard let text = textViewText, text != "" else {
             let alert = UIAlertController(title: nil, message: LiHelperFunctions.localizedString(for: "Post body cannot be empty."), preferredStyle: .alert)

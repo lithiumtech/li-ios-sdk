@@ -21,7 +21,7 @@ class LiReportAbuseViewController: UIViewController, UITextViewDelegate, LiClien
     var reportItem: LiBarButton!
     var lblDescription: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15, weight: 0.4)
+        label.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight(rawValue: 0.4))
         label.numberOfLines = 0
         label.text = LiHelperFunctions.localizedString(for: "Tell us why you believe this content is inappropriate.")
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -77,10 +77,10 @@ class LiReportAbuseViewController: UIViewController, UITextViewDelegate, LiClien
         self.navigationItem.setLeftBarButton(cancelItem, animated: true)
         self.navigationItem.setRightBarButton(reportItem, animated: true)
     }
-    func onCancel() {
+    @objc func onCancel() {
         self.dismiss(animated: true, completion: nil)
     }
-    func onSubmit() {
+    @objc func onSubmit() {
         txtReportAbuseTextView.resignFirstResponder()
         LiClientService.sharedInstance.markAbuse(messageId: messageId, userId: userId, body: txtReportAbuseTextView.text, delegate: self)
     }

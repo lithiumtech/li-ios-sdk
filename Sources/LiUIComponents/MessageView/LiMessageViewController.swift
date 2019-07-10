@@ -33,7 +33,7 @@ open class LiMessageViewController: UIViewController {
         getData()
     }
     func setupActivityIndicator() {
-        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicatorView = UIActivityIndicatorView(style: .gray)
         activityIndicatorView.hidesWhenStopped = true
     }
     func startActivityIndicator() {
@@ -66,8 +66,8 @@ open class LiMessageViewController: UIViewController {
         tableView.registerReusableCellWithNib(LiMessageDetailTableViewCell.self)
         tableView.registerReusableCellWithNib(LiMessageRepliesTableViewCell.self)
         tableView.registerReusableHeaderFooterViewWithNib(LiMessageDetailTableViewHeader.self)
-        tableView.estimatedRowHeight = UITableViewAutomaticDimension
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         self.reloadTable()
     }
     //MARK:- Button actions

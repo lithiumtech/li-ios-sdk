@@ -511,7 +511,7 @@ class LiCreateReplyClientRequestParamsTests: QuickSpec {
 
 class LiUploadImageClientRequestParamsTests: QuickSpec {
     func loadImage(named name: String, type:String = "png") throws -> UIImage {
-        let bundle = Bundle(for:type(of: self))
+        let bundle = Bundle(for: self.classForCoder)
         guard let path = bundle.path(forResource: name, ofType: type) else {
             throw NSError(domain: "loadImage", code: 1, userInfo: nil)
         }

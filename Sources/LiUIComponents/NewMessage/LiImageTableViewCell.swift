@@ -31,7 +31,7 @@ class LiImageTableViewCell: UITableViewCell, Reusable {
         //button.tintColor = .red
         return button
     }()
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         // Initialization code
         setupUI()
@@ -60,7 +60,7 @@ class LiImageTableViewCell: UITableViewCell, Reusable {
     func addHeight(height: CGFloat) {
         self.contentView.heightAnchor.constraint(equalToConstant: height).isActive = true
     }
-    func onCloseButton(_ button: UIButton) {
+    @objc func onCloseButton(_ button: UIButton) {
         delegate?.onRemoveImage()
     }
 }

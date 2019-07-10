@@ -65,7 +65,7 @@ class LiMessageViewModel {
         return true
     }
     func acceptSolution(messageId: String) {
-        if let messageIndex = discussion.index(where: { $0.id == messageId }) {
+        if let messageIndex = discussion.firstIndex(where: { $0.id == messageId }) {
             let message = discussion.remove(at: messageIndex)
             message.set(isAcceptedSolution: true)
             acceptedSolutions.append(message)
@@ -77,14 +77,14 @@ class LiMessageViewModel {
             originalMessage = getKudoedMessage(message: originalMessage, didKudo: kudo, weight: weight)
             return IndexPath(row: 0, section: 0)
         } else {
-            if let messageIndex = discussion.index(where: { $0.id == messageId }) {
+            if let messageIndex = discussion.firstIndex(where: { $0.id == messageId }) {
                 discussion[messageIndex] = getKudoedMessage(message: discussion[messageIndex], didKudo: kudo, weight: weight)
                 if hasSolution() {
                     return IndexPath(row: messageIndex, section: 2)
                 } else {
                     return IndexPath(row: messageIndex, section: 1)
                 }
-            } else if let messageIndex = acceptedSolutions.index(where: { $0.id == messageId }) {
+            } else if let messageIndex = acceptedSolutions.firstIndex(where: { $0.id == messageId }) {
                 acceptedSolutions[messageIndex] = getKudoedMessage(message: acceptedSolutions[messageIndex], didKudo: kudo, weight: weight)
                 return IndexPath(row: messageIndex, section: 1)
             }

@@ -96,7 +96,7 @@ open class LiHomeViewController: UIViewController {
     }
     //MARK: Activity indicator
     func setupActivityIndicator() {
-        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicatorView = UIActivityIndicatorView(style: .gray)
         activityIndicatorView.hidesWhenStopped = true
     }
     func startActivityIndicator() {
@@ -264,7 +264,7 @@ extension LiHomeViewController: LiClientServiceProtocol {
         }
         stopActivityIndicator()
         homeScreenTableView.reloadData()
-        homeScreenTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: false)
+        homeScreenTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableView.ScrollPosition.top, animated: false)
         homeScreenTableView.isHidden = false
     }
     public func failure(client: LiClient?, errorMessage: String) {
