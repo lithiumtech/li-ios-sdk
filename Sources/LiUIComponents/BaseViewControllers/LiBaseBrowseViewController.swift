@@ -39,7 +39,7 @@ public class LiBaseBrowseViewController: UIViewController {
         }
     }
     func setupActivityIndicator() {
-        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicatorView = UIActivityIndicatorView(style: .gray)
         activityIndicatorView.hidesWhenStopped = true
     }
     func startActivityIndicator() {

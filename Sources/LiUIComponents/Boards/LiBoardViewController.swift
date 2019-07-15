@@ -43,7 +43,7 @@ class LiBoardViewController: UIViewController {
         LiClientService.sharedInstance.getMessages(forBoardId: boardId, delegate: self)
     }
     func setupActivityIndicator() {
-        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicatorView = UIActivityIndicatorView(style: .gray)
         activityIndicatorView.hidesWhenStopped = true
     }
     func startActivityIndicator() {
@@ -70,7 +70,7 @@ class LiBoardViewController: UIViewController {
         let postItem = LiBarButton(barButtonSystemItem: .add, target: self, action: #selector(LiBoardViewController.onAdd))
         self.navigationItem.rightBarButtonItem = postItem
     }
-    func onAdd() {
+    @objc func onAdd() {
         let model = LiNewPost(boardId: boardId, boardName: boardName)
         let vc = LiNewMessageViewController(model: model)
         let navController = UINavigationController(rootViewController: vc)

@@ -69,17 +69,17 @@ open class LiBaseNewMessageViewController: UIViewController, UINavigationControl
     }
     ///Action when area below the last cell in table view is tab.
     ///Sets the textView as first responder
-    func onTap(_ sender: UITapGestureRecognizer) {}
-    func onCancel() {
+    @objc func onTap(_ sender: UITapGestureRecognizer) { }
+    @objc func onCancel() {
         self.dismiss(animated: true, completion: nil)
     }
 }
 extension LiBaseNewMessageViewController: UITableViewDelegate {
     open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     open func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
 }
 ///This extention handles image related methods.
@@ -91,13 +91,14 @@ extension LiBaseNewMessageViewController: LiImagePostDelegate {
         imageFileName = ""
         tableView.reloadData()
     }
+    @objc
     func onAddImage() {
         view.endEditing(true)
         let actionSheetController = UIAlertController(title: LiHelperFunctions.localizedString(for: "Add image"), message: nil, preferredStyle: .actionSheet)
         let cancelActionButton = UIAlertAction(title: LiHelperFunctions.localizedString(for: "Cancel"), style: .cancel) { _ -> Void in
         }
-        let openSettingsButton = UIAlertAction(title: LiHelperFunctions.localizedString(for: "Open Settings"),style: UIAlertActionStyle.default) { _ -> Void in
-            UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
+        let openSettingsButton = UIAlertAction(title: LiHelperFunctions.localizedString(for: "Open Settings"),style: UIAlertAction.Style.default) { _ -> Void in
+            UIApplication.shared.openURL(NSURL(string: UIApplication.openSettingsURLString)! as URL)
         }
         actionSheetController.addAction(cancelActionButton)
         let photoLibraryActionButton = UIAlertAction(title: LiHelperFunctions.localizedString(for: "Photo Library"), style: .default) { _ -> Void in
@@ -124,7 +125,7 @@ extension LiBaseNewMessageViewController: LiImagePostDelegate {
         }
         actionSheetController.addAction(photoLibraryActionButton)
         let cameraActionButton = UIAlertAction(title: "Camera", style: .default) { _ -> Void in
-            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: { (videoGranted: Bool) -> Void in
+            AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (videoGranted: Bool) -> Void in
                     if (videoGranted) {
                         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                             self.imagePicker.delegate = self
@@ -149,12 +150,12 @@ extension LiBaseNewMessageViewController: LiImagePostDelegate {
         self.dismiss(animated: true, completion: { () -> Void in
         })
         imageAdded = true
-        if let imageURL = info[UIImagePickerControllerReferenceURL] as? URL {
+        if let imageURL = info[UIImagePickerController.InfoKey.referenceURL.rawValue] as? URL {
             let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
             let asset = result.firstObject
             imageFileName = asset?.value(forKey: "filename") as? String ?? LiUIConstants.defaultImageName
         }
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        if let image = info[UIImagePickerController.InfoKey.originalImage.rawValue] as? UIImage {
             selectedImage = image
             heightOfImage = (image.size.height / image.size.width) * view.frame.size.width
             imageFileName = LiUIConstants.defaultImageName
@@ -183,14 +184,14 @@ extension LiBaseNewMessageViewController: UIGestureRecognizerDelegate {
 }
 extension LiBaseNewMessageViewController {
     func registerForKeyboardNotifiactions() {
-        NotificationCenter.default.addObserver(self, selector: #selector(LiBaseNewMessageViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(LiBaseNewMessageViewController.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LiBaseNewMessageViewController.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LiBaseNewMessageViewController.keyboardWillBeHidden(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    func keyboardWillShow(_ aNotifiacation: NSNotification) {
+    @objc func keyboardWillShow(_ aNotifiacation: NSNotification) {
         guard let info = aNotifiacation.userInfo else {
             return
         }
-        guard let kbSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size else {
+        guard let kbSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size else {
             return
         }
         tableView.contentInset.bottom = kbSize.height
@@ -204,7 +205,7 @@ extension LiBaseNewMessageViewController {
             self.tableView.scrollRectToVisible(frame, animated: true)
         }
     }
-    func keyboardWillBeHidden(_ aNotifiacation: NSNotification) {
+    @objc func keyboardWillBeHidden(_ aNotifiacation: NSNotification) {
         tableView.contentInset.bottom = 0
         tableView.scrollIndicatorInsets.bottom = 0
     }

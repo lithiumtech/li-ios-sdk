@@ -22,7 +22,7 @@ open class LiTopicListViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         registerCells()
-        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicatorView = UIActivityIndicatorView(style: .gray)
         activityIndicatorView.hidesWhenStopped = true
     }
     func registerCells() {

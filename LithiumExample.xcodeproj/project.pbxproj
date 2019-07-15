@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		156AF5F722D717B100B0C9BF /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156AF5F622D717B100B0C9BF /* Credentials.swift */; };
 		2A03E8DF20D90BE500B089E9 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35E920C13BEC00A98328 /* Alamofire.framework */; };
 		2A03E8E020D90BE500B089E9 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35E920C13BEC00A98328 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2A0C354F20C138CB00A98328 /* LiCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C354620C138CB00A98328 /* LiCore.framework */; };
@@ -198,6 +199,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		156AF5F622D717B100B0C9BF /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		2A0C354620C138CB00A98328 /* LiCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LiCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A0C354820C138CB00A98328 /* LiCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiCore.h; sourceTree = "<group>"; };
 		2A0C354920C138CB00A98328 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -733,6 +735,7 @@
 		2ADFE61020BEA48F006B3F83 /* LithiumExample */ = {
 			isa = PBXGroup;
 			children = (
+				156AF5F622D717B100B0C9BF /* Credentials.swift */,
 				2A0E72CC20DB776B00059537 /* LithiumExample.entitlements */,
 				2ADFE61120BEA48F006B3F83 /* AppDelegate.swift */,
 				2ADFE61320BEA48F006B3F83 /* ViewController.swift */,
@@ -875,22 +878,27 @@
 				TargetAttributes = {
 					2A0C354520C138CB00A98328 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					2A0C354D20C138CB00A98328 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					2A27A96D20C1466300AD2F77 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					2A27A97520C1466300AD2F77 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					2ADFE60D20BEA48F006B3F83 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -907,6 +915,7 @@
 			knownRegions = (
 				en,
 				Base,
+				global,
 			);
 			mainGroup = 2ADFE60520BEA48F006B3F83;
 			productRefGroup = 2ADFE60F20BEA48F006B3F83 /* Products */;
@@ -1157,6 +1166,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				156AF5F722D717B100B0C9BF /* Credentials.swift in Sources */,
 				2ADFE61420BEA48F006B3F83 /* ViewController.swift in Sources */,
 				2ADFE61220BEA48F006B3F83 /* AppDelegate.swift in Sources */,
 			);
@@ -1266,7 +1276,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.LiCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1295,7 +1305,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.LiCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1317,7 +1327,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.LiCoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1337,7 +1347,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.LiCoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1364,7 +1374,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.LiUIComponents;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1393,7 +1403,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.LiUIComponents;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1410,7 +1420,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.LiUIComponentsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1425,7 +1435,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.LiUIComponentsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1560,7 +1570,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.communityExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1582,7 +1592,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.communityExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

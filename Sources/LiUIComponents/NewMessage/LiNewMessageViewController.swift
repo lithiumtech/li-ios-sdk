@@ -48,7 +48,7 @@ open class LiNewMessageViewController: LiBaseNewMessageViewController {
     }
     func setupToolbar() {
         inputAccessoryToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 50))
-        let barButton = LiBarButton(barButtonSystemItem: UIBarButtonSystemItem.camera, target: self, action: #selector(LiNewMessageViewController.onAddImage))
+        let barButton = LiBarButton(barButtonSystemItem: UIBarButtonItem.SystemItem.camera, target: self, action: #selector(LiNewMessageViewController.onAddImage))
         inputAccessoryToolbar?.tintColor = LiUISDKManager.sharedInstance.globalTintColor
         inputAccessoryToolbar?.backgroundColor = UIColor.clear
         inputAccessoryToolbar?.items = [barButton]
@@ -59,7 +59,7 @@ open class LiNewMessageViewController: LiBaseNewMessageViewController {
         cell?.textViewPostDetails.becomeFirstResponder()
     }
     //Post the message.
-    func onPost() {
+    @objc func onPost() {
         view.endEditing(true)
         guard let boardId = model.boardId else {
             let alert = UIAlertController(title: LiHelperFunctions.localizedString(for: "Form incomplete"), message: LiHelperFunctions.localizedString(for: "Please select the board you want to post the message in."), preferredStyle: .alert)
@@ -170,7 +170,7 @@ extension LiNewMessageViewController {
 }
 
 extension LiNewMessageViewController {
-    func textFieldDidChange(textField: UITextField) {
+    @objc func textFieldDidChange(textField: UITextField) {
         model.topic = textField.text ?? ""
     }
     public override func textViewDidChange(_ textView: UITextView) {

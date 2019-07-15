@@ -137,7 +137,7 @@ class LiMessageDetailTableViewCell: UITableViewCell, Reusable, UIWebViewDelegate
     func setupUI() {
         imgAuthorImage.layer.cornerRadius = constrainAuthorImageWidth.constant / 2
         imgAuthorImage.layer.masksToBounds = true
-        lblMessageTitle.font = UIFont.systemFont(ofSize: 17, weight: 0.65)
+        lblMessageTitle.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight(rawValue: 0.65))
         lblMessageAge.textColor = .lightGray
         webViewMessageDetail.scrollView.bounces = false
     }
