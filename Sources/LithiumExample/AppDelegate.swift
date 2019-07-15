@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         do {
-            let config = try LiAppCredentials(clientId: "<Client Id>", clientSecret: "<Client Secret>", communityURL: "<Community URL>", tenantID: "<Tenant Id>", clientAppName: "<Client Display Name>")
+            let config = try LiAppCredentials(clientId: Credentials.clientId, clientSecret: Credentials.clientSectet, communityURL: Credentials.communityURL, tenantID: Credentials.tenantID, clientAppName: Credentials.clientAppName)
             LiSDKManager.setup(credentials: config)
         } catch LiError.invalidArgument(let errorMessage) {
             print(errorMessage)
