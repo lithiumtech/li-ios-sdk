@@ -73,17 +73,14 @@ public struct LiAuthState {
         keychainWrapperInstance.set(tenantId, forKey: LiCoreConstants.UserDefaultConstants.liTenantId)
     }
     var isLoggedIn: Bool {
-        if let loggedIn = keychainWrapperInstance.bool(forKey: LiCoreConstants.UserDefaultConstants.liUserLoginStatus){
-            return loggedIn
-        }
-        return false
+        return UserDefaults.standard.bool(forKey: LiCoreConstants.UserDefaultConstants.liUserLoginStatus)
     }
     ///Id that identifies notification token in lia. Used to update notification token.
     var notificationId: String? {
         return keychainWrapperInstance.string(forKey: LiCoreConstants.UserDefaultConstants.liNotificationId)
     }
     func loginSuccessfull() {
-        keychainWrapperInstance.set(true, forKey: LiCoreConstants.UserDefaultConstants.liUserLoginStatus)
+        UserDefaults.standard.set(true, forKey: LiCoreConstants.UserDefaultConstants.liUserLoginStatus)
     }
     func set(notificationId value: String) {
         keychainWrapperInstance.set(value, forKey: LiCoreConstants.UserDefaultConstants.liNotificationId)
