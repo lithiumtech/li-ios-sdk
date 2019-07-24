@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.swift_version = "5.0"
   s.source       = { :git => 'https://github.com/lithiumtech/li-ios-sdk.git', :tag => '0.3.0' }
   s.source_files = "Sources/LiCore/*", "Sources/LiCore/**/*.{swift,h,m}"
-  s.exclude_files = "LiCore/LiCore.framework/*.plist"
+  s.exclude_files = "Sources/LiCore/Info.plist"
   s.resource_bundles = { "LiCore"  => "Sources/LiCore/Resources/*"}
   s.resources = ['Sources/LiCore/Resources/*']
   s.dependency "Alamofire", "~> 4.4"
