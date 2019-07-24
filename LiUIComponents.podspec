@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.swift_version      = "5"
   s.source             = { :git => "https://github.com/lithiumtech/li-ios-sdk.git", :tag => "0.3.0" }
   s.source_files       = "Sources/LiUIComponents/*", "Sources/LiUIComponents/**/*.{swift,h,m}"
-  s.exclude_files.     = "Sources/LiUIComponents/Info.plist"
+  s.exclude_files     = "Sources/LiUIComponents/Info.plist"
   s.resource_bundles   = { "LiUIComponents" => ["Sources/LiUIComponents/Resources/*", "Sources/LiUIComponents/**/*.{xib,storyboard}", "Sources/LiUIComponents/**/*.xcassets"]}
   s.resources          = ["Sources/LiUIComponents/Resources/*", "Sources/LiUIComponents/**/*.{xib,storyboard}", "Sources/LiUIComponents/**/*.xcassets" ]
   s.dependency "LiCore", "0.3.0"
