@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import Foundation
 import UIKit
+import WebKit
 
 ///Internal protocol to communicate between LiLoginViewController and LiAuthService.
 protocol LiLoginViewControllerProtocol {
@@ -23,26 +23,27 @@ protocol LiLoginViewControllerProtocol {
 /**
  View controller used to present the webView used in login.
  */
-class LiLoginViewController: UIViewController, UIWebViewDelegate {
+class LiLoginViewController: UIViewController, WKNavigationDelegate {
     var url: URLRequest
     // swiftlint:disable:next weak_delegate
     var delegate: LiLoginViewControllerProtocol?
     // swiftlint:disable:next weak_delegate
     public var authDelegate: LiAuthorizationDelegate?
     var sdkManager: LiSDKManager
+    var webView: WKWebView
     init(url: URLRequest, sdkManager: LiSDKManager) {
         self.url = url
         self.sdkManager = sdkManager
+        self.webView = WKWebView()
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     fileprivate func setupWebView() {
-        let webView = UIWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
-        webView.loadRequest(url)
-        webView.delegate = self
+        webView.load(url)
+        webView.navigationDelegate = self
         self.view.addSubview(webView)
         webView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         webView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -61,10 +62,12 @@ class LiLoginViewController: UIViewController, UIWebViewDelegate {
     @objc func onClose() {
         self.dismiss(animated: true)
     }
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
-        let queryParameters = request.url?.liQueryItems ?? [:]
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let queryParameters = navigationAction.request.url?.liQueryItems ?? [:]
         if queryParameters["response_type"] != nil {
-            return true
+            decisionHandler(.allow)
+            return
         }
         //Check for auth code in the redirected url.
         if queryParameters["code"] != nil {
@@ -78,7 +81,7 @@ class LiLoginViewController: UIViewController, UIWebViewDelegate {
                 delegate?.webViewLoginFailure(error: error)
             }
         }
-        return true
+        decisionHandler(.allow)
     }
 }
 extension URL {

@@ -13,12 +13,13 @@
 // limitations under the License.
 
 import UIKit
+import WebKit
 
-class LiMessageRepliesTableViewCell: UITableViewCell, Reusable, UIWebViewDelegate {
+class LiMessageRepliesTableViewCell: UITableViewCell, Reusable, WKNavigationDelegate {
     @IBOutlet weak var constrainWidthOfImage: NSLayoutConstraint!
     @IBOutlet weak var btnOptions: LiButton!
     @IBOutlet weak var constrainHeightOfWebView: NSLayoutConstraint!
-    @IBOutlet weak var webViewMessageDetail: UIWebView!
+    @IBOutlet weak var webViewMessageDetail: WKWebView!
     @IBOutlet weak var btnAcceptIcon: LiButton!
     @IBOutlet weak var btnAccept: LiButton!
     @IBOutlet weak var imgAuthor: UIImageView!
@@ -59,7 +60,7 @@ class LiMessageRepliesTableViewCell: UITableViewCell, Reusable, UIWebViewDelegat
     override func awakeFromNib() {
         super.awakeFromNib()
         setupUI()
-        webViewMessageDetail.delegate = self
+        webViewMessageDetail.navigationDelegate = self
     }
     func setupUI() {
         imgAuthor.layer.cornerRadius = constrainWidthOfImage.constant / 2
@@ -95,12 +96,17 @@ class LiMessageRepliesTableViewCell: UITableViewCell, Reusable, UIWebViewDelegat
         }
         delegate?.acceptSolution(messageId: id)
     }
-    //MARK:- WEBVIEW DELEGATE
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        let heightInString = webView.stringByEvaluatingJavaScript(from: "document.body.scrollHeight") ?? ""
-        guard let heightInFloat = Float(heightInString) else { return }
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         guard let index = cellModel?.indexPath else {return}
         guard let cellType = cellModel?.messageType  else { return }
-        delegate?.updateHeight(index: index, newHeight: CGFloat(heightInFloat), cellType: cellType)
+
+        webView.evaluateJavaScript("document.readyState", completionHandler: { (complete, error) in
+        if complete != nil {
+            webView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { (height, error) in
+                self.delegate?.updateHeight(index: index, newHeight: height as! CGFloat, cellType: cellType)
+            })
+        }
+
+        })
     }
 }

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import Foundation
+
 public struct LiCoreConstants {
     public static let maxRetry = 3
     public struct ErrorCodes {
@@ -51,8 +52,4 @@ public struct LiCoreConstants {
         public static let liVisitorId = "LiVisitorId"
         public static let liDeviceToken = "LiDeviceToken"
     }
-    public static let userAgent: String = {
-        let webView = UIWebView(frame: .zero)
-        return webView.stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? "iOS"
-    }()
 }

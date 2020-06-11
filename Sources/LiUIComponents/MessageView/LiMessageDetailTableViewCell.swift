@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import UIKit
+import WebKit
 import LiCore
 
 protocol LiMessageActionsDelegate: class {
@@ -95,10 +96,10 @@ public struct LiMessageDetailTableViewCellModel {
         }
     }
 }
-class LiMessageDetailTableViewCell: UITableViewCell, Reusable, UIWebViewDelegate {
+class LiMessageDetailTableViewCell: UITableViewCell, Reusable, WKNavigationDelegate {
     @IBOutlet weak var imgAuthorImage: UIImageView!
     @IBOutlet weak var lblMessageTitle: UILabel!
-    @IBOutlet weak var webViewMessageDetail: UIWebView!
+    @IBOutlet weak var webViewMessageDetail: WKWebView!
     @IBOutlet weak var lblAuthorName: UILabel!
     @IBOutlet weak var lblMessageAge: UILabel!
     @IBOutlet weak var constrainHeightOfWebView: NSLayoutConstraint!
@@ -132,7 +133,7 @@ class LiMessageDetailTableViewCell: UITableViewCell, Reusable, UIWebViewDelegate
     override func awakeFromNib() {
         super.awakeFromNib()
         setupUI()
-        webViewMessageDetail.delegate = self
+        webViewMessageDetail.navigationDelegate = self
     }
     func setupUI() {
         imgAuthorImage.layer.cornerRadius = constrainAuthorImageWidth.constant / 2
@@ -162,12 +163,18 @@ class LiMessageDetailTableViewCell: UITableViewCell, Reusable, UIWebViewDelegate
         guard let model = cellModel, let id = model.messageId else { return }
         delegate?.openOptionsMenuFor(messageId: id)
     }
-    //MARK:- WEBVIEW DELEGATE
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        let heightInString = webView.stringByEvaluatingJavaScript(from: "document.body.scrollHeight") ?? ""
-        guard let heightInFloat = Float(heightInString) else { return }
+  
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         guard let index = cellModel?.indexPath else {return}
         guard let cellType = cellModel?.messageType  else { return }
-        delegate?.updateHeight(index: index, newHeight: CGFloat(heightInFloat), cellType: cellType)
+
+        webView.evaluateJavaScript("document.readyState", completionHandler: { (complete, error) in
+        if complete != nil {
+            webView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { (height, error) in
+                self.delegate?.updateHeight(index: index, newHeight: height as! CGFloat, cellType: cellType)
+            })
+        }
+
+        })
     }
 }

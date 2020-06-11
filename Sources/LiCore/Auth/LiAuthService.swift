@@ -26,7 +26,6 @@ class LiAuthService {
     let fromViewController: UIViewController
     /// SSO token for login
     let ssoToken: String?
-    var webView: UIWebView?
     var loginViewController: LiLoginViewController?
     weak var authDelegate: InternalLiLoginDelegate?
     var sdkManager: LiSDKManager
