@@ -120,10 +120,6 @@
 		2A27A9FA20C146A400AD2F77 /* LiHomeViewControllerTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27A9BF20C146A300AD2F77 /* LiHomeViewControllerTableViewDelegate.swift */; };
 		2A27A9FB20C146A400AD2F77 /* LiProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27A9C120C146A300AD2F77 /* LiProfileTableViewCell.swift */; };
 		2A27A9FC20C146A400AD2F77 /* LiProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27A9C220C146A300AD2F77 /* LiProfileViewController.swift */; };
-		2A27A9FD20C146A400AD2F77 /* LiHomeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A27A9C420C146A300AD2F77 /* LiHomeViewController.storyboard */; };
-		2A27A9FE20C146A400AD2F77 /* LiMessageDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A27A9C620C146A300AD2F77 /* LiMessageDetailTableViewCell.xib */; };
-		2A27A9FF20C146A400AD2F77 /* LiMessageDetailTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A27A9C820C146A300AD2F77 /* LiMessageDetailTableViewHeader.xib */; };
-		2A27AA0020C146A400AD2F77 /* LiMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A27A9CA20C146A300AD2F77 /* LiMessageViewController.storyboard */; };
 		2A27AA0120C146A400AD2F77 /* LiBoardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27A9CD20C146A300AD2F77 /* LiBoardData.swift */; };
 		2A27AA0220C146A400AD2F77 /* LiBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27A9CE20C146A300AD2F77 /* LiBoardViewController.swift */; };
 		2A27AA0320C146A400AD2F77 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A27A9CF20C146A300AD2F77 /* Images.xcassets */; };
@@ -132,7 +128,12 @@
 		2A27AA0820C14C9400AD2F77 /* LiUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A27A96E20C1466300AD2F77 /* LiUIComponents.framework */; };
 		2A27AA0B20C5260E00AD2F77 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0C35E920C13BEC00A98328 /* Alamofire.framework */; };
 		2A86142720DCF79E0040781E /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A86142620DCF79E0040781E /* AuthResponse.swift */; };
+		2A97827B2490D6A8001EFAE0 /* LiUserAgentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A97827A2490D6A8001EFAE0 /* LiUserAgentBuilder.swift */; };
 		2AA1CFC620E36417003099EB /* LiHelperFunctionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA1CFC520E36417003099EB /* LiHelperFunctionsTest.swift */; };
+		2AB7B6622489013B00572568 /* LiHomeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A27A9C520C146A300AD2F77 /* LiHomeViewController.storyboard */; };
+		2AB7B6632489013B00572568 /* LiMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A27A9CB20C146A300AD2F77 /* LiMessageViewController.storyboard */; };
+		2AB7B6642489013B00572568 /* LiMessageDetailTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A27A9C920C146A300AD2F77 /* LiMessageDetailTableViewHeader.xib */; };
+		2AB7B6652489013B00572568 /* LiMessageDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A27A9C720C146A300AD2F77 /* LiMessageDetailTableViewCell.xib */; };
 		2ABF7FDD2119B6180016FF47 /* LiUserBadges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF7FDC2119B6180016FF47 /* LiUserBadges.swift */; };
 		2ABF7FDF2119BE0A0016FF47 /* LiBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF7FDE2119BE0A0016FF47 /* LiBadge.swift */; };
 		2ADFE61220BEA48F006B3F83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADFE61120BEA48F006B3F83 /* AppDelegate.swift */; };
@@ -314,15 +315,16 @@
 		2A27A9BF20C146A300AD2F77 /* LiHomeViewControllerTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiHomeViewControllerTableViewDelegate.swift; sourceTree = "<group>"; };
 		2A27A9C120C146A300AD2F77 /* LiProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiProfileTableViewCell.swift; sourceTree = "<group>"; };
 		2A27A9C220C146A300AD2F77 /* LiProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiProfileViewController.swift; sourceTree = "<group>"; };
-		2A27A9C520C146A300AD2F77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LiHomeViewController.storyboard; sourceTree = "<group>"; };
-		2A27A9C720C146A300AD2F77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = LiMessageDetailTableViewCell.xib; sourceTree = "<group>"; };
-		2A27A9C920C146A300AD2F77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = LiMessageDetailTableViewHeader.xib; sourceTree = "<group>"; };
-		2A27A9CB20C146A300AD2F77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LiMessageViewController.storyboard; sourceTree = "<group>"; };
+		2A27A9C520C146A300AD2F77 /* LiHomeViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LiHomeViewController.storyboard; sourceTree = "<group>"; };
+		2A27A9C720C146A300AD2F77 /* LiMessageDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiMessageDetailTableViewCell.xib; sourceTree = "<group>"; };
+		2A27A9C920C146A300AD2F77 /* LiMessageDetailTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiMessageDetailTableViewHeader.xib; sourceTree = "<group>"; };
+		2A27A9CB20C146A300AD2F77 /* LiMessageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LiMessageViewController.storyboard; sourceTree = "<group>"; };
 		2A27A9CD20C146A300AD2F77 /* LiBoardData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiBoardData.swift; sourceTree = "<group>"; };
 		2A27A9CE20C146A300AD2F77 /* LiBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiBoardViewController.swift; sourceTree = "<group>"; };
 		2A27A9CF20C146A300AD2F77 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2A27AA0920C5258900AD2F77 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		2A86142620DCF79E0040781E /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		2A97827A2490D6A8001EFAE0 /* LiUserAgentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiUserAgentBuilder.swift; sourceTree = "<group>"; };
 		2AA1CFC520E36417003099EB /* LiHelperFunctionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiHelperFunctionsTest.swift; sourceTree = "<group>"; };
 		2ABF7FDC2119B6180016FF47 /* LiUserBadges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiUserBadges.swift; sourceTree = "<group>"; };
 		2ABF7FDE2119BE0A0016FF47 /* LiBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiBadge.swift; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 				2A0C35A820C13A0A00A98328 /* LiError.swift */,
 				2A0C35A920C13A0A00A98328 /* LiUtils.swift */,
 				2AFC13BC20DA5643004A2E8B /* NotificationProviders.swift */,
+				2A97827A2490D6A8001EFAE0 /* LiUserAgentBuilder.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -644,9 +647,9 @@
 		2A27A9A620C146A300AD2F77 /* MessageView */ = {
 			isa = PBXGroup;
 			children = (
-				2A27A9CA20C146A300AD2F77 /* LiMessageViewController.storyboard */,
-				2A27A9C820C146A300AD2F77 /* LiMessageDetailTableViewHeader.xib */,
-				2A27A9C620C146A300AD2F77 /* LiMessageDetailTableViewCell.xib */,
+				2A27A9CB20C146A300AD2F77 /* LiMessageViewController.storyboard */,
+				2A27A9C920C146A300AD2F77 /* LiMessageDetailTableViewHeader.xib */,
+				2A27A9C720C146A300AD2F77 /* LiMessageDetailTableViewCell.xib */,
 				2A27A9A720C146A300AD2F77 /* LiMessageDetailTableViewCell.swift */,
 				2A27A9A820C146A300AD2F77 /* LiMessageDetailTableViewHeader.swift */,
 				2A27A9A920C146A300AD2F77 /* LiMessageRepliesTableViewCell.swift */,
@@ -684,7 +687,7 @@
 				2A27A9BD20C146A300AD2F77 /* LiHomeViewController.swift */,
 				2A27A9BE20C146A300AD2F77 /* LiHomeViewControllerTableViewDataSource.swift */,
 				2A27A9BF20C146A300AD2F77 /* LiHomeViewControllerTableViewDelegate.swift */,
-				2A27A9C420C146A300AD2F77 /* LiHomeViewController.storyboard */,
+				2A27A9C520C146A300AD2F77 /* LiHomeViewController.storyboard */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -915,7 +918,6 @@
 			knownRegions = (
 				en,
 				Base,
-				global,
 			);
 			mainGroup = 2ADFE60520BEA48F006B3F83;
 			productRefGroup = 2ADFE60F20BEA48F006B3F83 /* Products */;
@@ -955,14 +957,14 @@
 			files = (
 				2A27A9E320C146A400AD2F77 /* LiTopicTableViewCell.xib in Resources */,
 				2A27AA0320C146A400AD2F77 /* Images.xcassets in Resources */,
-				2A27AA0020C146A400AD2F77 /* LiMessageViewController.storyboard in Resources */,
-				2A27A9FD20C146A400AD2F77 /* LiHomeViewController.storyboard in Resources */,
+				2AB7B6632489013B00572568 /* LiMessageViewController.storyboard in Resources */,
+				2AB7B6622489013B00572568 /* LiHomeViewController.storyboard in Resources */,
 				2A27A9D620C146A400AD2F77 /* li_message_template.html in Resources */,
 				2A27A9D720C146A400AD2F77 /* Localizable.strings in Resources */,
-				2A27A9FF20C146A400AD2F77 /* LiMessageDetailTableViewHeader.xib in Resources */,
+				2AB7B6642489013B00572568 /* LiMessageDetailTableViewHeader.xib in Resources */,
 				2A27A9E720C146A400AD2F77 /* LiMessageRepliesTableViewCell.xib in Resources */,
 				2A27A9E020C146A400AD2F77 /* LiTopicListViewController.storyboard in Resources */,
-				2A27A9FE20C146A400AD2F77 /* LiMessageDetailTableViewCell.xib in Resources */,
+				2AB7B6652489013B00572568 /* LiMessageDetailTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1043,6 +1045,7 @@
 				2A0C35B220C13A0A00A98328 /* LiDefaultQueryHelper.swift in Sources */,
 				2A0C35C220C13A0A00A98328 /* LiMessage.swift in Sources */,
 				2AFC13BD20DA5643004A2E8B /* NotificationProviders.swift in Sources */,
+				2A97827B2490D6A8001EFAE0 /* LiUserAgentBuilder.swift in Sources */,
 				2A0C35AC20C13A0A00A98328 /* LiAuthRequestStore.swift in Sources */,
 				2A0C35B720C13A0A00A98328 /* LiAvatar.swift in Sources */,
 				2A0C35D520C13A0A00A98328 /* LiRestClient.swift in Sources */,
@@ -1203,38 +1206,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		2A27A9C420C146A300AD2F77 /* LiHomeViewController.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2A27A9C520C146A300AD2F77 /* Base */,
-			);
-			name = LiHomeViewController.storyboard;
-			sourceTree = "<group>";
-		};
-		2A27A9C620C146A300AD2F77 /* LiMessageDetailTableViewCell.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2A27A9C720C146A300AD2F77 /* Base */,
-			);
-			name = LiMessageDetailTableViewCell.xib;
-			sourceTree = "<group>";
-		};
-		2A27A9C820C146A300AD2F77 /* LiMessageDetailTableViewHeader.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2A27A9C920C146A300AD2F77 /* Base */,
-			);
-			name = LiMessageDetailTableViewHeader.xib;
-			sourceTree = "<group>";
-		};
-		2A27A9CA20C146A300AD2F77 /* LiMessageViewController.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2A27A9CB20C146A300AD2F77 /* Base */,
-			);
-			name = LiMessageViewController.storyboard;
-			sourceTree = "<group>";
-		};
 		2ADFE61520BEA48F006B3F83 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1369,7 +1340,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/LiUIComponents/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.LiUIComponents;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1398,7 +1369,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/LiUIComponents/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.LiUIComponents;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1566,7 +1537,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/LithiumExample/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.communityExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1588,7 +1559,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/LithiumExample/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lithium.communityExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

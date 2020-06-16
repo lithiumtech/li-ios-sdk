@@ -25,7 +25,7 @@ public protocol LiClientServiceProtocol {
     func failure(client: LiClient?, errorMessage: String)
 }
 public class LiClientService {
-    static let sharedInstance = LiClientService()
+    public static let sharedInstance = LiClientService()
     let sdkManager = LiSDKManager.shared()
     init() {}
     ///API call to get data about all the categories.

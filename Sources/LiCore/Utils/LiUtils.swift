@@ -102,7 +102,7 @@ extension SessionManager {
     static func makeSessionManager() -> SessionManager {
         let configuration = URLSessionConfiguration.default
         var defaultHeaders = SessionManager.defaultHTTPHeaders
-        defaultHeaders["User-Agent"] = LiCoreConstants.userAgent
+        defaultHeaders["User-Agent"] = userAgent()
         configuration.httpAdditionalHeaders = defaultHeaders
         return SessionManager(configuration: configuration)
     }
