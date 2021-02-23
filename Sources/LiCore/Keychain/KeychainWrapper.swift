@@ -41,13 +41,13 @@ private let SecAttrAccessGroup: String! = kSecAttrAccessGroup as String
 private let SecReturnAttributes: String = kSecReturnAttributes as String
 
 /// KeychainWrapper is a class to help make Keychain access in Swift more straightforward. It is designed to make accessing the Keychain services more like using NSUserDefaults, which is much more familiar to people.
-class KeychainWrapper {
+public class KeychainWrapper {
     
     @available(*, deprecated, message: "KeychainWrapper.defaultKeychainWrapper is deprecated, use KeychainWrapper.standard instead")
      static let defaultKeychainWrapper = KeychainWrapper.standard
     
     /// Default keychain wrapper access
-     static let standard = KeychainWrapper()
+    public static let standard = KeychainWrapper()
     
     /// ServiceName is used for the kSecAttrService property to uniquely identify this keychain accessor. If no service name is specified, KeychainWrapper will default to using the bundleIdentifier.
     private (set)  var serviceName: String
@@ -268,7 +268,7 @@ class KeychainWrapper {
     /// - parameter forKey: The key to save the String under.
     /// - parameter withAccessibility: Optional accessibility to use when setting the keychain item.
     /// - returns: True if the save was successful, false otherwise.
-    @discardableResult  func set(_ value: String, forKey key: String, withAccessibility accessibility: KeychainItemAccessibility? = nil) -> Bool {
+    @discardableResult public func set(_ value: String, forKey key: String, withAccessibility accessibility: KeychainItemAccessibility? = nil) -> Bool {
         if let data = value.data(using: .utf8) {
             return set(data, forKey: key, withAccessibility: accessibility)
         } else {

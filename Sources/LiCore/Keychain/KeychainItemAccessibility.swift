@@ -32,7 +32,7 @@ protocol KeychainAttrRepresentable {
 }
 
 // MARK: - KeychainItemAccessibility
-enum KeychainItemAccessibility {
+public enum KeychainItemAccessibility {
     /**
      The data in the keychain item cannot be accessed after a restart until the device has been unlocked once by the user.
      
