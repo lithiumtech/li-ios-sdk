@@ -52,7 +52,6 @@ class LiLoginViewController: UIViewController, WKNavigationDelegate {
         let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeCookies])
         let date = Date(timeIntervalSince1970: 0)
         webView.configuration.websiteDataStore.removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince: date) { }
-
     }
     fileprivate func setupTitle() {
         title = "Login"
