@@ -49,6 +49,9 @@ class LiLoginViewController: UIViewController, WKNavigationDelegate {
         webView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         webView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         webView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeCookies])
+        let date = Date(timeIntervalSince1970: 0)
+        webView.configuration.websiteDataStore.removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince: date) { }
     }
     fileprivate func setupTitle() {
         title = "Login"
