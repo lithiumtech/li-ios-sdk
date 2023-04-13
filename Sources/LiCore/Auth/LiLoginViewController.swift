@@ -92,6 +92,12 @@ class LiLoginViewController: UIViewController, WKNavigationDelegate {
                 if let tenantId = authObject.tenantId {
                     sdkManager.authState.set(tenantId: tenantId)
                 }
+                webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { cookies in
+                    let storage = HTTPCookieStorage.shared
+                    for cookie in cookies {
+                        storage.setCookie(cookie)
+                    }
+                }
                 delegate?.requestAccessToken(authCode: authObject.authCode)
             } catch let error {
                 delegate?.webViewLoginFailure(error: error)
