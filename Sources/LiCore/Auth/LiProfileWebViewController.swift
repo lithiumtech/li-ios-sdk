@@ -12,10 +12,8 @@ import WebKit
  View controller used to present the webView used in Profile.
  */
 public class LiProfileWebViewController: UIViewController, WKNavigationDelegate {
-    var url: URLRequest
     var webView: WKWebView
-    public init(url: URLRequest) {
-        self.url = url
+    public init() {
         let websiteDataStore = WKWebsiteDataStore.nonPersistent()
         if let cookies = HTTPCookieStorage.shared.cookies {
             for cookie in cookies {
@@ -23,6 +21,8 @@ public class LiProfileWebViewController: UIViewController, WKNavigationDelegate 
             }
         }
         let config = WKWebViewConfiguration()
+        
+        
         config.websiteDataStore = websiteDataStore
         self.webView = WKWebView(frame: CGRectZero, configuration: config)
         super.init(nibName: nil, bundle: nil)
@@ -31,14 +31,19 @@ public class LiProfileWebViewController: UIViewController, WKNavigationDelegate 
         fatalError("init(coder:) has not been implemented")
     }
     fileprivate func setupWebView() {
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        webView.navigationDelegate = self
-        webView.load(url)
-        self.view.addSubview(webView)
-        webView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        webView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        webView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        webView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        let profileUrl: String = LiSDKManager.shared().appCredentials.communityURL + "/t5/user/myprofilepage/tab/personal-profile"
+        if let url = URL(string: profileUrl) {
+            webView.translatesAutoresizingMaskIntoConstraints = false
+            webView.navigationDelegate = self
+            webView.load(URLRequest(url: url))
+            self.view.addSubview(webView)
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            webView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        } else {
+            self.dismiss(animated: true)
+        }
     }
     fileprivate func setupTitle() {
         title = "Profile"
@@ -57,26 +62,22 @@ public class LiProfileWebViewController: UIViewController, WKNavigationDelegate 
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
-    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if #available(iOS 13.0, *) {
-            let communityURL: String = LiSDKManager.shared().appCredentials.communityURL
-            if let urlString = navigationAction.request.url?.absoluteString, let htAccessString = KeychainWrapper.standard.string(forKey: "htaccess"), urlString.contains(communityURL) && navigationAction.request.allHTTPHeaderFields?["Authorization"] == nil {
-                let loginData = htAccessString.data(using: String.Encoding.utf8)!
-                let base64LoginString = loginData.base64EncodedString()
-                let newRequest: NSMutableURLRequest = (navigationAction.request as NSURLRequest).mutableCopy() as! NSMutableURLRequest
-                newRequest.addValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
-                decisionHandler(.cancel)
-                webView.load(newRequest as URLRequest)
-                return
+    public func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        let communityURL: String = LiSDKManager.shared().appCredentials.communityURL
+        
+        if let htAccessString = KeychainWrapper.standard.string(forKey: "htaccess"),  (webView.url?.absoluteString.contains(communityURL)) != nil {
+            let components = htAccessString.split(separator: ":")
+            if (components.count == 2) {
+                let user = String(components[0])
+                let password = String(components[1])
+                let credential = URLCredential(user: user, password: password, persistence: .forSession)
+                challenge.sender?.use(credential, for: challenge)
+                completionHandler(.useCredential, credential)
+            } else {
+                completionHandler(.performDefaultHandling, nil)
             }
+        } else {
+            completionHandler(.performDefaultHandling, nil)
         }
-
-        let queryParameters = navigationAction.request.url?.liQueryItems ?? [:]
-        if queryParameters["response_type"] != nil {
-            decisionHandler(.allow)
-            return
-        }
-        //Check for auth code in the redirected url.
-        decisionHandler(.allow)
     }
 }
