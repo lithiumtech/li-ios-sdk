@@ -8,10 +8,15 @@
 import UIKit
 import WebKit
 
+public protocol LiProfileWebViewControllerDelegate {
+    func closeAccountSuccessful()
+}
+
 /**
  View controller used to present the webView used in Profile.
  */
 public class LiProfileWebViewController: UIViewController, WKNavigationDelegate {
+    public var delegate: LiProfileWebViewControllerDelegate?
     public init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -106,13 +111,16 @@ extension LiProfileWebViewController: WKScriptMessageHandler {
                         let responseDictionary = try JSONSerialization.jsonObject(with: responseData) as? [String: Any]
                         if let responseDictionary = responseDictionary, let responseNode = responseDictionary["response"] as? [String: Any], let stateNode = responseNode["state"] as? String {
                             if "success" == stateNode {
-                                print(stateNode)
+                                if let delegate = self.delegate {
+                                    delegate.closeAccountSuccessful()
+                                }
+                                self.dismiss(animated: true)
                             }
                         }
                         
                     } catch {}
                 }
             }
-        }
+        } 
     }
 }
