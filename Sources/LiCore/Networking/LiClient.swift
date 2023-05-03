@@ -221,6 +221,12 @@ extension LiClient {
             if let visitOriginTime = LiSDKManager.shared().authState.visitOriginTime {
                 headers["Visit-Origin-Time"] = visitOriginTime
             }
+        case .getAccessToken:
+            if let htAccessString = KeychainWrapper.standard.string(forKey: "htaccess") {
+                let loginData = htAccessString.data(using: String.Encoding.utf8)!
+                let base64LoginString = loginData.base64EncodedString()
+                headers["Authorization"] = "Basic \(base64LoginString)"
+            }
         default:
             break
         }

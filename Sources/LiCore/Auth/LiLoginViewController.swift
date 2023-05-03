@@ -67,6 +67,19 @@ class LiLoginViewController: UIViewController, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if #available(iOS 13.0, *) {
+            let communityURL: String = LiSDKManager.shared().appCredentials.communityURL
+            if let urlString = navigationAction.request.url?.absoluteString, let htAccessString = KeychainWrapper.standard.string(forKey: "htaccess"), urlString.contains(communityURL) && navigationAction.request.allHTTPHeaderFields?["Authorization"] == nil {
+                let loginData = htAccessString.data(using: String.Encoding.utf8)!
+                let base64LoginString = loginData.base64EncodedString()
+                let newRequest: NSMutableURLRequest = (navigationAction.request as NSURLRequest).mutableCopy() as! NSMutableURLRequest
+                newRequest.addValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
+                decisionHandler(.cancel)
+                webView.load(newRequest as URLRequest)
+                return
+            }
+        }
+
         let queryParameters = navigationAction.request.url?.liQueryItems ?? [:]
         if queryParameters["response_type"] != nil {
             decisionHandler(.allow)
@@ -78,6 +91,12 @@ class LiLoginViewController: UIViewController, WKNavigationDelegate {
                 let authObject = try LiSSOAuthResponse(data: queryParameters)
                 if let tenantId = authObject.tenantId {
                     sdkManager.authState.set(tenantId: tenantId)
+                }
+                webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { cookies in
+                    let storage = HTTPCookieStorage.shared
+                    for cookie in cookies {
+                        storage.setCookie(cookie)
+                    }
                 }
                 delegate?.requestAccessToken(authCode: authObject.authCode)
             } catch let error {
