@@ -74,6 +74,10 @@ open class LiMessageViewController: UIViewController {
     @IBAction func onAction(_ sender: UIBarButtonItem) {
         if let shareURL = URL(string: self.messageObject?.originalMessage.viewHref ?? "") {
             let vc = UIActivityViewController(activityItems: [shareURL], applicationActivities: [])
+            // Configure popover for iPad
+            if let popover = vc.popoverPresentationController {
+                popover.barButtonItem = sender
+            }
             self.present(vc, animated: true)
         }
     }
@@ -131,6 +135,14 @@ extension LiMessageViewController: LiMessageActionsDelegate {
         let shareAction = UIAlertAction(title: LiHelperFunctions.localizedString(for: "Share post"), style: .default) { _ in
             if let shareURL = URL(string: self.messageObject?.originalMessage.viewHref ?? "") {
                 let vc = UIActivityViewController(activityItems: [shareURL], applicationActivities: [])
+                // Configure popover for iPad
+                if let popover = vc.popoverPresentationController {
+                    // Since this is triggered from an alert action (not a bar button),
+                    // we need to set the source view to the current view controller's view
+                    popover.sourceView = self.view
+                    popover.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                    popover.permittedArrowDirections = []
+                }
                 self.present(vc, animated: true)
             }
         }
